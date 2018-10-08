@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using MbDataAccess;
 
 namespace Mb.Views.Admin
 {
@@ -11,6 +12,10 @@ namespace Mb.Views.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            using (mbDBContext entities = new mbDBContext()) {
+
+          //       entities.Clientes.ToList<cliente>;
+            }
 
         }
     }
