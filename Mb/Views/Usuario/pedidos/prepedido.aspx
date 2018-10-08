@@ -27,6 +27,7 @@
                            
             <div style="text-align:center">
                <a href="pedmesa/prepedido.aspx"> <img width="250px" height="250px" src="../../../Content/img/barra.png" class="" /></a>
+                <a href="pedmesa/prepedido.aspx"> <img width="250px" height="250px" src="../../../Content/img/barra.png" class="" /></a>
             </div>
             
         </div>        
