@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mb", "Mb\Mb.csproj", "{66FB86B6-D036-487E-B6FA-B473B14B4A9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MbDataAccess", "MbDataAccess\MbDataAccess.csproj", "{03B44F9C-834D-4075-A1A5-8CA64B15DF7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{66FB86B6-D036-487E-B6FA-B473B14B4A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66FB86B6-D036-487E-B6FA-B473B14B4A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66FB86B6-D036-487E-B6FA-B473B14B4A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B44F9C-834D-4075-A1A5-8CA64B15DF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B44F9C-834D-4075-A1A5-8CA64B15DF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B44F9C-834D-4075-A1A5-8CA64B15DF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B44F9C-834D-4075-A1A5-8CA64B15DF7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
