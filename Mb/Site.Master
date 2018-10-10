@@ -1,7 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Mb.SiteMaster" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <!DOCTYPE html>
-
 <html lang="en">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -14,7 +13,8 @@
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -32,12 +32,12 @@
                 <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />                                
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-
+        
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -55,7 +55,7 @@
                         <li><a runat="server" href="~/Views/Usuario/pedidos/prepedido.aspx">Pedido</a></li>
                         <li><a runat="server" href="~/Views/Usuario/muro.aspx">Muro</a></li>                        
                         <%--Perfil Admin--%>
-                        <li><a runat="server" href="~/Views/Usuario/pedido.aspx">Producto</a></li>
+                        <li><a runat="server" href="~/Views/Admin/producto.aspx">Producto</a></li>
                         <li><a runat="server" href="~/Views/Admin/mesa.aspx">Mesa</a></li>
                         <li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>
                         <li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>
@@ -87,7 +87,7 @@
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
+            <hr />            
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
             </footer>

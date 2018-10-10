@@ -116,6 +116,12 @@
     <Compile Include="QR.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelMb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelMb.tt</DependentUpon>
+    </Compile>
     <Compile Include="SubTipo.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>

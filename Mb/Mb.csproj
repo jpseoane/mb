@@ -209,16 +209,6 @@
     <Content Include="Content\img\barra.png" />
     <Content Include="Content\img\mesa.png" />
     <Content Include="Content\Site.css" />
-    <Content Include="DAO\ModelMB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMB.edmx</DependentUpon>
-      <LastGenOutput>ModelMB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DAO\ModelMB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMB.edmx</DependentUpon>
-      <LastGenOutput>ModelMB.cs</LastGenOutput>
-    </Content>
     <Content Include="Default.aspx" />
     <Content Include="ExternalLoginResult.aspx" />
     <Content Include="favicon.ico" />
@@ -233,13 +223,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Account\Web.config" />
-    <EntityDeploy Include="DAO\ModelMB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DAO\ModelMB.edmx.diagram">
-      <DependentUpon>ModelMB.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -410,84 +393,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\Ajuste.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\AspNetRole.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\AspNetUser.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\AspNetUserClaim.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\AspNetUserLogin.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Carta.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Cliente.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Cuenta.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\C__MigrationHistory.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Employee.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\EstadoPedido.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Member.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\MensajeMuro.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Mesa.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\ModelMB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\ModelMB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\ModelMB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Pedido.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\Producto.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\QR.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\SubTipo.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\sysdiagram.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\TipoProducto.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAO\UserMesa.cs">
-      <DependentUpon>ModelMB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -603,6 +508,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
+    <Folder Include="DAO\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
