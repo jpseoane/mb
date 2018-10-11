@@ -18,10 +18,10 @@
         <EntityTypeShape EntityType="mbModel.EstadoPedido" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Member" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.MensajeMuro" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.Mesa" Width="1.5" PointX="9" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mbModel.Mesa" Width="1.5" PointX="13.375" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Pedido" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.QR" Width="1.5" PointX="6.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mbModel.QR" Width="1.5" PointX="11.125" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="3.75" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="6" PointY="24.625" IsExpanded="true" />

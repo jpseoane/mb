@@ -77,17 +77,18 @@
           <Key>
             <PropertyRef Name="idcarta" />
           </Key>
-          <Property Name="idcarta" Type="int" Nullable="false" />
+          <Property Name="idcarta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="idproducto" Type="int" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="activa" Type="bit" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="idCliente" />
           </Key>
-          <Property Name="idCliente" Type="int" Nullable="false" />
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="50" />
           <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -100,7 +101,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdPedido" Type="int" Nullable="false" />
           <Property Name="estadoCod" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="estado_descri" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -121,7 +122,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="codigo" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
@@ -138,7 +139,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="mensaje" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="estadoCod" Type="int" Nullable="false" />
@@ -150,7 +151,7 @@
           <Key>
             <PropertyRef Name="IdMesa" />
           </Key>
-          <Property Name="IdMesa" Type="int" Nullable="false" />
+          <Property Name="IdMesa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idqr" Type="int" Nullable="false" />
           <Property Name="numero" Type="int" Nullable="false" />
           <Property Name="cant_silla_aprox" Type="int" />
@@ -161,7 +162,7 @@
           <Key>
             <PropertyRef Name="idpedido" />
           </Key>
-          <Property Name="idpedido" Type="int" Nullable="false" />
+          <Property Name="idpedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdMesa" Type="int" Nullable="false" />
           <Property Name="IdMesaUsuario" Type="int" Nullable="false" />
@@ -175,7 +176,7 @@
           <Key>
             <PropertyRef Name="idproducto" />
           </Key>
-          <Property Name="idproducto" Type="int" Nullable="false" />
+          <Property Name="idproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdTipo" Type="int" Nullable="false" />
           <Property Name="precioUnitario" Type="real" Nullable="false" />
@@ -195,7 +196,7 @@
           <Key>
             <PropertyRef Name="idSubTipo" />
           </Key>
-          <Property Name="idSubTipo" Type="int" Nullable="false" />
+          <Property Name="idSubTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion_subtipo" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="detalle_subtipo" Type="nvarchar" MaxLength="2550" />
           <Property Name="fecha_carga" Type="datetime" Nullable="false" />
@@ -214,7 +215,7 @@
           <Key>
             <PropertyRef Name="IdTipo" />
           </Key>
-          <Property Name="IdTipo" Type="int" Nullable="false" />
+          <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idSubTipo" Type="int" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha_carga" Type="datetime" Nullable="false" />
@@ -223,7 +224,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdMesa" Type="int" Nullable="false" />
           <Property Name="estadoCod" Type="int" Nullable="false" />
@@ -652,6 +653,7 @@
           <Property Name="activa" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUsers" />
           <NavigationProperty Name="Producto" Relationship="Self.FK_Carta_Producto" FromRole="Carta" ToRole="Producto" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -1206,6 +1208,7 @@
           <EntitySetMapping Name="Cartas">
             <EntityTypeMapping TypeName="mbModel.Carta">
               <MappingFragment StoreEntitySet="Carta">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="idcarta" ColumnName="idcarta" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="idproducto" ColumnName="idproducto" />

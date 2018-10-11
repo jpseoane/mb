@@ -19,6 +19,7 @@ namespace MbDataAccess
         public int idproducto { get; set; }
         public string descripcion { get; set; }
         public bool activa { get; set; }
+        public System.DateTime fecha { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Producto Producto { get; set; }

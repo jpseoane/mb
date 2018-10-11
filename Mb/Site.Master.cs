@@ -21,6 +21,7 @@ namespace Mb
             // El código siguiente ayuda a proteger frente a ataques XSRF
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
+
             if (requestCookie != null && Guid.TryParse(requestCookie.Value, out requestCookieGuidValue))
             {
                 // Utilizar el token Anti-XSRF de la cookie

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using MbDataAccess;
@@ -17,6 +18,11 @@ namespace Mb.Views.Admin
           //       entities.Clientes.ToList<cliente>;
             }
 
+        }
+
+        protected void btnCargar_Click(object sender, EventArgs e)
+        {
+            int i = (int)Membership.GetUser().ProviderUserKey;
         }
     }
 }
