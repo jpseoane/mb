@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Mb.SiteMaster" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-ar">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
@@ -55,10 +55,12 @@
                         <li><a runat="server" href="~/Views/Usuario/pedidos/prepedido.aspx">Pedido</a></li>
                         <li><a runat="server" href="~/Views/Usuario/muro.aspx">Muro</a></li>                        
                         <%--Perfil Admin--%>
+                        <li><a runat="server" href="~/Views/Admin/abm.aspx">Abm</a></li>
                         <li><a runat="server" href="~/Views/Admin/producto.aspx">Producto</a></li>
                         <li><a runat="server" href="~/Views/Admin/mesa.aspx">Mesa</a></li>
                         <li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>
                         <li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>
+
                         <%--Perfil Usuario/Admin--%>  
                         <li><a runat="server" href="~/Views/ajustes.aspx">Ajustes</a></li>                            
                         <li><a runat="server" href="~/About">Acerca de</a></li>
