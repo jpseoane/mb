@@ -16,6 +16,7 @@
                         <asp:Panel runat="server" ID="Panel1" ScrollBars="Vertical">
                             <label for="txtNombreCarta">Nombre de Carta</label><br />
                             <asp:TextBox ID="txtNombreCarta" runat="server" placeholder="Nombre"  ></asp:TextBox><br />
+                            <asp:RequiredFieldValidator ID="rfvCarta" ControlToValidate="txtNombreCarta" runat="server" Text="*"  ForeColor="Red"></asp:RequiredFieldValidator>
                             <label for="chkActiva">Esta activa</label><br />
                             &nbsp;<asp:CheckBox ID="chkActiva" runat="server" Checked="True" />                                
                         </asp:Panel>
@@ -27,7 +28,10 @@
             </HeaderTemplate>
             <ContentTemplate>
                 <asp:Panel runat="server" ID="Panel2" ScrollBars="Vertical">
-                    <asp:TextBox ID="txtTipoDeProducto" runat="server"></asp:TextBox><br />
+                    <asp:TextBox ID="txtTipoDeProducto" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvTipoProducto" ControlToValidate="txtTipoDeProducto" runat="server" Text="*"  ForeColor="Red"></asp:RequiredFieldValidator>
+                    <br />
+
                     <asp:Button ID="Button1" runat="server" Text="Button" />
                 </asp:Panel>
             </ContentTemplate>
@@ -67,7 +71,35 @@
                 </ContentTemplate>
         </cc1:TabPanel>
     </cc1:TabContainer>
+
+    <asp:Button ID="Button3" runat="server" Text="CargarMesnaje" OnClick="Button3_Click" />
     
     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" OnClick="btnLimpiar_Click"  />
     <asp:Button ID="btnCarga" runat="server" Text="Cargar" OnClick="btnCarga_Click1" />
+    
+    <div id="divError" class="alert alert-danger collapse">
+                <a id="linkClose" href="#" class="close">&times;</a>
+                <div id="divErrorText" runat="server"></div>
+     </div>
+
+    <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <div id="divMensaje" runat="server"></div>           
+    </div>
+
+
+    <div class="alert alert-success">...</div>
+<div class="alert alert-info">...</div>
+<div class="alert alert-warning">...</div>
+<div class="alert alert-danger">...</div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Close the bootstrap alert
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+           });
+
+      </script>
 </asp:Content>

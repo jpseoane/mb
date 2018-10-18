@@ -34,7 +34,6 @@ namespace MbDataAccess
         public DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public DbSet<AspNetUser> AspNetUsers { get; set; }
-        public DbSet<Carta> Cartas { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Cuenta> Cuentas { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -43,12 +42,13 @@ namespace MbDataAccess
         public DbSet<MensajeMuro> MensajeMuroes { get; set; }
         public DbSet<Mesa> Mesas { get; set; }
         public DbSet<Pedido> Pedidoes { get; set; }
-        public DbSet<Producto> Productoes { get; set; }
         public DbSet<QR> QRs { get; set; }
-        public DbSet<SubTipo> SubTipoes { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
-        public DbSet<TipoProducto> TipoProductoes { get; set; }
         public DbSet<UserMesa> UserMesas { get; set; }
+        public DbSet<Carta> Cartas { get; set; }
+        public DbSet<Producto> Productoes { get; set; }
+        public DbSet<SubTipo> SubTipoes { get; set; }
+        public DbSet<TipoProducto> TipoProductoes { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

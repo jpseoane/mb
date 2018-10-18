@@ -4,14 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bb3ed46d9ecd43beba958d3394b7f795" Name="Diagram1">
+      <Diagram DiagramId="bb3ed46d9ecd43beba958d3394b7f795" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="mbModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Ajuste" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.AspNetUser" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="8.25" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Cliente" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Cuenta" Width="1.5" PointX="10.5" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Employee" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -20,29 +19,30 @@
         <EntityTypeShape EntityType="mbModel.MensajeMuro" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Mesa" Width="1.5" PointX="13.375" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Pedido" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.QR" Width="1.5" PointX="11.125" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="3.75" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="6" PointY="24.625" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.UserMesa" Width="1.5" PointX="11.25" PointY="13.5" IsExpanded="true" />
         <AssociationConnector Association="mbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_Cliente_AspNetUsers1" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_MensajeMuro_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_Pedido_AspNetUsers1" ManuallyRouted="false" />
-        <AssociationConnector Association="mbModel.FK_Producto_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_UserMesa_AspNetUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="mbModel.FK_Carta_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_Cuenta_Pedido1" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_Pedido_EstadoPedido1" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_Mesa_QR1" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_UserMesa_Mesa" ManuallyRouted="false" />
-        <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" ManuallyRouted="false" />
-        <AssociationConnector Association="mbModel.FK_TipoProducto_SubTipo" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="8.25" PointY="13.5" />
+        <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="8.25" PointY="17.25" />
+        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" />
+        <AssociationConnector Association="mbModel.FK_Producto_AspNetUsers" />
+        <AssociationConnector Association="mbModel.FK_Carta_Producto" />
+        <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="11.625" PointY="19.875" />
+        <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="8.75" PointY="22" />
+        <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
+        <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

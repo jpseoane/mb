@@ -46,15 +46,26 @@ namespace Mb.Views.Admin
                         carta.fecha = DateTime.Now;
 
                         CartaDao cartaDao = new CartaDao();
-                        if (cartaDao.agregar(carta)) {
-
+                        if (cartaDao.agregar(carta))
+                        {
+                            divPrueba.Attributes.Add("class", "alert alert-success");
+                            divPrueba.Visible = true;
+                            divMensaje.InnerText = "Carga realizada";
                         }
-                                               
+                        else {
+                            divPrueba.Attributes.Add("class", "alert alert-warning");
+                            divPrueba.Visible = true;
+                            divMensaje.InnerText = "No se pudo realizar la carga";
+                        }
+
                     }
                     catch(EntityDataSourceValidationException ex)
                     {
-                        lblUsuario.Text = ex.Message.ToString();
-                        //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                        //divErrorText.InnerText = ex.Message.ToString();
+                        divPrueba.Attributes.Add("class", "alert alert-warning");
+                        divPrueba.Visible = true;
+                        //divPrueba.InnerText = "No se pudo realizar la carga";
+                        
                     }
                     finally {
                     }
@@ -74,6 +85,11 @@ namespace Mb.Views.Admin
 
             }
 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

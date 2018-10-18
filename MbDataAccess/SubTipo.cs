@@ -16,14 +16,13 @@ namespace MbDataAccess
     {
         public SubTipo()
         {
-            this.TipoProductoes = new HashSet<TipoProducto>();
+            this.Productoes = new HashSet<Producto>();
         }
     
         public int idSubTipo { get; set; }
         public string descripcion_subtipo { get; set; }
-        public string detalle_subtipo { get; set; }
         public System.DateTime fecha_carga { get; set; }
     
-        public virtual ICollection<TipoProducto> TipoProductoes { get; set; }
+        public virtual ICollection<Producto> Productoes { get; set; }
     }
 }

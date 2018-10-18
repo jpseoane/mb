@@ -20,11 +20,9 @@ namespace MbDataAccess
         }
     
         public int IdTipo { get; set; }
-        public int idSubTipo { get; set; }
         public string descripcion { get; set; }
         public System.DateTime fecha_carga { get; set; }
     
         public virtual ICollection<Producto> Productoes { get; set; }
-        public virtual SubTipo SubTipo { get; set; }
     }
 }
