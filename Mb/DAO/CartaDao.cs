@@ -8,6 +8,14 @@ namespace Mb.DAO
 {
     public class CartaDao
     {
+               
+        public IEnumerable<Carta> Get()
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Cartas.ToList();
+            }
+        }
 
         public bool agregar(Carta carta) {
             bool cargaOk = false;
@@ -53,6 +61,58 @@ namespace Mb.DAO
             return cargaOk;
 
         }
-         
-     }
+
+        public bool Borrar(int id)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    if (entity != null)
+                    {
+                        dBEntities.Cartas.Remove(entity);
+                        dBEntities.SaveChanges();
+                        TodoOk = true;
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+                TodoOk=false;
+            }
+            return TodoOk;
+        }
+               
+        public bool update(Carta carta)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == carta.idcarta);
+                    if (entity !=null)
+                    {
+                        entity.idproducto = carta.idproducto;
+                        entity.UserId = carta.UserId;
+                        entity.descripcion = carta.descripcion;
+                        entity.fecha = carta.fecha;
+                        dBEntities.SaveChanges();
+
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                TodoOk = false;
+            }
+            return TodoOk;
+
+
+        }
+
+    }
 }

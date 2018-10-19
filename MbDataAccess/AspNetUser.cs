@@ -23,8 +23,8 @@ namespace MbDataAccess
             this.Pedidoes = new HashSet<Pedido>();
             this.UserMesas = new HashSet<UserMesa>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.Cartas = new HashSet<Carta>();
             this.Productoes = new HashSet<Producto>();
+            this.Cartas = new HashSet<Carta>();
         }
     
         public string Id { get; set; }
@@ -47,7 +47,7 @@ namespace MbDataAccess
         public virtual ICollection<Pedido> Pedidoes { get; set; }
         public virtual ICollection<UserMesa> UserMesas { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        public virtual ICollection<Carta> Cartas { get; set; }
         public virtual ICollection<Producto> Productoes { get; set; }
+        public virtual ICollection<Carta> Cartas { get; set; }
     }
 }

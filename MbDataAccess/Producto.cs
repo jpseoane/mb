@@ -29,8 +29,8 @@ namespace MbDataAccess
         public System.DateTime fecha_carga { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual ICollection<Carta> Cartas { get; set; }
         public virtual SubTipo SubTipo { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
+        public virtual ICollection<Carta> Cartas { get; set; }
     }
 }

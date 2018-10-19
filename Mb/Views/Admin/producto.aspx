@@ -2,10 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
- 
-
-
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+ <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>MiBar - Productos</h1>
         <p class="lead">Crear y administrar nuevos productos</p>
@@ -250,10 +247,6 @@
     <script src="../../Scripts/bootstrap.min.js"></script>           
     <script type="text/javascript">
         $(document).ready(function () {
-
-            //Mostrar mensaje de error
-            //$('#divError').show('fade');
-
             //Close the bootstrap alert
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
@@ -263,27 +256,6 @@
             $('#imgbtnNuevo').click(function () {
                  $('#successModal').modal('show');
             });
-
-
-            //// Save the new user details
-            //$('#imgbtnNuevo').click(function () {
-            //    $.ajax({
-            //        url: '/api/account/register',
-            //        method: 'POST',
-            //        data: {
-            //            email: $('#txtEmail').val(),
-            //            password: $('#txtPassword').val(),
-            //            confirmPassword: $('#txtConfirmPassword').val()
-            //        },
-            //        success: function () {
-            //            $('#successModal').modal('show');
-            //        },
-            //        error: function (jqXHR) {
-            //            $('#divErrorText').text(jqXHR.responseText);
-            //            $('#divError').show('fade');
-            //        }
-            //    });
-            //});
         });
     </script>
  </div>

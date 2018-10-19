@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bb3ed46d9ecd43beba958d3394b7f795" Name="Diagram1" ZoomLevel="94">
+      <Diagram DiagramId="bb3ed46d9ecd43beba958d3394b7f795" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="mbModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.Ajuste" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
@@ -33,15 +33,15 @@
         <AssociationConnector Association="mbModel.FK_Mesa_QR1" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.FK_UserMesa_Mesa" ManuallyRouted="false" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="8.25" PointY="13.5" />
         <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="8.25" PointY="17.25" />
-        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" />
         <AssociationConnector Association="mbModel.FK_Producto_AspNetUsers" />
-        <AssociationConnector Association="mbModel.FK_Carta_Producto" />
         <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="11.625" PointY="19.875" />
         <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="8.75" PointY="22" />
         <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
         <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
+        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="13.5" PointY="15.125" />
+        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" />
+        <AssociationConnector Association="mbModel.FK_Carta_Producto" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

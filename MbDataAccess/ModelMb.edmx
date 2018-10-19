@@ -639,8 +639,8 @@
           <NavigationProperty Name="Pedidoes" Relationship="Self.FK_Pedido_AspNetUsers1" FromRole="AspNetUsers" ToRole="Pedido" />
           <NavigationProperty Name="UserMesas" Relationship="Self.FK_UserMesa_AspNetUsers" FromRole="AspNetUsers" ToRole="UserMesa" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
           <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="AspNetUser" ToRole="Producto" />
+          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -992,19 +992,10 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
           <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
-          <AssociationSet Name="FK_Carta_AspNetUsers" Association="mbModel.FK_Carta_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Carta" EntitySet="Cartas" />
-          </AssociationSet>
           <AssociationSet Name="FK_Producto_AspNetUsers" Association="mbModel.FK_Producto_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carta_Producto" Association="mbModel.FK_Carta_Producto">
-            <End Role="Producto" EntitySet="Productoes" />
-            <End Role="Carta" EntitySet="Cartas" />
           </AssociationSet>
           <EntitySet Name="SubTipoes" EntityType="mbModel.SubTipo" />
           <EntitySet Name="TipoProductoes" EntityType="mbModel.TipoProducto" />
@@ -1015,6 +1006,15 @@
           <AssociationSet Name="FK_Producto_TipoProducto" Association="mbModel.FK_Producto_TipoProducto">
             <End Role="TipoProducto" EntitySet="TipoProductoes" />
             <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
+          <AssociationSet Name="FK_Carta_AspNetUsers" Association="mbModel.FK_Carta_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Carta" EntitySet="Cartas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto" Association="mbModel.FK_Carta_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Carta" EntitySet="Cartas" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1028,19 +1028,6 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Carta">
-          <Key>
-            <PropertyRef Name="idcarta" />
-          </Key>
-          <Property Name="idcarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="idproducto" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="activa" Type="Boolean" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
-          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto" FromRole="Carta" ToRole="Producto" />
-        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="idproducto" />
@@ -1054,22 +1041,10 @@
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="Producto" ToRole="AspNetUser" />
-          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_Producto" FromRole="Producto" ToRole="Carta" />
           <NavigationProperty Name="SubTipo" Relationship="mbModel.FK_Producto_SubTipo" FromRole="Producto" ToRole="SubTipo" />
           <NavigationProperty Name="TipoProducto" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
+          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_Producto" FromRole="Producto" ToRole="Carta" />
         </EntityType>
-        <Association Name="FK_Carta_AspNetUsers">
-          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Carta">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Producto_AspNetUsers">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
@@ -1079,18 +1054,6 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carta_Producto">
-          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producto">
-              <PropertyRef Name="idproducto" />
-            </Principal>
-            <Dependent Role="Carta">
-              <PropertyRef Name="idproducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1133,6 +1096,43 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Carta">
+          <Key>
+            <PropertyRef Name="idcarta" />
+          </Key>
+          <Property Name="idcarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="idproducto" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto" FromRole="Carta" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Carta_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carta">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carta_Producto">
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idproducto" />
+            </Principal>
+            <Dependent Role="Carta">
+              <PropertyRef Name="idproducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1366,18 +1366,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="mbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="mbModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="Cartas">
-            <EntityTypeMapping TypeName="mbModel.Carta">
-              <MappingFragment StoreEntitySet="Carta">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="activa" ColumnName="activa" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="idcarta" ColumnName="idcarta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Productoes">
             <EntityTypeMapping TypeName="mbModel.Producto">
               <MappingFragment StoreEntitySet="Producto">
@@ -1407,6 +1395,18 @@
                 <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cartas">
+            <EntityTypeMapping TypeName="mbModel.Carta">
+              <MappingFragment StoreEntitySet="Carta">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="idcarta" ColumnName="idcarta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
