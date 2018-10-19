@@ -50,16 +50,17 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Inicio</a></li>                        
+                        <%--<li><a runat="server" href="~/">Inicio</a></li>                        --%>
                         <%--Perfil Usuario--%>
                         <li><a runat="server" href="~/Views/Usuario/pedidos/prepedido.aspx">Pedido</a></li>
                         <li><a runat="server" href="~/Views/Usuario/muro.aspx">Muro</a></li>                        
+                        
                         <%--Perfil Admin--%>
-                        <li><a runat="server" href="~/Views/Admin/abm.aspx">Abm</a></li>
+                        <%--<li><a runat="server" href="~/Views/Admin/abm.aspx">Abm</a></li>
                         <li><a runat="server" href="~/Views/Admin/producto.aspx">Producto</a></li>
                         <li><a runat="server" href="~/Views/Admin/mesa.aspx">Mesa</a></li>
                         <li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>
-                        <li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>
+                        <li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>--%>
 
                         <%--Perfil Usuario/Admin--%>  
                         <li><a runat="server" href="~/Views/ajustes.aspx">Ajustes</a></li>                            

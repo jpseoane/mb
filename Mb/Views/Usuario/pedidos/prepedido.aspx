@@ -15,7 +15,7 @@
             <br />
             
             <div style="text-align:center">
-               <a href="pedmesa/pedidomesa.aspx"> <img width="250px" height="250px" src="./../../Content/img/mesa.png" class="" /></a>
+               <a href="pedmesa/pedidomesa.aspx"> <img width="250px" height="250px" src="../../../Content/img/mesa.png" class="" /></a>
             </div>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">

@@ -394,7 +394,8 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\CartaDao.cs" />
+    <Compile Include="DAO\CartaController.cs" />
+    <Compile Include="DAO\TipoProductoController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

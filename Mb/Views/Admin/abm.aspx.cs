@@ -45,8 +45,8 @@ namespace Mb.Views.Admin
                         carta.idproducto = 1;
                         carta.fecha = DateTime.Now;
 
-                        CartaDao cartaDao = new CartaDao();
-                        if (cartaDao.agregar(carta)) {
+                        CartaController cartaDao = new CartaController();
+                        if (cartaDao.Agregar(carta)) {
 
                         }
                                                
