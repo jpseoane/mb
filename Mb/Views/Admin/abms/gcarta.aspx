@@ -1,0 +1,121 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="gcarta.aspx.cs" Inherits="Mb.Views.Admin.abms.gcarta" MasterPageFile="~/Site.Master" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+ <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+     <div class="jumbotron">
+        <h1>MiBar - Carta</h1>
+        <p class="lead">Crear y administrar la Carta</p>
+    </div>
+  <div>
+      
+       <div class="form-row" style="text-align:right">
+                <div class="form-group col-lg-12" >                    
+                    <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-toolbar"  />
+                    
+                </div>
+       </div>
+       <div class="form-row" >
+           <div class="form-group col-lg-12 " >                
+                <label for="txtNombreCarta">Nombre de Carta</label><br />
+                <asp:TextBox ID="txtNombreCarta" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
+               <br />
+                <asp:CheckBox Text="Activa" TextAlign="Left" ID="chkActiva" runat="server" Checked="True" />
+            </div>
+       </div>
+       <div class="form-row">
+           <div class="form-group col-lg-12" >        
+               <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click" />               
+               <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn btn-secondary" Enabled="False" OnClick="btnActualizar_Click"/>
+           </div>
+        </div> 
+       <div class="form-row">
+            <div class="form-group col-lg-12" >        
+                 <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <div id="divMensaje" runat="server"></div>           
+                </div>
+            </div>
+       </div>     
+      <!-- GridView-->
+       <div class="form-row">
+            <div class="form-group col-lg-6" >        
+                <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
+                    AllowPaging="True" AllowSorting="True" PageSize="5"  
+                    ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
+                    <RowStyle Height="50px" />
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
+                    <EditRowStyle BackColor="#999999" Height="50px" />
+                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"  Height="50px" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                    <Columns>
+                        <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        </asp:BoundField>                          
+                        <asp:BoundField DataField="activa" HeaderText="Activa" NullDisplayText="activa" SortExpression="activa" >
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        </asp:BoundField>                          
+                        <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        </asp:BoundField>                          
+                        <asp:TemplateField HeaderText="Acciones">
+                            <ItemTemplate>
+                                <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Content/img/edit.png"
+                                    commandname="editar" commandargument='<%# Eval("idcarta")%>' Height="24px" Width="24px" 
+                                    ToolTip="Editar carta" />
+                                <asp:ImageButton id="imgbtnBorrar" runat="server" CausesValidation="false"    
+                                    CommandName="eliminar" CommandArgument='<%#Eval("idcarta")%>'
+                                    ImageUrl="~/Content/img/del.png" ToolTip="Eliminar Carta" Height="24px" Width="24px"  />
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="False" Font-Size="Smaller"  BorderStyle="None"  BorderWidth="5px"/>
+                            <HeaderStyle Width="50px" />
+                        </asp:TemplateField>     
+                        </Columns>
+                </asp:GridView>
+         </div>
+     </div>
+    
+   <ajaxToolkit:ModalPopupExtender ID="mpe" runat="server" PopupControlID="pnlPopup" TargetControlID="btnNuevo"
+            CancelControlID="btnCancelar" BackgroundCssClass="modalBackground"  >
+        </ajaxToolkit:ModalPopupExtender>
+        <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none">
+            <div class="header">
+                Confirmación
+            </div>
+            <div class="body">
+              Quieres agregar un nuevo registro
+                <p>Este modal tiene el css de modalPopup</p>
+                <div class="form-row" >
+                    <div class="form-group col-lg-12 " >                
+                        <label for="txtNombreCartaNueva">Nombre de Carta</label><br />
+                        <asp:TextBox ID="txtNombreCartaNueva" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtNombreCartaNueva" 
+                        runat="server" Text="*"  ForeColor="Red" >
+                        </asp:RequiredFieldValidator><br />
+                        <asp:CheckBox Text="Activa" TextAlign="Left" ID="chkActivaNueva" runat="server" Checked="True" />
+                    </div>                           
+                </div>            
+                <div class="form-row">
+                    <!--Bootstrap alert to display any validation errors-->
+                    <div id="divError" class="alert alert-danger collapse">
+                        <a id="linkClose" href="#" class="close">&times;</a>
+                        <div id="divErrorText">holadjkakjkjjkakjdk jdaskdjkadjaskdj adkjdaskjdkajdkj ak jdkasjdkasj</div>
+                    </div>
+                </div>
+              </div>
+                <div class="footer" align="right">
+                    <asp:Button ID="btnCargar" runat="server" Text="Cargar" CssClass="yes" OnClick="btnCargar_Click" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="no" />
+                </div>
+            </asp:Panel>
+         
+ 
+ </div>
+</asp:Content>

@@ -40,8 +40,8 @@ namespace Mb.Views.Admin
                         carta.idproducto = 1;
                         carta.fecha = DateTime.Now;
 
-                        CartaDao cartaDao = new CartaDao();
-                        if (cartaDao.agregar(carta))
+                        //CartaDao cartaDao = new CartaDao();
+                        if (CartaDao.agregar(carta))
                         {
                             divPrueba.Attributes.Add("class", "alert alert-success");
                             divPrueba.Visible = true;

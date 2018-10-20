@@ -2,22 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Mb.DAO
 {
-    public class CartaDao
+    public static class CartaDao
     {
-               
-        public IEnumerable<Carta> Get()
+        public static Carta Get(int id)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+               return entities.Cartas.FirstOrDefault(e => e.idcarta == id);
+            }
+        }
+        public static IEnumerable<Carta> Get()
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 return entities.Cartas.ToList();
             }
         }
-
-        public bool agregar(Carta carta) {
+        public static bool agregar(Carta carta) {
             bool cargaOk = false;
             try
             {                
@@ -31,12 +35,10 @@ namespace Mb.DAO
             catch 
             {
                 cargaOk=false;
-            }
-            
+            }            
             return cargaOk;
         }
-
-        public bool agregar(String descri, int idProducto, bool activa, String UserId )
+        public static bool agregar(String descri, int idProducto, bool activa, String UserId )
         {
             bool cargaOk=false;
             try
@@ -59,10 +61,8 @@ namespace Mb.DAO
                 cargaOk=false;
             }
             return cargaOk;
-
         }
-
-        public bool Borrar(int id)
+        public static bool Borrar(int id)
         {
             bool TodoOk = false;
             try
@@ -83,9 +83,8 @@ namespace Mb.DAO
                 TodoOk=false;
             }
             return TodoOk;
-        }
-               
-        public bool update(Carta carta)
+        }               
+        public static bool update(Carta carta)
         {
             bool TodoOk = false;
             try
@@ -100,9 +99,7 @@ namespace Mb.DAO
                         entity.descripcion = carta.descripcion;
                         entity.fecha = carta.fecha;
                         dBEntities.SaveChanges();
-
                     }
-                   
                 }
             }
             catch (Exception ex)
@@ -110,9 +107,30 @@ namespace Mb.DAO
                 TodoOk = false;
             }
             return TodoOk;
-
-
         }
-
+        public static bool update(int id, String descri, int idProducto, bool activa, String UserId)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    if (entity != null)
+                    {
+                        entity.idproducto = idProducto;
+                        entity.UserId = UserId;
+                        entity.descripcion = descri;
+                        entity.fecha = DateTime.Now;
+                        dBEntities.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TodoOk = false;
+            }
+            return TodoOk;
+        }
     }
 }

@@ -207,7 +207,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\barra.jpg" />
     <Content Include="Content\img\barra.png" />
+    <Content Include="Content\img\del.png" />
+    <Content Include="Content\img\edit.png" />
+    <Content Include="Content\img\edit20.png" />
     <Content Include="Content\img\mesa.png" />
+    <Content Include="Content\img\plus.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="ExternalLoginResult.aspx" />
@@ -255,6 +259,7 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\abm.aspx" />
+    <Content Include="Views\Admin\abms\gcarta.aspx" />
     <Content Include="Views\Admin\addmesa.aspx" />
     <Content Include="Views\Admin\cliente.aspx" />
     <Content Include="Views\Admin\mesa.aspx" />
@@ -445,6 +450,13 @@
     </Compile>
     <Compile Include="Views\Admin\abm.aspx.designer.cs">
       <DependentUpon>abm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gcarta.aspx.cs">
+      <DependentUpon>gcarta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gcarta.aspx.designer.cs">
+      <DependentUpon>gcarta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\addmesa.aspx.cs">
       <DependentUpon>addmesa.aspx</DependentUpon>
