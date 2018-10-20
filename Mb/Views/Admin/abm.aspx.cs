@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Mb.DAO;
@@ -45,16 +40,27 @@ namespace Mb.Views.Admin
                         carta.idproducto = 1;
                         carta.fecha = DateTime.Now;
 
-                        CartaController cartaDao = new CartaController();
-                        if (cartaDao.Agregar(carta)) {
-
+                        CartaDao cartaDao = new CartaDao();
+                        if (cartaDao.agregar(carta))
+                        {
+                            divPrueba.Attributes.Add("class", "alert alert-success");
+                            divPrueba.Visible = true;
+                            divMensaje.InnerText = "Carga realizada";
                         }
-                                               
+                        else {
+                            divPrueba.Attributes.Add("class", "alert alert-warning");
+                            divPrueba.Visible = true;
+                            divMensaje.InnerText = "No se pudo realizar la carga";
+                        }
+
                     }
                     catch(EntityDataSourceValidationException ex)
                     {
-                        lblUsuario.Text = ex.Message.ToString();
-                        //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                        //divErrorText.InnerText = ex.Message.ToString();
+                        divPrueba.Attributes.Add("class", "alert alert-warning");
+                        divPrueba.Visible = true;
+                        //divPrueba.InnerText = "No se pudo realizar la carga";
+                        
                     }
                     finally {
                     }
@@ -74,6 +80,11 @@ namespace Mb.Views.Admin
 
             }
 
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

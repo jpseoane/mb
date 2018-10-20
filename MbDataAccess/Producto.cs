@@ -22,12 +22,15 @@ namespace MbDataAccess
         public int idproducto { get; set; }
         public string UserId { get; set; }
         public int IdTipo { get; set; }
+        public int idSubTipo { get; set; }
+        public string descripcion { get; set; }
         public float precioUnitario { get; set; }
         public bool activo { get; set; }
         public System.DateTime fecha_carga { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual ICollection<Carta> Cartas { get; set; }
+        public virtual SubTipo SubTipo { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
+        public virtual ICollection<Carta> Cartas { get; set; }
     }
 }

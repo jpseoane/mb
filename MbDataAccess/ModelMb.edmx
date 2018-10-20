@@ -179,6 +179,8 @@
           <Property Name="idproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdTipo" Type="int" Nullable="false" />
+          <Property Name="idSubTipo" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="250" />
           <Property Name="precioUnitario" Type="real" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
           <Property Name="fecha_carga" Type="datetime" Nullable="false" />
@@ -198,7 +200,6 @@
           </Key>
           <Property Name="idSubTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion_subtipo" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="detalle_subtipo" Type="nvarchar" MaxLength="2550" />
           <Property Name="fecha_carga" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -216,7 +217,6 @@
             <PropertyRef Name="IdTipo" />
           </Key>
           <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idSubTipo" Type="int" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha_carga" Type="datetime" Nullable="false" />
         </EntityType>
@@ -395,6 +395,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Producto_SubTipo">
+          <End Role="SubTipo" Type="Self.SubTipo" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTipo">
+              <PropertyRef Name="idSubTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idSubTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producto_TipoProducto">
           <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -404,18 +416,6 @@
             </Principal>
             <Dependent Role="Producto">
               <PropertyRef Name="IdTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TipoProducto_SubTipo">
-          <End Role="SubTipo" Type="Self.SubTipo" Multiplicity="1" />
-          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubTipo">
-              <PropertyRef Name="idSubTipo" />
-            </Principal>
-            <Dependent Role="TipoProducto">
-              <PropertyRef Name="idSubTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -549,13 +549,13 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <AssociationSet Name="FK_Producto_SubTipo" Association="Self.FK_Producto_SubTipo">
+            <End Role="SubTipo" EntitySet="SubTipo" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producto_TipoProducto" Association="Self.FK_Producto_TipoProducto">
             <End Role="TipoProducto" EntitySet="TipoProducto" />
             <End Role="Producto" EntitySet="Producto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TipoProducto_SubTipo" Association="Self.FK_TipoProducto_SubTipo">
-            <End Role="SubTipo" EntitySet="SubTipo" />
-            <End Role="TipoProducto" EntitySet="TipoProducto" />
           </AssociationSet>
           <AssociationSet Name="FK_UserMesa_AspNetUsers" Association="Self.FK_UserMesa_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -634,26 +634,13 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Cartas" Relationship="Self.FK_Carta_AspNetUsers" FromRole="AspNetUsers" ToRole="Carta" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Cliente_AspNetUsers1" FromRole="AspNetUsers" ToRole="Cliente" />
           <NavigationProperty Name="MensajeMuroes" Relationship="Self.FK_MensajeMuro_AspNetUsers" FromRole="AspNetUsers" ToRole="MensajeMuro" />
           <NavigationProperty Name="Pedidoes" Relationship="Self.FK_Pedido_AspNetUsers1" FromRole="AspNetUsers" ToRole="Pedido" />
-          <NavigationProperty Name="Productoes" Relationship="Self.FK_Producto_AspNetUsers" FromRole="AspNetUsers" ToRole="Producto" />
           <NavigationProperty Name="UserMesas" Relationship="Self.FK_UserMesa_AspNetUsers" FromRole="AspNetUsers" ToRole="UserMesa" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="Carta">
-          <Key>
-            <PropertyRef Name="idcarta" />
-          </Key>
-          <Property Name="idcarta" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="idproducto" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="activa" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Producto" Relationship="Self.FK_Carta_Producto" FromRole="Carta" ToRole="Producto" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="AspNetUser" ToRole="Producto" />
+          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -752,20 +739,6 @@
           <NavigationProperty Name="Cuentas" Relationship="Self.FK_Cuenta_Pedido1" FromRole="Pedido" ToRole="Cuenta" />
           <NavigationProperty Name="EstadoPedido" Relationship="Self.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
         </EntityType>
-        <EntityType Name="Producto">
-          <Key>
-            <PropertyRef Name="idproducto" />
-          </Key>
-          <Property Name="idproducto" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdTipo" Type="Int32" Nullable="false" />
-          <Property Name="precioUnitario" Type="Single" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Producto_AspNetUsers" FromRole="Producto" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Cartas" Relationship="Self.FK_Carta_Producto" FromRole="Producto" ToRole="Carta" />
-          <NavigationProperty Name="TipoProducto" Relationship="Self.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
-        </EntityType>
         <EntityType Name="QR">
           <Key>
             <PropertyRef Name="idqr" />
@@ -776,16 +749,6 @@
           <Property Name="habilitado" Type="Boolean" />
           <NavigationProperty Name="Mesas" Relationship="Self.FK_Mesa_QR1" FromRole="QR" ToRole="Mesa" />
         </EntityType>
-        <EntityType Name="SubTipo">
-          <Key>
-            <PropertyRef Name="idSubTipo" />
-          </Key>
-          <Property Name="idSubTipo" Type="Int32" Nullable="false" />
-          <Property Name="descripcion_subtipo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="detalle_subtipo" Type="String" MaxLength="2550" FixedLength="false" Unicode="true" />
-          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TipoProductoes" Relationship="Self.FK_TipoProducto_SubTipo" FromRole="SubTipo" ToRole="TipoProducto" />
-        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -795,17 +758,6 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TipoProducto">
-          <Key>
-            <PropertyRef Name="IdTipo" />
-          </Key>
-          <Property Name="IdTipo" Type="Int32" Nullable="false" />
-          <Property Name="idSubTipo" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Productoes" Relationship="Self.FK_Producto_TipoProducto" FromRole="TipoProducto" ToRole="Producto" />
-          <NavigationProperty Name="SubTipo" Relationship="Self.FK_TipoProducto_SubTipo" FromRole="TipoProducto" ToRole="SubTipo" />
         </EntityType>
         <EntityType Name="UserMesa">
           <Key>
@@ -848,18 +800,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Carta_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Carta" Type="Self.Carta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Carta">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cliente_AspNetUsers1">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
@@ -896,18 +836,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Producto_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserMesa_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="UserMesa" Type="Self.UserMesa" Multiplicity="*" />
@@ -917,18 +845,6 @@
             </Principal>
             <Dependent Role="UserMesa">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carta_Producto">
-          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
-          <End Role="Carta" Type="Self.Carta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producto">
-              <PropertyRef Name="idproducto" />
-            </Principal>
-            <Dependent Role="Carta">
-              <PropertyRef Name="idproducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -980,30 +896,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Producto_TipoProducto">
-          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="1" />
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoProducto">
-              <PropertyRef Name="IdTipo" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="IdTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TipoProducto_SubTipo">
-          <End Role="SubTipo" Type="Self.SubTipo" Multiplicity="1" />
-          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubTipo">
-              <PropertyRef Name="idSubTipo" />
-            </Principal>
-            <Dependent Role="TipoProducto">
-              <PropertyRef Name="idSubTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -1015,7 +907,6 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Cartas" EntityType="Self.Carta" />
           <EntitySet Name="Clientes" EntityType="Self.Cliente" />
           <EntitySet Name="Cuentas" EntityType="Self.Cuenta" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -1024,11 +915,8 @@
           <EntitySet Name="MensajeMuroes" EntityType="Self.MensajeMuro" />
           <EntitySet Name="Mesas" EntityType="Self.Mesa" />
           <EntitySet Name="Pedidoes" EntityType="Self.Pedido" />
-          <EntitySet Name="Productoes" EntityType="Self.Producto" />
           <EntitySet Name="QRs" EntityType="Self.QR" />
-          <EntitySet Name="SubTipoes" EntityType="Self.SubTipo" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="TipoProductoes" EntityType="Self.TipoProducto" />
           <EntitySet Name="UserMesas" EntityType="Self.UserMesa" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1037,10 +925,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carta_AspNetUsers" Association="Self.FK_Carta_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Carta" EntitySet="Cartas" />
           </AssociationSet>
           <AssociationSet Name="FK_Cliente_AspNetUsers1" Association="Self.FK_Cliente_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1054,17 +938,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Producto_AspNetUsers" Association="Self.FK_Producto_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserMesa_AspNetUsers" Association="Self.FK_UserMesa_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserMesa" EntitySet="UserMesas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carta_Producto" Association="Self.FK_Carta_Producto">
-            <End Role="Producto" EntitySet="Productoes" />
-            <End Role="Carta" EntitySet="Cartas" />
           </AssociationSet>
           <AssociationSet Name="FK_Cuenta_Pedido1" Association="Self.FK_Cuenta_Pedido1">
             <End Role="Pedido" EntitySet="Pedidoes" />
@@ -1081,14 +957,6 @@
           <AssociationSet Name="FK_UserMesa_Mesa" Association="Self.FK_UserMesa_Mesa">
             <End Role="Mesa" EntitySet="Mesas" />
             <End Role="UserMesa" EntitySet="UserMesas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Producto_TipoProducto" Association="Self.FK_Producto_TipoProducto">
-            <End Role="TipoProducto" EntitySet="TipoProductoes" />
-            <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TipoProducto_SubTipo" Association="Self.FK_TipoProducto_SubTipo">
-            <End Role="SubTipo" EntitySet="SubTipoes" />
-            <End Role="TipoProducto" EntitySet="TipoProductoes" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -1124,7 +992,31 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-        </EntityContainer>
+          <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
+          <AssociationSet Name="FK_Producto_AspNetUsers" Association="mbModel.FK_Producto_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <EntitySet Name="SubTipoes" EntityType="mbModel.SubTipo" />
+          <EntitySet Name="TipoProductoes" EntityType="mbModel.TipoProducto" />
+          <AssociationSet Name="FK_Producto_SubTipo" Association="mbModel.FK_Producto_SubTipo">
+            <End Role="SubTipo" EntitySet="SubTipoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_TipoProducto" Association="mbModel.FK_Producto_TipoProducto">
+            <End Role="TipoProducto" EntitySet="TipoProductoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
+          <AssociationSet Name="FK_Carta_AspNetUsers" Association="mbModel.FK_Carta_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Carta" EntitySet="Cartas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto" Association="mbModel.FK_Carta_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Carta" EntitySet="Cartas" />
+          </AssociationSet>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -1136,7 +1028,115 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-      </Schema>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idproducto" />
+          </Key>
+          <Property Name="idproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipo" Type="Int32" Nullable="false" />
+          <Property Name="idSubTipo" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="precioUnitario" Type="Single" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="Producto" ToRole="AspNetUser" />
+          <NavigationProperty Name="SubTipo" Relationship="mbModel.FK_Producto_SubTipo" FromRole="Producto" ToRole="SubTipo" />
+          <NavigationProperty Name="TipoProducto" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
+          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_Producto" FromRole="Producto" ToRole="Carta" />
+        </EntityType>
+        <Association Name="FK_Producto_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SubTipo">
+          <Key>
+            <PropertyRef Name="idSubTipo" />
+          </Key>
+          <Property Name="idSubTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion_subtipo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_SubTipo" FromRole="SubTipo" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="TipoProducto" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Producto_SubTipo">
+          <End Type="mbModel.SubTipo" Role="SubTipo" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTipo">
+              <PropertyRef Name="idSubTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idSubTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_TipoProducto">
+          <End Type="mbModel.TipoProducto" Role="TipoProducto" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Carta">
+          <Key>
+            <PropertyRef Name="idcarta" />
+          </Key>
+          <Property Name="idcarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="idproducto" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto" FromRole="Carta" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Carta_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carta">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carta_Producto">
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idproducto" />
+            </Principal>
+            <Dependent Role="Carta">
+              <PropertyRef Name="idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1202,18 +1202,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cartas">
-            <EntityTypeMapping TypeName="mbModel.Carta">
-              <MappingFragment StoreEntitySet="Carta">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="idcarta" ColumnName="idcarta" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="activa" ColumnName="activa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1313,18 +1301,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Productoes">
-            <EntityTypeMapping TypeName="mbModel.Producto">
-              <MappingFragment StoreEntitySet="Producto">
-                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
-                <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="QRs">
             <EntityTypeMapping TypeName="mbModel.QR">
               <MappingFragment StoreEntitySet="QR">
@@ -1332,16 +1308,6 @@
                 <ScalarProperty Name="texto" ColumnName="texto" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubTipoes">
-            <EntityTypeMapping TypeName="mbModel.SubTipo">
-              <MappingFragment StoreEntitySet="SubTipo">
-                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
-                <ScalarProperty Name="descripcion_subtipo" ColumnName="descripcion_subtipo" />
-                <ScalarProperty Name="detalle_subtipo" ColumnName="detalle_subtipo" />
-                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1353,16 +1319,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoProductoes">
-            <EntityTypeMapping TypeName="mbModel.TipoProducto">
-              <MappingFragment StoreEntitySet="TipoProducto">
-                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
-                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1410,7 +1366,51 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="mbModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="mbModel.Store.sp_upgraddiagrams" />
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="mbModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubTipoes">
+            <EntityTypeMapping TypeName="mbModel.SubTipo">
+              <MappingFragment StoreEntitySet="SubTipo">
+                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
+                <ScalarProperty Name="descripcion_subtipo" ColumnName="descripcion_subtipo" />
+                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoProductoes">
+            <EntityTypeMapping TypeName="mbModel.TipoProducto">
+              <MappingFragment StoreEntitySet="TipoProducto">
+                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cartas">
+            <EntityTypeMapping TypeName="mbModel.Carta">
+              <MappingFragment StoreEntitySet="Carta">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="idcarta" ColumnName="idcarta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
