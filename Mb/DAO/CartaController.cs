@@ -8,7 +8,7 @@ namespace Mb.DAO
 {
     public class CartaController
     {
-
+       
         public IEnumerable<Carta> Get()
         {
             using (mbDBContext entities = new mbDBContext())
@@ -35,8 +35,8 @@ namespace Mb.DAO
             }
         }
 
-        public bool Agregar(Carta carta) {
-            bool cargaOk = false;
+        public object Agregar(Carta carta) {
+            object[] obj= { (bool)false, (ErrorCarta)null };
             try
             {                
                 using (mbDBContext entities = new mbDBContext())
@@ -44,14 +44,17 @@ namespace Mb.DAO
                     entities.Cartas.Add(carta);
                     entities.SaveChanges();
                 }
-                cargaOk = true;
+                obj[0] = true;                
+
             }
             catch 
             {
-                cargaOk=false;
+                ErrorCarta objError = new ErrorCarta(1, "Error en carga");
+                obj[0] = false;
+                obj[1] = objError;                
             }
             
-            return cargaOk;
+            return obj;
         }
 
         public bool Agregar(String descri, int idProducto, bool activa, String UserId )
@@ -126,7 +129,10 @@ namespace Mb.DAO
             return cargaOk;
         }
 
+     
 
     }
+ 
 
 }
+

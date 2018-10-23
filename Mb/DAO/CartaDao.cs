@@ -7,6 +7,10 @@ namespace Mb.DAO
 {
     public static class CartaDao
     {
+        public static bool exito { get; set; }
+        public static String mens { get; set; }
+        public static ErrorCarta errorCarta { get; set; }
+
         public static Carta Get(int id)
         {
             using (mbDBContext entities = new mbDBContext())
@@ -38,15 +42,44 @@ namespace Mb.DAO
             }            
             return cargaOk;
         }
-        public static bool agregar(String descri, int idProducto, bool activa, String UserId )
+        //public static object agregar(String descri, int idProducto, bool activa, String UserId )
+        //{
+        //    //object[] obj = { (bool)false, (ErrorCarta)null };
+        //    object obj = false;
+        //    try
+        //    {
+        //        Carta carta = new Carta();
+        //        carta.activa = activa;
+        //        carta.descripcion = descri;
+        //        carta.UserId = UserId;
+        //        carta.idproducto = idProducto;
+        //        carta.fecha = DateTime.Now;
+        //        using (mbDBContext cartaDBEntities = new mbDBContext())
+        //        {
+        //            cartaDBEntities.Cartas.Add(carta);
+        //            cartaDBEntities.SaveChanges();
+        //        }
+        //        obj = true;
+
+        //    }
+        //    catch
+        //    {   
+        //        obj = new ErrorCarta(1, "Error en carga");
+        //    }
+        //    return obj;
+
+        //}
+
+        public static object agregar(String descri, int idProducto, bool activa, String UserId)
         {
-            bool cargaOk=false;
+            //object[] obj = { (bool)false, (ErrorCarta)null };
+            object obj = false;
             try
             {
                 Carta carta = new Carta();
                 carta.activa = activa;
                 carta.descripcion = descri;
-                carta.UserId = UserId;
+                //carta.UserId = UserId;
                 carta.idproducto = idProducto;
                 carta.fecha = DateTime.Now;
                 using (mbDBContext cartaDBEntities = new mbDBContext())
@@ -54,14 +87,20 @@ namespace Mb.DAO
                     cartaDBEntities.Cartas.Add(carta);
                     cartaDBEntities.SaveChanges();
                 }
-                cargaOk = true;
+                obj = true;
+
             }
             catch
             {
-                cargaOk=false;
+                obj = false;
+                errorCarta = new ErrorCarta(1, "Error en carga");
             }
-            return cargaOk;
+            return obj;
+
         }
+
+        
+
         public static bool Borrar(int id)
         {
             bool TodoOk = false;
@@ -132,5 +171,80 @@ namespace Mb.DAO
             }
             return TodoOk;
         }
+
+
+        public static String GetMensajeError(int numerror)
+        {
+            String mensaje = "";
+
+
+            switch (numerror)
+            {
+
+                case 1:
+                    mensaje = "Error al cargar";
+                    break;
+                case 2:
+                    mensaje = "Error al cargar";
+                    break;
+                case 3:
+                    mensaje = "Error al cargar";
+                    break;
+                case 4:
+                    mensaje = "Error al cargar";
+                    break;
+                default:
+
+                    break;
+            }
+
+            return mensaje;
+        }
+
+    }
+
+    public class ErrorCarta : Exception
+    {
+
+        public int numero { get; set; }
+        public String mensaje { get; set; }
+
+        public ErrorCarta()
+        {
+            this.mensaje = mensaje;
+            this.numero = numero;
+        }
+
+        public ErrorCarta(int numero, String mensaje)
+        {
+            this.mensaje = mensaje;
+            this.numero = numero;
+        }
+
+        public static String GetMensaje(int numero)
+        {
+            String mensaje = "";
+
+
+            switch (numero)
+            {
+
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+
+                    break;
+            }
+
+            return mensaje;
+        }
+
     }
 }

@@ -47,15 +47,25 @@ namespace Mb.Views.Admin.abms
 
         protected void btnCargar_Click(object sender, EventArgs e)
         {
-            if (CartaDao.agregar(txtNombreCartaNueva.Text, 1, chkActivaNueva.Checked, User.Identity.GetUserId()))
-            {
+            //Type t = value.GetType();
+            bool obj = (bool) CartaDao.agregar(txtNombreCartaNueva.Text, 1, chkActivaNueva.Checked, User.Identity.GetUserId());
+            //bool ban = (bool) obj[0];
+            //if (auxiliar.GetType() == Type.GetType("System.Int32"))
+            //    return true;
+            //else
+            //    return false;
+
+            //if (obj.GetType()== Type.GetType("bool"))
+            if (obj)
+                {
                 divPrueba.Attributes.Add("class", "alert alert-success");
                 divMensaje.InnerText = "Carga realizada";
             }
             else
-            {
+            {   
                 divPrueba.Attributes.Add("class", "alert alert-warning");
-                divMensaje.InnerText = "No se pudo realizar la carga";
+                divMensaje.InnerText = CartaDao.errorCarta.mensaje;
+                //divMensaje.InnerText = "No se pudo realizar la carga";
             }
             divPrueba.Visible = true;
         }
