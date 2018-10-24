@@ -41,7 +41,7 @@ namespace Mb.Views.Admin
                         carta.fecha = DateTime.Now;
 
                         //CartaDao cartaDao = new CartaDao();
-                        if (CartaDao.agregar(carta))
+                        if (CartaController.agregar(carta))
                         {
                             divPrueba.Attributes.Add("class", "alert alert-success");
                             divPrueba.Visible = true;

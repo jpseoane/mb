@@ -25,7 +25,7 @@ namespace Mb.Views.Admin.abms
             {
                 case "editar":
                     Carta carta;
-                    carta = CartaDao.Get(Convert.ToInt32(e.CommandArgument));
+                    carta = CartaController.Get(Convert.ToInt32(e.CommandArgument));
                     if (carta != null)
                     {
                         this.txtNombreCarta.Text = carta.descripcion;
@@ -33,78 +33,46 @@ namespace Mb.Views.Admin.abms
                         ViewState["id"] = e.CommandArgument;
                         btnActualizar.Enabled = true;
                     }
-                    else {
-                        btnActualizar.Enabled = false;
-                    }                    
-                    ;
                     break;
                 case "eliminar":
-                    CartaDao.Borrar(Convert.ToInt32(e.CommandArgument));
+                    Mensaje("Eliminar", CartaController.Borrar(Convert.ToInt32(e.CommandArgument)));
                     break;
             }
             CargaGrilla();
         }
 
-        protected void btnCargar_Click(object sender, EventArgs e)
-        {
-            //Type t = value.GetType();
-            bool obj = (bool) CartaDao.agregar(txtNombreCartaNueva.Text, 1, chkActivaNueva.Checked, User.Identity.GetUserId());
-            //bool ban = (bool) obj[0];
-            //if (auxiliar.GetType() == Type.GetType("System.Int32"))
-            //    return true;
-            //else
-            //    return false;
-
-            //if (obj.GetType()== Type.GetType("bool"))
-            if (obj)
-                {
-                divPrueba.Attributes.Add("class", "alert alert-success");
-                divMensaje.InnerText = "Carga realizada";
-            }
-            else
-            {   
-                divPrueba.Attributes.Add("class", "alert alert-warning");
-                divMensaje.InnerText = CartaDao.errorCarta.mensaje;
-                //divMensaje.InnerText = "No se pudo realizar la carga";
-            }
-            divPrueba.Visible = true;
-        }
-
+        
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             CargaGrilla();
         }
 
         private void CargaGrilla(){
-            gv.DataSource = CartaDao.Get();
+            gv.DataSource = CartaController.Get();
             gv.DataBind();
             divPrueba.Visible = false;
         }
 
         protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            //Carta carta= CartaDao.Get(Convert.ToInt32(ViewState["id"]));
-            
-            CartaDao.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text, 1, chkActiva.Checked, User.Identity.GetUserId());
+        {   
+            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text, 1, chkActiva.Checked, User.Identity.GetUserId()));
+            btnActualizar.Enabled = false;
         }
-        private  void Mensaje(bool exito, String mensaje="")
+
+
+        private void Mensaje(String movimiento, bool exito)
         {
-            
             if (exito)
             {divPrueba.Attributes.Add("class", "alert alert-success");
-                if (mensaje != "")
-                {
-                    divMensaje.InnerText = mensaje;
-                }
-                else
-                {
-                    divMensaje.InnerText = "Accion exitosa";
-                }
-                
+             divMensaje.InnerText = movimiento + " exitosa";
             }
             else
-            {divPrueba.Attributes.Add("class", "alert alert-warning");}
+            {divPrueba.Attributes.Add("class", "alert alert-warning");
+             divMensaje.InnerText = "Eror en " + movimiento;
+            }
             divPrueba.Visible = true;
         }
+
+        
     }
 }

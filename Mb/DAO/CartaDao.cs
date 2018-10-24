@@ -70,10 +70,9 @@ namespace Mb.DAO
 
         //}
 
-        public static object agregar(String descri, int idProducto, bool activa, String UserId)
-        {
-            //object[] obj = { (bool)false, (ErrorCarta)null };
-            object obj = false;
+        public static bool agregar(String descri, int idProducto, bool activa, String UserId)
+        {            
+            exito = false;
             try
             {
                 Carta carta = new Carta();
@@ -87,15 +86,16 @@ namespace Mb.DAO
                     cartaDBEntities.Cartas.Add(carta);
                     cartaDBEntities.SaveChanges();
                 }
-                obj = true;
-
+                exito = true;
+                mens = "Carga Realizada";
             }
             catch
             {
-                obj = false;
+                exito = false;
+                mens = "Error al intentar cargar - Carta";
                 errorCarta = new ErrorCarta(1, "Error en carga");
             }
-            return obj;
+            return exito;
 
         }
 

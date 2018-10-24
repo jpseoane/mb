@@ -2,114 +2,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Mb.DAO
 {
-    public class CartaController
+    public static class CartaController
     {
-       
-        public IEnumerable<Carta> Get()
+        public static bool exito { get; set; }
+        public static String mens { get; set; }
+        public static ErrorCarta errorCarta { get; set; }
+
+        public static Carta Get(int id)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Cartas.FirstOrDefault(e => e.idcarta == id);
+            }
+        }
+        public static IEnumerable<Carta> Get()
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 return entities.Cartas.ToList();
             }
         }
-
-        public Carta Obtener(int id)
-        {
-            using (mbDBContext entities = new mbDBContext())
-            {
-                
-                var entity = entities.Cartas.FirstOrDefault(e => e.idcarta == id);
-
-                if (entity != null)
-                {
-                    return entity;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public object Agregar(Carta carta) {
-            object[] obj= { (bool)false, (ErrorCarta)null };
-            try
-            {                
-                using (mbDBContext entities = new mbDBContext())
-                {
-                    entities.Cartas.Add(carta);
-                    entities.SaveChanges();
-                }
-                obj[0] = true;                
-
-            }
-            catch 
-            {
-                ErrorCarta objError = new ErrorCarta(1, "Error en carga");
-                obj[0] = false;
-                obj[1] = objError;                
-            }
-            
-            return obj;
-        }
-
-        public bool Agregar(String descri, int idProducto, bool activa, String UserId )
-        {
-            bool cargaOk=false;
-            try
-            {
-                Carta carta = new Carta();
-                carta.activa = activa;
-                carta.descripcion = descri;
-                carta.UserId = UserId;
-                carta.idproducto = idProducto;
-                carta.fecha = DateTime.Now;
-                using (mbDBContext entities = new mbDBContext())
-                {
-                    entities.Cartas.Add(carta);
-                    entities.SaveChanges();
-                }
-                cargaOk = true;
-            }
-            catch
-            {
-                cargaOk=false;
-            }
-            return cargaOk;
-
-        }
-
-        public bool Borrar(int id)
-        {
-            bool EliminaOk = false;
-            try
-            {
-                using (mbDBContext entities = new mbDBContext())
-                {
-                    var entity = entities.Cartas.FirstOrDefault(e => e.idcarta == id);
-                    if (entity != null)
-                    {
-                        entities.Cartas.Remove(entity);
-                        entities.SaveChanges();
-                        EliminaOk = true;
-                    }
-                    else {
-                        EliminaOk = false;
-                    }
-                }
-            }
-            catch
-            {
-                EliminaOk = false;
-            }
-            return EliminaOk;
-        }
-
-        public bool Actualizar(Carta carta)
+        public static bool agregar(Carta carta)
         {
             bool cargaOk = false;
             try
@@ -125,14 +41,212 @@ namespace Mb.DAO
             {
                 cargaOk = false;
             }
-
             return cargaOk;
         }
-
      
+        public static bool agregar(String descri, int idProducto, bool activa, String UserId)
+        {
+            exito = false;
+            try
+            {
+                Carta carta = new Carta();
+                carta.activa = activa;
+                carta.descripcion = descri;
+                //carta.UserId = UserId;
+                carta.idproducto = idProducto;
+                carta.fecha = DateTime.Now;
+                using (mbDBContext cartaDBEntities = new mbDBContext())
+                {
+                    cartaDBEntities.Cartas.Add(carta);
+                    cartaDBEntities.SaveChanges();
+                }
+                exito = true;
+              //  mens = "Carga Realizada";
+            }
+            catch
+            {
+                exito = false;
+                //mens = "Error al intentar cargar - Carta";
+                errorCarta = new ErrorCarta(1, "Error en carga");
+            }
+            return exito;
+
+        }
+
+
+
+        public static bool Borrar(int id)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    if (entity != null)
+                    {
+                        dBEntities.Cartas.Remove(entity);
+                        dBEntities.SaveChanges();
+                        TodoOk = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TodoOk = false;
+            }
+            return TodoOk;
+        }
+        public static bool update(Carta carta)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == carta.idcarta);
+                    if (entity != null)
+                    {
+                        entity.idproducto = carta.idproducto;
+                        entity.UserId = carta.UserId;
+                        entity.descripcion = carta.descripcion;
+                        entity.fecha = carta.fecha;
+                        dBEntities.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TodoOk = false;
+            }
+            return TodoOk;
+        }
+        //public static bool update(int id, String descri, int idProducto, bool activa, String UserId)
+        //{
+        //    bool TodoOk = false;
+        //    try
+        //    {
+        //        using (mbDBContext dBEntities = new mbDBContext())
+        //        {
+        //            var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+        //            if (entity != null)
+        //            {
+        //                entity.idproducto = idProducto;
+        //                entity.UserId = UserId;
+        //                entity.descripcion = descri;
+        //                entity.fecha = DateTime.Now;
+        //                dBEntities.SaveChanges();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TodoOk = false;
+        //    }
+        //    return TodoOk;
+        //}
+
+
+        public static bool update(int id, String descri, int idProducto, bool activa, String UserId)
+        {
+          exito = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    if (entity != null)
+                    {
+                        entity.idproducto = idProducto;
+                        entity.UserId = UserId;
+                        entity.descripcion = descri;
+                        entity.fecha = DateTime.Now;
+                        dBEntities.SaveChanges();
+               //         mens = "Carta actualizada con éxito";
+                        exito = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exito = false;
+                //mens = "Error al intentar actualizar la carta";
+            }
+            return exito;
+        }
+
+        public static String GetMensajeError(int numerror)
+        {
+            String mensaje = "";
+
+
+            switch (numerror)
+            {
+
+                case 1:
+                    mensaje = "Error al cargar";
+                    break;
+                case 2:
+                    mensaje = "Error al cargar";
+                    break;
+                case 3:
+                    mensaje = "Error al cargar";
+                    break;
+                case 4:
+                    mensaje = "Error al cargar";
+                    break;
+                default:
+
+                    break;
+            }
+
+            return mensaje;
+        }
 
     }
- 
 
+    public class ErrorCarta : Exception
+    {
+
+        public int numero { get; set; }
+        public String mensaje { get; set; }
+
+        public ErrorCarta()
+        {
+            this.mensaje = mensaje;
+            this.numero = numero;
+        }
+
+        public ErrorCarta(int numero, String mensaje)
+        {
+            this.mensaje = mensaje;
+            this.numero = numero;
+        }
+
+        public static String GetMensaje(int numero)
+        {
+            String mensaje = "";
+
+
+            switch (numero)
+            {
+
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+
+                    break;
+            }
+
+            return mensaje;
+        }
+
+    }
 }
-

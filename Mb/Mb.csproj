@@ -260,6 +260,7 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\abm.aspx" />
     <Content Include="Views\Admin\abms\gcarta.aspx" />
+    <Content Include="Views\Admin\abms\ncarta.aspx" />
     <Content Include="Views\Admin\addmesa.aspx" />
     <Content Include="Views\Admin\cliente.aspx" />
     <Content Include="Views\Admin\mesa.aspx" />
@@ -400,7 +401,6 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="DAO\CartaController.cs" />
-    <Compile Include="DAO\CartaDao.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
     <Compile Include="DAO\ProductoDao.cs" />
     <Compile Include="DAO\SubTipoProductoDao.cs" />
@@ -460,6 +460,13 @@
     </Compile>
     <Compile Include="Views\Admin\abms\gcarta.aspx.designer.cs">
       <DependentUpon>gcarta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\abms\ncarta.aspx.cs">
+      <DependentUpon>ncarta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\ncarta.aspx.designer.cs">
+      <DependentUpon>ncarta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\addmesa.aspx.cs">
       <DependentUpon>addmesa.aspx</DependentUpon>

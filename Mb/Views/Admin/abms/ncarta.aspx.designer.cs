@@ -10,7 +10,7 @@
 namespace Mb.Views.Admin.abms {
     
     
-    public partial class gcarta {
+    public partial class ncarta {
         
         /// <summary>
         /// Control txtNombreCarta.
@@ -40,22 +40,13 @@ namespace Mb.Views.Admin.abms {
         protected global::System.Web.UI.WebControls.CheckBox chkActiva;
         
         /// <summary>
-        /// Control btnBuscar.
+        /// Control btnCargar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
-        
-        /// <summary>
-        /// Control btnActualizar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnActualizar;
+        protected global::System.Web.UI.WebControls.Button btnCargar;
         
         /// <summary>
         /// Control divPrueba.
@@ -74,14 +65,5 @@ namespace Mb.Views.Admin.abms {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMensaje;
-        
-        /// <summary>
-        /// Control gv.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv;
     }
 }
