@@ -22,5 +22,6 @@ namespace MbDataAccess
         public int estado { get; set; }
     
         public virtual Producto Producto { get; set; }
+        public virtual Carta Carta { get; set; }
     }
 }

@@ -260,6 +260,18 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Carta_Producto_Carta">
+          <End Role="Carta" Type="Self.Carta" Multiplicity="1" />
+          <End Role="Carta_Producto" Type="Self.Carta_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Carta_Producto">
+              <PropertyRef Name="idCarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Carta_Producto_Producto">
           <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
           <End Role="Carta_Producto" Type="Self.Carta_Producto" Multiplicity="*" />
@@ -528,6 +540,10 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Carta" EntitySet="Carta" />
           </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto_Carta" Association="Self.FK_Carta_Producto_Carta">
+            <End Role="Carta" EntitySet="Carta" />
+            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Carta_Producto_Producto" Association="Self.FK_Carta_Producto_Producto">
             <End Role="Producto" EntitySet="Producto" />
             <End Role="Carta_Producto" EntitySet="Carta_Producto" />
@@ -714,6 +730,10 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto_Carta" Association="mbModel.FK_Carta_Producto_Carta">
+            <End Role="Carta" EntitySet="Cartas" />
+            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -808,6 +828,7 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="activa" Type="Boolean" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
+          <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta" ToRole="Carta_Producto" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -990,6 +1011,7 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Carta_Producto" ToRole="Producto" />
+          <NavigationProperty Name="Carta" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta_Producto" ToRole="Carta" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1178,6 +1200,18 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
         <Association Name="AspNetUserRoles">
           <End Type="mbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Carta_Producto_Carta">
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="1" />
+          <End Type="mbModel.Carta_Producto" Role="Carta_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Carta_Producto">
+              <PropertyRef Name="idCarta" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>

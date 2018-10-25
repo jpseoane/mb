@@ -6,9 +6,9 @@ using MbDataAccess;
 
 namespace Mb.DAO
 {
-    public class SubTipoProductoDao
+    public  static class SubTipoProductoController
     {
-        public IEnumerable<SubTipo> Get()
+        public static IEnumerable<SubTipo> Get()
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -16,7 +16,7 @@ namespace Mb.DAO
             }
         }
 
-        public bool agregar(SubTipo subTipo)
+        public static bool agregar(SubTipo subTipo)
         {
             bool cargaOk = false;
             try
@@ -36,7 +36,7 @@ namespace Mb.DAO
             return cargaOk;
         }
 
-        public bool agregar(String descri, DateTime fechaCarga)
+        public static bool agregar(String descri, DateTime fechaCarga)
         {
             bool cargaOk = false;
             try
@@ -59,7 +59,7 @@ namespace Mb.DAO
 
         }
 
-        public bool Borrar(int id)
+        public static bool Borrar(int id)
         {
             bool TodoOk = false;
             try
@@ -82,7 +82,7 @@ namespace Mb.DAO
             return TodoOk;
         }
 
-        public bool update(SubTipo  subTipo)
+        public static bool update(SubTipo  subTipo)
         {
             bool TodoOk = false;
             try

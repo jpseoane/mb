@@ -14,6 +14,11 @@ namespace MbDataAccess
     
     public partial class Carta
     {
+        public Carta()
+        {
+            this.Carta_Producto = new HashSet<Carta_Producto>();
+        }
+    
         public int id { get; set; }
         public string UserId { get; set; }
         public string descripcion { get; set; }
@@ -21,5 +26,6 @@ namespace MbDataAccess
         public System.DateTime fecha { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual ICollection<Carta_Producto> Carta_Producto { get; set; }
     }
 }

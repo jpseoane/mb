@@ -260,7 +260,9 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\abm.aspx" />
     <Content Include="Views\Admin\abms\gcarta.aspx" />
-    <Content Include="Views\Admin\abms\ncarta.aspx" />
+    <Content Include="Views\Admin\abms\gproducto.aspx" />
+    <Content Include="Views\Admin\abms\nuevo\ncarta.aspx" />
+    <Content Include="Views\Admin\abms\nuevo\nproducto.aspx" />
     <Content Include="Views\Admin\addmesa.aspx" />
     <Content Include="Views\Admin\cliente.aspx" />
     <Content Include="Views\Admin\mesa.aspx" />
@@ -402,7 +404,8 @@
     </Compile>
     <Compile Include="DAO\CartaController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
-    <Compile Include="DAO\SubTipoProductoDao.cs" />
+    <Compile Include="DAO\ProductoController.cs" />
+    <Compile Include="DAO\SubTipoProductoController.cs" />
     <Compile Include="DAO\TipoProductoController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -459,12 +462,26 @@
     <Compile Include="Views\Admin\abms\gcarta.aspx.designer.cs">
       <DependentUpon>gcarta.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\abms\ncarta.aspx.cs">
+    <Compile Include="Views\Admin\abms\gproducto.aspx.cs">
+      <DependentUpon>gproducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gproducto.aspx.designer.cs">
+      <DependentUpon>gproducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\abms\nuevo\ncarta.aspx.cs">
       <DependentUpon>ncarta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Admin\abms\ncarta.aspx.designer.cs">
+    <Compile Include="Views\Admin\abms\nuevo\ncarta.aspx.designer.cs">
       <DependentUpon>ncarta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\abms\nuevo\nproducto.aspx.cs">
+      <DependentUpon>nproducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\nuevo\nproducto.aspx.designer.cs">
+      <DependentUpon>nproducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\addmesa.aspx.cs">
       <DependentUpon>addmesa.aspx</DependentUpon>
