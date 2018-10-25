@@ -19,7 +19,7 @@ namespace MbDataAccess
             this.Cuentas = new HashSet<Cuenta>();
         }
     
-        public int idpedido { get; set; }
+        public int id { get; set; }
         public string UserId { get; set; }
         public int IdMesa { get; set; }
         public int IdMesaUsuario { get; set; }

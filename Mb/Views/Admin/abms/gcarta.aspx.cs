@@ -30,8 +30,7 @@ namespace Mb.Views.Admin.abms
                     {
                         this.txtNombreCarta.Text = carta.descripcion;
                         this.chkActiva.Checked = carta.activa;
-                        ViewState["id"] = e.CommandArgument;
-                        btnActualizar.Enabled = true;
+                        ViewState["id"] = e.CommandArgument;                     
                     }
                     break;
                 case "eliminar":
@@ -54,9 +53,8 @@ namespace Mb.Views.Admin.abms
         }
 
         protected void btnActualizar_Click(object sender, EventArgs e)
-        {   
-            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text, 1, chkActiva.Checked, User.Identity.GetUserId()));
-            btnActualizar.Enabled = false;
+        {  
+            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text,  chkActiva.Checked, User.Identity.GetUserId()));         
         }
 
 

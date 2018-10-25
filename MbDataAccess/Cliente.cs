@@ -14,7 +14,7 @@ namespace MbDataAccess
     
     public partial class Cliente
     {
-        public int idCliente { get; set; }
+        public int id { get; set; }
         public string UserId { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }

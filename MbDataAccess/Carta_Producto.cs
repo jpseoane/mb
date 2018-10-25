@@ -12,17 +12,15 @@ namespace MbDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoProducto
+    public partial class Carta_Producto
     {
-        public TipoProducto()
-        {
-            this.Productoes = new HashSet<Producto>();
-        }
+        public int id { get; set; }
+        public int idCarta { get; set; }
+        public int idProducto { get; set; }
+        public string UserId { get; set; }
+        public System.DateTime fecha { get; set; }
+        public int estado { get; set; }
     
-        public int Id { get; set; }
-        public string descripcion { get; set; }
-        public System.DateTime fecha_carga { get; set; }
-    
-        public virtual ICollection<Producto> Productoes { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

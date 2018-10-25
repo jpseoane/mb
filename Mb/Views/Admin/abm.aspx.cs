@@ -36,8 +36,7 @@ namespace Mb.Views.Admin
                         Carta carta = new Carta();
                         carta.activa = chkActiva.Checked;
                         carta.descripcion = txtNombreCarta.Text;
-                        carta.UserId = User.Identity.GetUserId();
-                        carta.idproducto = 1;
+                        carta.UserId = User.Identity.GetUserId();                        
                         carta.fecha = DateTime.Now;
 
                         //CartaDao cartaDao = new CartaDao();

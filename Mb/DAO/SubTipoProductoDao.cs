@@ -66,7 +66,7 @@ namespace Mb.DAO
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.SubTipoes.FirstOrDefault(e => e.idSubTipo == id);
+                    var entity = dBEntities.SubTipoes.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
                         dBEntities.SubTipoes.Remove(entity);
@@ -89,7 +89,7 @@ namespace Mb.DAO
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.SubTipoes.FirstOrDefault(e => e.idSubTipo == subTipo.idSubTipo);
+                    var entity = dBEntities.SubTipoes.FirstOrDefault(e => e.id == subTipo.id);
                     if (entity != null)
                     {
                         entity.descripcion_subtipo = subTipo.descripcion_subtipo;

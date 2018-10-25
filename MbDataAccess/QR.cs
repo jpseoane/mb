@@ -19,7 +19,7 @@ namespace MbDataAccess
             this.Mesas = new HashSet<Mesa>();
         }
     
-        public int idqr { get; set; }
+        public int id { get; set; }
         public string texto { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
         public Nullable<bool> habilitado { get; set; }

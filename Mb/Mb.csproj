@@ -402,10 +402,8 @@
     </Compile>
     <Compile Include="DAO\CartaController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
-    <Compile Include="DAO\ProductoDao.cs" />
     <Compile Include="DAO\SubTipoProductoDao.cs" />
     <Compile Include="DAO\TipoProductoController.cs" />
-    <Compile Include="DAO\TipoProductoDao.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

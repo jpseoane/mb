@@ -19,7 +19,7 @@ namespace MbDataAccess
             this.UserMesas = new HashSet<UserMesa>();
         }
     
-        public int IdMesa { get; set; }
+        public int Id { get; set; }
         public int idqr { get; set; }
         public int numero { get; set; }
         public Nullable<int> cant_silla_aprox { get; set; }

@@ -66,6 +66,9 @@
     <Compile Include="Carta.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Carta_Producto.cs">
+      <DependentUpon>ModelMb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Cliente.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>

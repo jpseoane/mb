@@ -15,7 +15,7 @@ namespace Mb.DAO
         {
             using (mbDBContext entities = new mbDBContext())
             {
-                return entities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                return entities.Cartas.FirstOrDefault(e => e.id == id);
             }
         }
         public static IEnumerable<Carta> Get()
@@ -52,8 +52,7 @@ namespace Mb.DAO
                 Carta carta = new Carta();
                 carta.activa = activa;
                 carta.descripcion = descri;
-                //carta.UserId = UserId;
-                carta.idproducto = idProducto;
+                carta.UserId = UserId;                
                 carta.fecha = DateTime.Now;
                 using (mbDBContext cartaDBEntities = new mbDBContext())
                 {
@@ -82,7 +81,7 @@ namespace Mb.DAO
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
                         dBEntities.Cartas.Remove(entity);
@@ -104,10 +103,9 @@ namespace Mb.DAO
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == carta.idcarta);
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == carta.id);
                     if (entity != null)
                     {
-                        entity.idproducto = carta.idproducto;
                         entity.UserId = carta.UserId;
                         entity.descripcion = carta.descripcion;
                         entity.fecha = carta.fecha;
@@ -147,17 +145,17 @@ namespace Mb.DAO
         //}
 
 
-        public static bool update(int id, String descri, int idProducto, bool activa, String UserId)
+        public static bool update(int id, String descri, bool activa, String UserId)
         {
           exito = false;
             try
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.idcarta == id);
+                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
-                        entity.idproducto = idProducto;
+                        //entity.idproducto = idProducto;
                         entity.UserId = UserId;
                         entity.descripcion = descri;
                         entity.fecha = DateTime.Now;

@@ -14,14 +14,12 @@ namespace MbDataAccess
     
     public partial class Carta
     {
-        public int idcarta { get; set; }
+        public int id { get; set; }
         public string UserId { get; set; }
-        public int idproducto { get; set; }
         public string descripcion { get; set; }
         public bool activa { get; set; }
         public System.DateTime fecha { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual Producto Producto { get; set; }
     }
 }

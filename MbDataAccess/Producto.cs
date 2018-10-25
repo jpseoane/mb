@@ -16,10 +16,10 @@ namespace MbDataAccess
     {
         public Producto()
         {
-            this.Cartas = new HashSet<Carta>();
+            this.Carta_Producto = new HashSet<Carta_Producto>();
         }
     
-        public int idproducto { get; set; }
+        public int id { get; set; }
         public string UserId { get; set; }
         public int IdTipo { get; set; }
         public int idSubTipo { get; set; }
@@ -29,8 +29,8 @@ namespace MbDataAccess
         public System.DateTime fecha_carga { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual ICollection<Carta_Producto> Carta_Producto { get; set; }
         public virtual SubTipo SubTipo { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
-        public virtual ICollection<Carta> Cartas { get; set; }
     }
 }

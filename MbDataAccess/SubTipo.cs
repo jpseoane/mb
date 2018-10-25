@@ -19,7 +19,7 @@ namespace MbDataAccess
             this.Productoes = new HashSet<Producto>();
         }
     
-        public int idSubTipo { get; set; }
+        public int id { get; set; }
         public string descripcion_subtipo { get; set; }
         public System.DateTime fecha_carga { get; set; }
     

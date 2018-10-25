@@ -4,8 +4,8 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h1>MiBar - Carta</h1>
-        <p class="lead">Crear y administrar la Carta</p>
+        <h1>MiBar - Gestion Carta</h1>
+        <p class="lead">Buscar y modificar la carta</p>
     </div>
   <div class="container">
     <div class="form-row" style="text-align:right">
@@ -69,10 +69,10 @@
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Content/img/edit.png"
-                                commandname="editar" commandargument='<%# Eval("idcarta")%>' Height="24px" Width="24px" 
+                                commandname="editar" commandargument='<%# Eval("id")%>' Height="24px" Width="24px" 
                                 ToolTip="Editar carta" />
                             <asp:ImageButton id="imgbtnBorrar" runat="server" CausesValidation="false"    
-                                CommandName="eliminar" CommandArgument='<%#Eval("idcarta")%>'
+                                CommandName="eliminar" CommandArgument='<%#Eval("id")%>'
                                 ImageUrl="~/Content/img/del.png" ToolTip="Eliminar Carta" Height="24px" Width="24px"  />
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="False" Font-Size="Smaller"  BorderStyle="None"  BorderWidth="5px"/>
