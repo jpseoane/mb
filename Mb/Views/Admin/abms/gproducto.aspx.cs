@@ -27,9 +27,6 @@ namespace Mb.Views.Admin.abms
 
      
 
-
-
-
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             switch (e.CommandName)
