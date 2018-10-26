@@ -81,26 +81,22 @@
     </div>
         </div>
     </div>--%>
-    
-    
         <div class="form-group col-lg-12" >        
-            <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click" />                              
+            <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" CausesValidation="false" OnClick="btnBuscar_Click" />                              
             <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn btn-secondary" OnClick="btnActualizar_Click" />
         </div>
-    
-    
         <div class="form-group col-lg-12" >        
-                <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <div id="divMensaje" runat="server"></div>           
+            <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <div id="divMensaje" runat="server">
+            </div>           
         </div>
-        
     </div>     
     <!-- GridView-->
     <div class="form-row">
-        <div class="form-group col-lg-6" >        
+        <div class="form-group col-lg-12" >        
             <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                AllowPaging="True" AllowSorting="True" PageSize="5"  
+                AllowPaging="True" AllowSorting="True" PageSize="5"    CssClass="gridview"
                 ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
                 <RowStyle Height="50px" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -115,23 +111,24 @@
                 <SortedDescendingCellStyle BackColor="#FFFDF8" />
                 <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 <Columns>
-                    <asp:BoundField DataField="ProductoNombre" HeaderText="ProductoNombre" NullDisplayText="ProductoNombre" SortExpression="ProductoNombre" >
+                    <asp:BoundField DataField="descriProducto" HeaderText="Producto Nombre" NullDisplayText="ProductoNombre" SortExpression="descriProducto" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                              
+                    <asp:BoundField DataField="tipoDescri" HeaderText="Tipo Prod." NullDisplayText="Tipo de producto" SortExpression="tipoDescri" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
-                    <asp:BoundField DataField="TipoNombre" HeaderText="TipoNombre" NullDisplayText="TipoNombre" SortExpression="TipoNombre" >
+                    <asp:BoundField DataField="subTipoDescri" HeaderText="SubTipo Prod." NullDisplayText="SubTipo de producto" SortExpression="subTipoDescri" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
-
-
-             <%--       <asp:BoundField DataField="Productodescripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
+                    <asp:BoundField DataField="descriPrecio" HeaderText="Precio" NullDisplayText="Precio" SortExpression="descriPrecio" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          
-                    <asp:BoundField DataField="activa" HeaderText="Activa" NullDisplayText="activa" SortExpression="activa" >
+                    </asp:BoundField>
+                    <asp:BoundField DataField="descriActivo" HeaderText="Activo" NullDisplayText="activo" SortExpression="descriActivo" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          --%>
+                    </asp:BoundField>                          
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Content/img/edit.png"
@@ -146,17 +143,9 @@
                     </asp:TemplateField>     
                     </Columns>
             </asp:GridView>
-        </div>
+          </div>
     </div>
  </div>
-      <script>
-        export default {
-          data () {
-            return {
-              status: 'No activo'
-            }
-          }
-        }
-    </script>
+ 
 
 </asp:Content>

@@ -57,24 +57,45 @@ namespace Mb.DAO
         //        //return lalaa;
         //    }
         //}
-        public class ProductoConDescri : Producto
-        {
-            //public int idTipo { get; set; }
-            //public string DescripcionTipo { get; set; }
-            //public string TipoNombre { get; set; }
+        //public class ProductoConDescri : Producto
+        //{
+        //    public Producto producto { get; set; }
+        //    public int idTipo { get; set; }
+        //    public string tipoDEscri { get; set; }
 
-            //public IEnumerable<ProductoConDescri> listar()
-            //{
-            //    using (mbDBContext entities = new mbDBContext())
-            //    {
-            //        List<ProductoConDescri> headers = entities.Productoes.Select(p => new ProductoConDescri
-            //        {
-            //            DescripcionTipo = p.ProductId,
-            //            ProductName = p.ProductName
-            //        }).ToList();
-            //    }
-            //}
-        }
+        //    public IEnumerable<ProductoConDescri> listar()
+        //    {
+        //        using (mbDBContext entities = new mbDBContext())
+        //        {
+        //            List<ProductoConDescri> headers = entities.Productoes.Select(p => new ProductoConDescri
+        //            {
+        //                producto=p,
+        //                idTipo = p.IdTipo,
+        //                ProductName = p.ProductName
+        //            }).ToList();
+
+        //            List<ProductoConDescri> headers = from Producto p in entities.Productoes
+        //                                              join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+        //                                              select new ProductoConDescri
+        //                                              {
+        //                                                  id = p.id,
+        //                                                  DescripcionTipo = p.descripcion,
+        //                                                  TipoNombre = tp.descripcion
+        //                                              }).;
+
+        //            //var lalaa = from Producto p in entities.Productoes
+        //            //        //            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+        //            //        //            select new  ProductoConDescri
+        //            //        //            {
+        //            //        //                id = p.id,
+        //            //        //                DescripcionTipo = p.descripcion,
+        //            //        //                TipoNombre = tp.descripcion
+        //            //        //            };
+
+        //            //        //return lalaa;
+        //        }
+        //    }
+        //}
 
 
 

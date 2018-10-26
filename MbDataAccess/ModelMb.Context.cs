@@ -48,8 +48,8 @@ namespace MbDataAccess
         public DbSet<SubTipo> SubTipoes { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<TipoProducto> TipoProductoes { get; set; }
-        public DbSet<UserMesa> UserMesas { get; set; }
         public DbSet<Carta_Producto> Carta_Producto { get; set; }
+        public DbSet<UserMesa> UserMesas { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

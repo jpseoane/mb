@@ -11,7 +11,7 @@
     <div class="form-row" style="text-align:right">
         <div class="form-group col-lg-12" >                    
                     <asp:LinkButton  PostBackUrl="~/Views/Admin/abms/gproducto.aspx" runat="server" CssClass="btn btn-toolbar"
-                        CausesValidation="false" >Nuevo</asp:LinkButton>
+                        CausesValidation="false" >Volver al listado</asp:LinkButton>
         </div>
     </div>
     <div class="form-row">
@@ -34,36 +34,38 @@
                     runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
             </div>
         </div>
-    <div class="form-row" >
-        <div class="form-group col-lg-4 " >                
-            <label for="txtDescri">Descripción</label><br />
-            <asp:TextBox ID="txtDescri" runat="server" Width="180px" CssClass="form-control"  placeholder="Descripción"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDescri" Text="*" 
-                runat="server" ForeColor="red" ></asp:RequiredFieldValidator>            
-        </div>        
-        <div class="form-group col-lg-4 " >                
-            <label for="txtPrecio">Precio</label><br />
-            <asp:TextBox ID="txtPrecio" CssClass="form-control"  runat="server" Width="180px" placeholder="Precio"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPrecio" Text="*" 
-                runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
+        <div class="form-row" >
+            <div class="form-group col-lg-6 " >                
+                <label for="txtDescri">Descripción</label><br />
+                <asp:TextBox ID="txtDescri" runat="server" TextMode="MultiLine" CssClass="form-control"  placeholder="Descripción"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDescri" Text="*" 
+                    runat="server" ForeColor="red" ></asp:RequiredFieldValidator>            
+            </div>        
+            <div class="form-group col-lg-6 " >                
+                <label for="txtPrecio">Precio</label><br />
+                <asp:TextBox ID="txtPrecio" CssClass="form-control"  runat="server" Width="180px" placeholder="Precio"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPrecio" Text="*" 
+                    runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
+            </div>          
         </div>
-        <div class="form-group col-lg-4" >                       
-            <!-- Checked checkbox -->
-            <div class="checkbox">
-                <label>
-                <input type="checkbox" id="chkActiva" value="" runat="server" checked>
-                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                <strong> Producto Disponible</strong>
-                </label>
-            </div>
-        </div>    
-    </div>
+        <div class="form-row" >
+        <div class="form-group col-lg-12" >                       
+                <!-- Checked checkbox -->
+                <div class="checkbox">
+                    <label>
+                    <input type="checkbox" id="chkActiva" value="" runat="server" checked>
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    <strong> Producto Disponible</strong>
+                    </label>
+                </div>
+            </div>    
+          </div>
  
     
     
         <div class="form-group col-lg-12" >        
             <asp:Button ID="btnCargar" runat="server"  Text="Cargar" class="btn btn-primary" OnClick="btnCargar_Click"  />                              
-            <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-secondary" OnClick="btnLimpiar_Click"  />
+            <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-secondary" CausesValidation="false" OnClick="btnLimpiar_Click"  />
         </div>
     
     
@@ -79,7 +81,7 @@
         <div class="form-group col-lg-6" style="text-align:center; " >        
             <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                 AllowPaging="True" AllowSorting="True" PageSize="5"  
-                ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
+                ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" HorizontalAlign="Center" />
                 <Columns>

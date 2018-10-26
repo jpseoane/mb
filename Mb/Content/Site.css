@@ -102,8 +102,7 @@ input[type="select"] {
     border: 1px solid #a9a9a9;
     border-radius: .25em;
     width: 1.3em;
-    height: 1.3em;
-    float: left;
+    height: 1.3em;    
     margin-right: .5em;
 }
 
@@ -131,3 +130,55 @@ input[type="select"] {
         opacity: .5;
     }
 
+/**
+ * GRIDVIEW STYLES
+ **/
+.gridview {
+    font-family: "arial";
+    background-color: #FFFFFF;
+    width: 100%;
+    font-size: small;
+}
+
+    .gridview th {
+        background: #5d7b9d;
+        /*#5d7b9d*/
+        padding: 5px;
+        font-size: small;
+        text-align: center;
+    }
+
+        .gridview th a {
+            color: #003300;
+            text-decoration: none;
+        }
+
+            .gridview th a:hover {
+                color: #003300;
+                text-decoration: underline;
+            }
+
+    .gridview td {
+        background: #f7f6f3;
+        color: #333333;
+        
+        font: small "arial";
+        padding: 4px;
+    }
+
+    .gridview tr.even td {
+        background: #FFFFFF;
+    }
+
+    .gridview td a {
+        color: #003300;
+        font: bold small "arial";
+        padding: 2px;
+        text-decoration: none;
+    }
+
+        .gridview td a:hover {
+            color: red;
+            font-weight: bold;
+            text-decoration: underline;
+        } 

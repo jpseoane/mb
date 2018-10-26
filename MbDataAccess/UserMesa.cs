@@ -17,9 +17,10 @@ namespace MbDataAccess
         public int id { get; set; }
         public string UserId { get; set; }
         public int IdMesa { get; set; }
-        public int estadoCod { get; set; }
-        public string estadoDescri { get; set; }
+        public int PerfilMesaUsuCod { get; set; }
+        public bool activo { get; set; }
         public System.DateTime fecha { get; set; }
+        public bool habilitado { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Mesa Mesa { get; set; }

@@ -22,21 +22,21 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtNumMesa;
         
         /// <summary>
-        /// Control txtNumSillaAprox.
+        /// Control lnbReservar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNumSillaAprox;
+        protected global::System.Web.UI.WebControls.LinkButton lnbReservar;
         
         /// <summary>
-        /// Control btnCargar.
+        /// Control gv.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCargar;
+        protected global::System.Web.UI.WebControls.GridView gv;
     }
 }
