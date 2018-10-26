@@ -24,7 +24,7 @@
         <EntityTypeShape EntityType="mbModel.QR" Width="1.5" PointX="0.75" PointY="9" />
         <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="3" PointY="21.375" />
         <EntityTypeShape EntityType="mbModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="3" PointY="18.75" />
+        <EntityTypeShape EntityType="mbModel.TipoProducto" Width="1.5" PointX="0.625" PointY="18.75" />
         <EntityTypeShape EntityType="mbModel.UserMesa" Width="1.5" PointX="5.25" PointY="11.625" />
         <EntityTypeShape EntityType="mbModel.Carta_Producto" Width="1.5" PointX="7.5" PointY="18.75" />
         <AssociationConnector Association="mbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />

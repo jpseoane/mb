@@ -15,12 +15,12 @@
         </div>
     </div>
     <div class="form-row">
-            <div class="form-group col-lg-4 " >                
+          <%--  <div class="form-group col-lg-4 " >                
                 <label for="ddlCarta">Carta</label><br />
                 <asp:DropDownList ID="ddlCarta" CssClass="form-control"  runat="server"></asp:DropDownList>            
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlCarta" Text="*" 
                     runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
-            </div>
+            </div>--%>
             <div class="form-group col-lg-4" >        
                 <label for="ddlTipo">Tipo</label><br />
                 <asp:DropDownList ID="ddlTipo" CssClass="form-control"  runat="server"></asp:DropDownList>            
@@ -51,7 +51,7 @@
             <!-- Checked checkbox -->
             <div class="checkbox">
                 <label>
-                <input type="checkbox" id="chkActiva" value="" checked>
+                <input type="checkbox" id="chkActiva" value="" runat="server" checked>
                 <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
                 <strong> Producto Disponible</strong>
                 </label>
@@ -115,7 +115,15 @@
                 <SortedDescendingCellStyle BackColor="#FFFDF8" />
                 <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 <Columns>
-                    <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
+                    <asp:BoundField DataField="ProductoNombre" HeaderText="ProductoNombre" NullDisplayText="ProductoNombre" SortExpression="ProductoNombre" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="TipoNombre" HeaderText="TipoNombre" NullDisplayText="TipoNombre" SortExpression="TipoNombre" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+
+
+             <%--       <asp:BoundField DataField="Productodescripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="activa" HeaderText="Activa" NullDisplayText="activa" SortExpression="activa" >
@@ -123,7 +131,7 @@
                     </asp:BoundField>                          
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          
+                    </asp:BoundField>                          --%>
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Content/img/edit.png"
