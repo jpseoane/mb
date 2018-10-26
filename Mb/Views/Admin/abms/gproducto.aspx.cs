@@ -1,5 +1,6 @@
 ﻿using Mb.DAO;
 using MbDataAccess;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,10 +38,13 @@ namespace Mb.Views.Admin.abms
                 case "editar":
                     Producto producto;
                     producto = ProductoController.Get(Convert.ToInt32(e.CommandArgument));
-                    if (carta != null)
+                    if (producto != null)
                     {
-                        this.txtNombreCarta.Text = carta.descripcion;
-                        this.chkActiva.Checked = carta.activa;
+                        this.txtDescri.Text = producto.descripcion;
+                        this.txtPrecio.Text= producto.precioUnitario.ToString();
+                        this.ddlTipo.SelectedValue = producto.IdTipo.ToString();
+                        this.ddlSubTipo.SelectedValue = producto.idSubTipo.ToString();
+                        this.chkActiva.Checked = producto.activo;
                         ViewState["id"] = e.CommandArgument;
                     }
                     break;
@@ -63,7 +67,9 @@ namespace Mb.Views.Admin.abms
 
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text, chkActiva.Checked, User.Identity.GetUserId()));
+
+            Mensaje("Actualizacion", ProductoController.update(Convert.ToInt32(ViewState["id"]), User.Identity.GetUserId(), Convert.ToInt32(ddlTipo.SelectedValue.ToString()), 
+                Convert.ToInt32(ddlSubTipo.SelectedValue.ToString()), this.txtDescri.Text,Convert.ToDouble(txtPrecio.Text), chkActiva.Checked));
         }
 
 

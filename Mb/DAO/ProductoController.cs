@@ -130,7 +130,7 @@ namespace Mb.DAO
       
 
         public static bool update(int id,String UserId, int idTipo, int idSubTipo,
-                                   String descripcion, float precioUnitario, bool activo)
+                                   String descripcion, Double precioUnitario, bool activo)
         {
             exito = false;
             try
@@ -144,7 +144,7 @@ namespace Mb.DAO
                         entity.IdTipo = idTipo;
                         entity.idSubTipo = idSubTipo;
                         entity.descripcion = descripcion;
-                        entity.precioUnitario = precioUnitario;
+                        entity.precioUnitario =(float) precioUnitario;
                         entity.activo = activo;
                         entity.fecha_carga = DateTime.Now;
                         dBEntities.SaveChanges();

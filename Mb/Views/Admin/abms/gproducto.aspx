@@ -51,7 +51,7 @@
             <!-- Checked checkbox -->
             <div class="checkbox">
                 <label>
-                <input type="checkbox" id="chkActiva" value="" checked>
+                <input type="checkbox" id="chkActiva" title="Disponible"  runat="server" checked>
                 <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
                 <strong> Producto Disponible</strong>
                 </label>
