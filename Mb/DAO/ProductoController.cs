@@ -26,6 +26,136 @@ namespace Mb.DAO
                 return entities.Productoes.ToList();
             }
         }
+
+        public static IEnumerable<Producto> GetConDescri()
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var productoTipo = (from p in entities.Productoes
+                                    join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+                                    select p).FirstOrDefault();
+
+                return entities.Productoes.ToList();
+            }
+        }
+
+
+        //public static IQueryable hola()
+        //{
+        //    using (mbDBContext entities = new mbDBContext())
+        //    {
+
+        //        //var lalaa = from Producto p in entities.Productoes
+        //        //            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+        //        //            select new  ProductoConDescri
+        //        //            {
+        //        //                id = p.id,
+        //        //                DescripcionTipo = p.descripcion,
+        //        //                TipoNombre = tp.descripcion
+        //        //            };
+
+        //        //return lalaa;
+        //    }
+        //}
+        public class ProductoConDescri : Producto
+        {
+            //public int idTipo { get; set; }
+            //public string DescripcionTipo { get; set; }
+            //public string TipoNombre { get; set; }
+
+            //public IEnumerable<ProductoConDescri> listar()
+            //{
+            //    using (mbDBContext entities = new mbDBContext())
+            //    {
+            //        List<ProductoConDescri> headers = entities.Productoes.Select(p => new ProductoConDescri
+            //        {
+            //            DescripcionTipo = p.ProductId,
+            //            ProductName = p.ProductName
+            //        }).ToList();
+            //    }
+            //}
+        }
+
+
+
+
+
+        //using (mbDBContext entities = new mbDBContext())
+        //{
+
+        //    gv.DataSource = from Producto in entities.Productoes
+        //                    from TipoProducto in entities.TipoProductoes
+        //                    select new
+        //                    {
+        //                        ProductoNombre = Producto.descripcion,
+        //                        TipoNombre = TipoProducto.descripcion
+        //                    };
+        //    gv.DataBind();
+
+        //}
+
+
+        //          public class ProductHeader
+        //    {
+        //        public int ProductId { get; set; }
+        //        public string ProductName { get; set; }
+        //    }
+
+        //    List<ProductHeader> headers = context.Products.Select(p => new ProductHeader
+        //    {
+        //        ProductId = p.ProductId,
+        //        ProductName = p.ProductName
+        //    }).ToList();
+
+        //}
+
+
+
+        //public static IEnumerable<Producto> GetProductosDetalle(int estado)
+        //{
+
+        //    try
+        //    {
+        //        using (mbDBContext dBEntities = new mbDBContext())
+        //        {
+        //          var productoTipoDescri = 
+        //          dBEntities.Productoes.Join(dBEntities.TipoProductoes, pro => pro.IdTipo, tipo => tipo.Id, (pro, tipo) => new { pro, tipo }).Where(x => x.pro.IdTipo == 1);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        exito = false;
+        //    }
+
+        //}
+
+
+        //public static object GetProductoConTipoProductoIgual(int tipoProducto)
+        //{
+
+        //    try
+        //    {
+        //        using (mbDBContext dBEntities = new mbDBContext())
+        //        {
+
+        //            var productoTipoDescri = dBEntities.Productoes.Join(dBEntities.TipoProductoes, pro => pro.IdTipo, tipo => tipo.Id, (pro, tipo) => new { pro, tipo }).Where(x => x.pro.IdTipo == tipoProducto);
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        exito = false;
+        //    }
+
+        //    return productoTipoDescri;
+
+        //}
+
+
+
+
+
+
         public static bool agregar(Producto Producto)
         {
             exito = false;
@@ -46,7 +176,7 @@ namespace Mb.DAO
         }
 
         public static bool agregar(String UserId, int idTipo, int idSubTipo, 
-                                   String descripcion, float precioUnitario, bool activo)
+                                   String descripcion, double precioUnitario, bool activo)
         {
             exito = false;
             try
@@ -56,7 +186,7 @@ namespace Mb.DAO
                 Producto.IdTipo = idTipo;
                 Producto.idSubTipo= idSubTipo;
                 Producto.descripcion = descripcion;
-                Producto.precioUnitario = precioUnitario;
+                Producto.precioUnitario = (float) precioUnitario;
                 Producto.activo = activo;
                 Producto.fecha_carga = DateTime.Now;
                 using (mbDBContext ProductoDBEntities = new mbDBContext())
@@ -144,7 +274,7 @@ namespace Mb.DAO
                         entity.IdTipo = idTipo;
                         entity.idSubTipo = idSubTipo;
                         entity.descripcion = descripcion;
-                        entity.precioUnitario =(float) precioUnitario;
+                        entity.precioUnitario = (float) precioUnitario;
                         entity.activo = activo;
                         entity.fecha_carga = DateTime.Now;
                         dBEntities.SaveChanges();
@@ -159,6 +289,10 @@ namespace Mb.DAO
             }
             return exito;
         }
+
+
+      
+
 
         public static String GetMensajeError(int numerror)
         {

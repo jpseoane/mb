@@ -1,4 +1,5 @@
 ﻿using Mb.DAO;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +46,26 @@ namespace Mb.Views.Admin.abms
             this.ddlSubTipo.DataValueField = ("id");
             this.ddlSubTipo.DataSource = SubTipoProductoController.Get();
             this.ddlSubTipo.DataBind();
-            this.ddlCarta.DataTextField = ("descripcion");
-            this.ddlCarta.DataValueField = ("Id");
-            this.ddlCarta.DataSource = CartaController.Get();
-            this.ddlCarta.DataBind();
+            //this.ddlCarta.DataTextField = ("descripcion");
+            //this.ddlCarta.DataValueField = ("Id");
+            //this.ddlCarta.DataSource = CartaController.Get();
+            //this.ddlCarta.DataBind();
+        }
+
+        protected void btnCargar_Click(object sender, EventArgs e)
+        {
+            Mensaje("Agregar", ProductoController.agregar(User.Identity.GetUserId(), Convert.ToInt32(ddlTipo.SelectedValue), Convert.ToInt32(ddlSubTipo.SelectedValue),
+                txtDescri.Text, Convert.ToDouble(txtPrecio.Text), chkActiva.Checked));
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtPrecio.Text = "";
+            this.txtDescri.Text = "";
+            this.ddlSubTipo.ClearSelection();
+            this.ddlTipo.ClearSelection();
+            chkActiva.Checked = true;
+            divPrueba.Visible = false;
         }
     }
 }
