@@ -12,18 +12,17 @@ namespace MbDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class UserMesa
+    public partial class PerfilMesa
     {
-        public int id { get; set; }
-        public string UserId { get; set; }
-        public int IdMesa { get; set; }
-        public int idPerfilMesa { get; set; }
-        public bool activo { get; set; }
-        public System.DateTime fecha { get; set; }
-        public bool habilitado { get; set; }
+        public PerfilMesa()
+        {
+            this.UserMesas = new HashSet<UserMesa>();
+        }
     
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual Mesa Mesa { get; set; }
-        public virtual PerfilMesa PerfilMesa { get; set; }
+        public int id { get; set; }
+        public string descripcion { get; set; }
+        public string cod { get; set; }
+    
+        public virtual ICollection<UserMesa> UserMesas { get; set; }
     }
 }

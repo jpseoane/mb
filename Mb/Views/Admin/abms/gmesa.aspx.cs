@@ -25,7 +25,7 @@ namespace Mb.Views.Admin.abms
             {
                 case "editar":
                     Mesa mesa;
-                    mesa = MesaController.Get(Convert.ToInt32(e.CommandArgument));
+                    mesa = MesaController.GetbyId(Convert.ToInt32(e.CommandArgument));
                     if (mesa != null)
                     {
                         this.txtNumeroMesa.Text = mesa.numero.ToString();
@@ -49,7 +49,7 @@ namespace Mb.Views.Admin.abms
 
         private void CargaGrilla()
         {
-            gv.DataSource = MesaController.Get();
+            gv.DataSource = MesaController.GetTodas();
             gv.DataBind();
             divPrueba.Visible = false;
         }

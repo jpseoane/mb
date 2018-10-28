@@ -12,22 +12,58 @@ namespace Mb.DAO
         public static String mens { get; set; }
         public static ErrorMesa errorMesa { get; set; }
 
-        public static Mesa Get(int id)
+        public static bool resultado { get; set; }
+        
+
+        public static Mesa GetbyId(int id)
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 return entities.Mesas.FirstOrDefault(e => e.Id == id);
             }
         }
-        public static IEnumerable<Mesa> Get()
+
+        public static Mesa GetbyNumeroMesa(int numero)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Mesas.FirstOrDefault(e => e.numero == numero);
+            }
+        }
+
+        public static IEnumerable<Mesa> GetTodas()
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 return entities.Mesas.ToList();
             }
         }
+        public static bool ExisteMesaNumero(int numero)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = (from m in entities.Mesas
+                             where m.numero == numero
+                             select m
+                              ).Any();
+                return query;
+            }
+        }
 
-     
+        public static List<UserMesa> GetUserMesaByNumeroMesa2(int numMesa)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from um in entities.UserMesas
+                            join me in entities.Mesas on um.IdMesa equals me.Id
+                            where me.numero == numMesa && um.habilitado == true
+                            select um;
+                var userMesas = query.ToList();
+                return userMesas;
+            }
+        }
+
+
 
         //public class AlumnoDireccion
         //{
@@ -118,7 +154,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 exito = false;
             }
@@ -145,7 +181,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 exito = false;
             }
@@ -174,7 +210,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 exito = false;
                 //mens = "Error al intentar actualizar la Mesa";

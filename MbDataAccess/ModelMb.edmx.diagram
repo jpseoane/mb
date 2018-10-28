@@ -41,9 +41,11 @@
         <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" />
         <AssociationConnector Association="mbModel.FK_Carta_Producto_Carta" />
-        <EntityTypeShape EntityType="mbModel.UserMesa" Width="1.5" PointX="5.25" PointY="11.625" />
+        <EntityTypeShape EntityType="mbModel.PerfilMesa" Width="1.5" PointX="7.375" PointY="0.875" />
+        <EntityTypeShape EntityType="mbModel.UserMesa" Width="1.5" PointX="9.625" PointY="7.625" />
         <AssociationConnector Association="mbModel.FK_UserMesa_AspNetUsers" />
         <AssociationConnector Association="mbModel.FK_UserMesa_Mesa" />
+        <AssociationConnector Association="mbModel.FK_UserMesa_PerfilMesa" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

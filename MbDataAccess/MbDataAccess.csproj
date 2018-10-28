@@ -112,6 +112,9 @@
     <Compile Include="Pedido.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
+    <Compile Include="PerfilMesa.cs">
+      <DependentUpon>ModelMb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Producto.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>

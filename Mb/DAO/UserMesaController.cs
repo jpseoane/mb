@@ -19,6 +19,15 @@ namespace Mb.DAO
                 return entities.UserMesas.FirstOrDefault(e => e.id == id);
             }
         }
+
+        public static UserMesa GetByIdUSer(String userID)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.UserMesas.FirstOrDefault(e => e.UserId == userID);
+            }
+        }
+
         public static IEnumerable<UserMesa> Get()
         {
             using (mbDBContext entities = new mbDBContext())
@@ -40,22 +49,8 @@ namespace Mb.DAO
         }
 
 
+        //Busca en el numero de mesa usuarios habilitados
         public static List<UserMesa> GetUserMesaByNumeroMesa(int numMesa)
-        {
-            using (mbDBContext entities = new mbDBContext())
-            {
-                return  (from um in entities.UserMesas
-                        join me in entities.Mesas on um.IdMesa equals me.Id
-                        where me.numero == numMesa
-                        select new UserMesa
-                        {
-                        }).ToList();
-               
-            }
-        }
-
-
-        public static List<UserMesa> GetUserMesaByNumeroMesa2(int numMesa)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -67,6 +62,69 @@ namespace Mb.DAO
                 return userMesas;
             }
         }
+
+
+        public class UsuariosDeMesa : UserMesa
+        {
+            public int id { get; set; }
+            public String email { get; set; }
+            public int mesaNumero { get; set; }
+            public String perfilEnMesa { get; set; }
+
+            //public UsuariosDeMesa(int mnumero,String email, String perfilenMesa) {
+            //    this.mesaNumero = mnumero;
+            //    this.emaIl = email;
+            //    this.perfilEnMesa = perfilEnMesa;
+            //}
+        }
+
+        //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con estado (activo) sean o no perfil administrador
+        public static List<UsuariosDeMesa> GetUsuariosDeMesa(int idmesa)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from UserMesa um in entities.UserMesas
+                            join asu in entities.AspNetUsers on um.UserId equals asu.Id
+                            join ms in entities.Mesas on um.IdMesa equals ms.Id
+                            join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
+                            where um.IdMesa==idmesa && um.activo==true                            
+                            select new UsuariosDeMesa
+                            {
+                                id = um.id,
+                                email = asu.Email,
+                                mesaNumero = ms.numero,
+                                perfilEnMesa = pm.descripcion
+                            };
+                
+                var userMesas = query.ToList();
+                return userMesas;
+            }
+        }
+
+        public static UsuariosDeMesa GetUsuarioDeMesaByIdUser(String userId)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from UserMesa um in entities.UserMesas
+                            join asu in entities.AspNetUsers on um.UserId equals asu.Id
+                            join ms in entities.Mesas on um.IdMesa equals ms.Id
+                            join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
+                            where asu.Id == userId
+                            select new UsuariosDeMesa
+                            {
+                                id = um.id,
+                                email = asu.Email,
+                                mesaNumero = ms.numero,
+                                perfilEnMesa = pm.descripcion
+                            };
+
+                var usuarioDeMesa = query.FirstOrDefault();
+                return usuarioDeMesa;
+            }
+        }
+
+
+
 
 
 
@@ -145,7 +203,7 @@ namespace Mb.DAO
             return exito;
         }
 
-        public static bool agregar(String UserId, int idMesa,int perfilMesaUsuCod,bool activo, bool habilitado)
+        public static bool agregar(String UserId, int idMesa,int idPerfilMesa,bool activo, bool habilitado)
         {
             exito = false;
             try
@@ -153,7 +211,7 @@ namespace Mb.DAO
                 UserMesa UserMesa = new UserMesa();
                 UserMesa.UserId = UserId;
                 UserMesa.IdMesa = idMesa;
-                UserMesa.PerfilMesaUsuCod = perfilMesaUsuCod;
+                UserMesa.idPerfilMesa = idPerfilMesa;
                 UserMesa.activo = activo;
                 UserMesa.habilitado = habilitado;
                 UserMesa.fecha = DateTime.Now;
@@ -193,7 +251,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 exito = false;
             }
@@ -209,25 +267,25 @@ namespace Mb.DAO
                     var entity = dBEntities.UserMesas.FirstOrDefault(e => e.id == userMesa.id);
                     if (entity != null)
                     {
-                        entity.UserId = userMesa.UserId;
-                        entity.IdMesa = userMesa.IdMesa;
-                        entity.PerfilMesaUsuCod = userMesa.PerfilMesaUsuCod;
-                        entity.activo = userMesa.activo;
-                        entity.habilitado = userMesa.habilitado;                        
-                        entity.fecha = DateTime.Now; 
+                       entity.UserId = userMesa.UserId;
+                       entity.IdMesa = userMesa.IdMesa;
+                       entity.idPerfilMesa = userMesa.idPerfilMesa;
+                       entity.activo = userMesa.activo;
+                       entity.habilitado = userMesa.habilitado;                        
+                       entity.fecha = DateTime.Now; 
                        dBEntities.SaveChanges();
 
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 exito = false;
             }
             return exito;
         }
     
-        public static bool update(int id ,String UserId, int idMesa, int perfilMesaUsuCod, bool activo, bool habilitado)
+        public static bool update(int id ,String UserId, int idMesa, int idPerfilMesa, bool activo, bool habilitado)
         {
             exito = false;
             try
@@ -240,7 +298,7 @@ namespace Mb.DAO
                         //entity.idproducto = idProducto;
                         entity.UserId = UserId;
                         entity.IdMesa= idMesa;
-                        entity.PerfilMesaUsuCod = perfilMesaUsuCod;
+                        entity.idPerfilMesa = idPerfilMesa;
                         entity.activo = activo;
                         entity.habilitado = habilitado;                        
                         entity.fecha =   DateTime.Now;
@@ -250,7 +308,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 exito = false;
                 //mens = "Error al intentar actualizar la UserMesa";
@@ -288,7 +346,7 @@ namespace Mb.DAO
 
     }
 
-    public class ErrorUserMesa : Exception
+        public class ErrorUserMesa : Exception
     {
 
         public int numero { get; set; }

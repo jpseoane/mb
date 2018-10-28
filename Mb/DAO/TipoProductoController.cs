@@ -76,7 +76,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 TodoOk = false;
             }
@@ -100,7 +100,7 @@ namespace Mb.DAO
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 TodoOk = false;
             }

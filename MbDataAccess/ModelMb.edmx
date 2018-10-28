@@ -189,6 +189,14 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <Property Name="precio" Type="real" Nullable="false" />
           <Property Name="subtotal" Type="real" />
         </EntityType>
+        <EntityType Name="PerfilMesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cod" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="id" />
@@ -244,7 +252,7 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdMesa" Type="int" Nullable="false" />
-          <Property Name="PerfilMesaUsuCod" Type="int" Nullable="false" />
+          <Property Name="idPerfilMesa" Type="int" Nullable="false" />
           <Property Name="activo" Type="bit" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="habilitado" Type="bit" Nullable="false" />
@@ -473,6 +481,18 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserMesa_PerfilMesa">
+          <End Role="PerfilMesa" Type="Self.PerfilMesa" Multiplicity="1" />
+          <End Role="UserMesa" Type="Self.UserMesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerfilMesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserMesa">
+              <PropertyRef Name="idPerfilMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -521,6 +541,7 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <EntitySet Name="MensajeMuro" EntityType="Self.MensajeMuro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesa" EntityType="Self.Mesa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerfilMesa" EntityType="Self.PerfilMesa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QR" EntityType="Self.QR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubTipo" EntityType="Self.SubTipo" Schema="dbo" store:Type="Tables" />
@@ -607,6 +628,10 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_UserMesa_Mesa" Association="Self.FK_UserMesa_Mesa">
             <End Role="Mesa" EntitySet="Mesa" />
+            <End Role="UserMesa" EntitySet="UserMesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMesa_PerfilMesa" Association="Self.FK_UserMesa_PerfilMesa">
+            <End Role="PerfilMesa" EntitySet="PerfilMesa" />
             <End Role="UserMesa" EntitySet="UserMesa" />
           </AssociationSet>
         </EntityContainer>
@@ -726,6 +751,7 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             <End Role="Carta" EntitySet="Cartas" />
             <End Role="Carta_Producto" EntitySet="Carta_Producto" />
           </AssociationSet>
+          <EntitySet Name="PerfilMesas" EntityType="mbModel.PerfilMesa" />
           <EntitySet Name="UserMesas" EntityType="mbModel.UserMesa" />
           <AssociationSet Name="FK_UserMesa_AspNetUsers" Association="mbModel.FK_UserMesa_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -733,6 +759,10 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_UserMesa_Mesa" Association="mbModel.FK_UserMesa_Mesa">
             <End Role="Mesa" EntitySet="Mesas" />
+            <End Role="UserMesa" EntitySet="UserMesas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMesa_PerfilMesa" Association="mbModel.FK_UserMesa_PerfilMesa">
+            <End Role="PerfilMesa" EntitySet="PerfilMesas" />
             <End Role="UserMesa" EntitySet="UserMesas" />
           </AssociationSet>
           </EntityContainer>
@@ -1177,6 +1207,15 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PerfilMesa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cod" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UserMesas" Relationship="mbModel.FK_UserMesa_PerfilMesa" FromRole="PerfilMesa" ToRole="UserMesa" />
+        </EntityType>
         <EntityType Name="UserMesa">
           <Key>
             <PropertyRef Name="id" />
@@ -1184,12 +1223,13 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdMesa" Type="Int32" Nullable="false" />
-          <Property Name="PerfilMesaUsuCod" Type="Int32" Nullable="false" />
+          <Property Name="idPerfilMesa" Type="Int32" Nullable="false" />
           <Property Name="activo" Type="Boolean" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="habilitado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_UserMesa_AspNetUsers" FromRole="UserMesa" ToRole="AspNetUser" />
           <NavigationProperty Name="Mesa" Relationship="mbModel.FK_UserMesa_Mesa" FromRole="UserMesa" ToRole="Mesa" />
+          <NavigationProperty Name="PerfilMesa" Relationship="mbModel.FK_UserMesa_PerfilMesa" FromRole="UserMesa" ToRole="PerfilMesa" />
         </EntityType>
         <Association Name="FK_UserMesa_AspNetUsers">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -1212,6 +1252,18 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Principal>
             <Dependent Role="UserMesa">
               <PropertyRef Name="IdMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMesa_PerfilMesa">
+          <End Type="mbModel.PerfilMesa" Role="PerfilMesa" Multiplicity="1" />
+          <End Type="mbModel.UserMesa" Role="UserMesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerfilMesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserMesa">
+              <PropertyRef Name="idPerfilMesa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1488,13 +1540,22 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PerfilMesas">
+            <EntityTypeMapping TypeName="mbModel.PerfilMesa">
+              <MappingFragment StoreEntitySet="PerfilMesa">
+                <ScalarProperty Name="cod" ColumnName="cod" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserMesas">
             <EntityTypeMapping TypeName="mbModel.UserMesa">
               <MappingFragment StoreEntitySet="UserMesa">
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="PerfilMesaUsuCod" ColumnName="PerfilMesaUsuCod" />
+                <ScalarProperty Name="idPerfilMesa" ColumnName="idPerfilMesa" />
                 <ScalarProperty Name="IdMesa" ColumnName="IdMesa" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="id" ColumnName="id" />

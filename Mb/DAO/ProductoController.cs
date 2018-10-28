@@ -143,7 +143,7 @@ namespace Mb.DAO
         //          dBEntities.Productoes.Join(dBEntities.TipoProductoes, pro => pro.IdTipo, tipo => tipo.Id, (pro, tipo) => new { pro, tipo }).Where(x => x.pro.IdTipo == 1);
         //        }
         //    }
-        //    catch (Exception ex)
+        //    catch
         //    {
         //        exito = false;
         //    }
@@ -163,7 +163,7 @@ namespace Mb.DAO
 
         //        }
         //    }
-        //    catch (Exception ex)
+        //    catch
         //    {
         //        exito = false;
         //    }
@@ -244,7 +244,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 TodoOk = false;
             }
@@ -272,7 +272,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 exito = false;
             }
@@ -304,7 +304,7 @@ namespace Mb.DAO
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 exito = false;                
             }
