@@ -25,6 +25,7 @@ namespace Mb.Models
         {
             return Task.FromResult(GenerateUserIdentity(manager));
         }
+        public String perfil { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

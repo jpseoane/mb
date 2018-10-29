@@ -16,13 +16,14 @@ namespace Mb.Views.Usuario
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack) {
+                
                 UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null)
                 {
                     this.lblMail.Text = usuarioDeMesa.email;
                     this.lblPerfil.Text = usuarioDeMesa.perfilEnMesa;
-                    this.chkActivo.Checked = usuarioDeMesa.activo;
-                    gvUsuariosEnMesa.DataSource = UserMesaController.GetUsuariosDeMesa(usuarioDeMesa.IdMesa);
+                    this.chkActiva.Checked = usuarioDeMesa.activo;
+                    gvUsuariosEnMesa.DataSource = UserMesaController.GetUsuariosDeMesa(usuarioDeMesa.idMesa);
                     gvUsuariosEnMesa.DataBind();
                     dvAsignaMesa.Visible = false;
                     dvUsuarioMesa.Visible = true;

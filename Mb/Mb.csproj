@@ -411,6 +411,7 @@
     <Compile Include="DAO\SubTipoProductoController.cs" />
     <Compile Include="DAO\TipoProductoController.cs" />
     <Compile Include="DAO\UserMesaController.cs" />
+    <Compile Include="DAO\UsuarioController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

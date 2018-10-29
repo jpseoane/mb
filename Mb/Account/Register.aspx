@@ -37,6 +37,20 @@
             </div>
         </div>
         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ddlPerfil" CssClass="col-md-2 control-label">Perfil</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control">
+                    <asp:ListItem Value="S">Seleccionar</asp:ListItem>
+                    <asp:ListItem Value="D">Dueño</asp:ListItem>
+                    <asp:ListItem Value="E">Empleado</asp:ListItem>
+                    <asp:ListItem Value="M">Mozo</asp:ListItem>
+                </asp:DropDownList>
+                <br />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlPerfil" InitialValue="S"
+                    CssClass="text-danger" ErrorMessage="El perfil es obligatorio." />
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <asp:Button runat="server" OnClick="CreateUser_Click" Text="Registrarse" CssClass="btn btn-default" />
             </div>

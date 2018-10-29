@@ -85,13 +85,13 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.WebControls.Label lblPerfil;
         
         /// <summary>
-        /// Control chkActivo.
+        /// Control chkActiva.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkActivo;
+        protected global::System.Web.UI.WebControls.CheckBox chkActiva;
         
         /// <summary>
         /// Control dvGrupoMesa.

@@ -39,10 +39,8 @@
                   <strong><label for="lblPerfil">Perfil:</label></strong>
                   <asp:Label ID="lblPerfil" runat="server" Text="Tu Perfil"></asp:Label><br />
                   <strong><label for="lblActivo">Activo</label></strong>
-                  <div class="checkbox">
-                    <input type="checkbox" id="chkActivo" value="" runat="server" checked>
-                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                  </div>
+                  <asp:CheckBox ID="chkActiva" runat="server" />                    
+                  
               </div>
             </div>
         </div>
@@ -54,7 +52,7 @@
                   <div class="panel-heading">El grupo de tu mesa:</div>
                   <div class="panel-body">
                     <p>Estas personas estan compartiendo con vos la mesa si queres que alguno pueda o no realizar pedidos y ponerlo a cuenta de la mesa puedes confirmar el permiso por medio de la pestaña Amigos!</p>
-                  </div>
+                  
                   <table class="table">
                     <asp:GridView ID="gvUsuariosEnMesa" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" >
                         <AlternatingRowStyle BackColor="White" />
@@ -68,8 +66,14 @@
                         <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        <EmptyDataTemplate>
+                            <div>
+                                   No hay mas usuarios registrados en esta mesa
+                            </div>
+                        </EmptyDataTemplate>
                     </asp:GridView>
                   </table>
+              </div>
            </div>
         </div>
     </div>

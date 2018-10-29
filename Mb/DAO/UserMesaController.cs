@@ -68,6 +68,7 @@ namespace Mb.DAO
         {
             public int id { get; set; }
             public String email { get; set; }
+            public int idMesa { get; set; }
             public int mesaNumero { get; set; }
             public String perfilEnMesa { get; set; }
 
@@ -78,7 +79,8 @@ namespace Mb.DAO
             //}
         }
 
-        //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con estado (activo) sean o no perfil administrador
+        //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
+        //sean o no perfil administrador
         public static List<UsuariosDeMesa> GetUsuariosDeMesa(int idmesa)
         {
             using (mbDBContext entities = new mbDBContext())
@@ -87,16 +89,18 @@ namespace Mb.DAO
                             join asu in entities.AspNetUsers on um.UserId equals asu.Id
                             join ms in entities.Mesas on um.IdMesa equals ms.Id
                             join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
-                            where um.IdMesa==idmesa && um.activo==true                            
+                            where um.IdMesa== idmesa && um.habilitado==true
                             select new UsuariosDeMesa
                             {
                                 id = um.id,
+                                idMesa=um.IdMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
                                 perfilEnMesa = pm.descripcion
                             };
                 
                 var userMesas = query.ToList();
+                
                 return userMesas;
             }
         }
@@ -113,6 +117,7 @@ namespace Mb.DAO
                             select new UsuariosDeMesa
                             {
                                 id = um.id,
+                                idMesa = um.IdMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
                                 perfilEnMesa = pm.descripcion

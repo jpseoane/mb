@@ -6,7 +6,7 @@
         <p class="lead">Para empezar a utilizar la apliacion selecciona una opcion!</p>        
     </div>
 
-    <div class="row">
+    <div class="form-horizontal">
         <div class="col-sm-6 col-md-6 col-lg-6">
             <h2>Con Mesa</h2>
             <p>
@@ -15,7 +15,8 @@
             <br />
             
             <div style="text-align:center">
-               <a href="pedmesa/pedidomesa.aspx"> <img width="250px" height="250px" src="../../../Content/img/mesa.png" class="" /></a>
+                <asp:ImageButton runat="server"  ID="imbtnMesa" width="250px" height="250px" PostBackUrl="~/Views/Usuario/pedidos/pedmesa/pedidomesa.aspx"
+               ImageUrl="../../../Content/img/mesa.png" OnClick="imbtnMesa_Click" />   
             </div>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
