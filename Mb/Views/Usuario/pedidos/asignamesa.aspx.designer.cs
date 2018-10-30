@@ -7,10 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Mb.Views.Usuario {
+namespace Mb.Views.Usuario.pedidos {
     
     
-    public partial class pedido {
+    public partial class asignamesa {
         
         /// <summary>
         /// Control dvAsignaMesa.

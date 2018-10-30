@@ -3,20 +3,18 @@ using MbDataAccess;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using static Mb.DAO.UserMesaController;
 
-namespace Mb.Views.Usuario
+namespace Mb.Views.Usuario.pedidos
 {
-    public partial class pedido : System.Web.UI.Page
+    public partial class asignamesa : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack) {
-                
+            if (!Page.IsPostBack)
+            {
+
                 UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null)
                 {
@@ -35,14 +33,14 @@ namespace Mb.Views.Usuario
                     dvGrupoMesa.Visible = false;
                     dvAsignaMesa.Visible = true;
                 };
-                
+
             }
         }
 
         protected void lnbReservar_Click(object sender, EventArgs e)
         {
             Mesa mesa = MesaController.GetbyNumeroMesa(Convert.ToInt32(this.txtNumeroMesa.Text));
-            if (mesa!=null)
+            if (mesa != null)
             {
                 //Busco los usuarios del numero de mesa habilitados
                 List<UserMesa> Lista = UserMesaController.GetUserMesaByNumeroMesa(Convert.ToInt32(this.txtNumeroMesa.Text));
@@ -74,7 +72,7 @@ namespace Mb.Views.Usuario
 
         private void Mensaje(String mensaje, bool exito)
         {
-            
+
             if (exito)
             {
                 divPrueba.Attributes.Add("class", "alert alert-success");

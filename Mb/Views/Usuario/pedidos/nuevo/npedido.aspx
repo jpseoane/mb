@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pedidosolo.aspx.cs" Inherits="Mb.Views.Usuario.pedidos.pedsolo.pedidosolo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="npedido.aspx.cs" Inherits="Mb.Views.Usuario.pedidos.nuevo.npedido" %>
 
 <!DOCTYPE html>
 

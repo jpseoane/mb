@@ -1,10 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="pedidomesa.aspx.cs" Inherits="Mb.Views.Usuario.pedido" MasterPageFile="~/Site.Master" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="asignamesa.aspx.cs" Inherits="Mb.Views.Usuario.pedidos.asignamesa"  MasterPageFile="~/Site.Master"  %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h1>Pedidos - Asignación de Mesa</h1>
+        <h1>Asignación de Mesa</h1>
         <p class="lead">Reserve su mesa ingresando el numero!</p>        
     </div>
 <div class="container">

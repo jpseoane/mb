@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mb.Views.Usuario.pedidos.pedsolo
+namespace Mb.Views.Usuario.pedidos.nuevo
 {
 
 
-    public partial class pedidosolo
+    public partial class npedido
     {
 
         /// <summary>

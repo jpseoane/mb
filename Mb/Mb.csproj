@@ -271,10 +271,10 @@
     <Content Include="Views\Admin\producto.aspx" />
     <Content Include="Views\Admin\usuario.aspx" />
     <Content Include="Views\asignausuariomesa.aspx" />
-    <Content Include="Views\Usuario\pedidos\pedsolo\pedidosolo.aspx" />
+    <Content Include="Views\Usuario\pedidos\asignamesa.aspx" />
+    <Content Include="Views\Usuario\pedidos\nuevo\npedido.aspx" />
     <Content Include="Views\Usuario\muro.aspx" />
-    <Content Include="Views\Usuario\pedidos\pedmesa\pedidomesa.aspx" />
-    <Content Include="Views\Usuario\pedidos\prepedido.aspx" />
+    <Content Include="Views\Usuario\pedidos\modocompra.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -544,12 +544,19 @@
     <Compile Include="Views\asignausuariomesa.aspx.designer.cs">
       <DependentUpon>asignausuariomesa.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuario\pedidos\pedsolo\pedidosolo.aspx.cs">
-      <DependentUpon>pedidosolo.aspx</DependentUpon>
+    <Compile Include="Views\Usuario\pedidos\asignamesa.aspx.cs">
+      <DependentUpon>asignamesa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Usuario\pedidos\pedsolo\pedidosolo.aspx.designer.cs">
-      <DependentUpon>pedidosolo.aspx</DependentUpon>
+    <Compile Include="Views\Usuario\pedidos\asignamesa.aspx.designer.cs">
+      <DependentUpon>asignamesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usuario\pedidos\nuevo\npedido.aspx.cs">
+      <DependentUpon>npedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Usuario\pedidos\nuevo\npedido.aspx.designer.cs">
+      <DependentUpon>npedido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Usuario\muro.aspx.cs">
       <DependentUpon>muro.aspx</DependentUpon>
@@ -558,19 +565,12 @@
     <Compile Include="Views\Usuario\muro.aspx.designer.cs">
       <DependentUpon>muro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuario\pedidos\pedmesa\pedidomesa.aspx.cs">
-      <DependentUpon>pedidomesa.aspx</DependentUpon>
+    <Compile Include="Views\Usuario\pedidos\modocompra.aspx.cs">
+      <DependentUpon>modocompra.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Usuario\pedidos\pedmesa\pedidomesa.aspx.designer.cs">
-      <DependentUpon>pedidomesa.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Usuario\pedidos\prepedido.aspx.cs">
-      <DependentUpon>prepedido.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Usuario\pedidos\prepedido.aspx.designer.cs">
-      <DependentUpon>prepedido.aspx</DependentUpon>
+    <Compile Include="Views\Usuario\pedidos\modocompra.aspx.designer.cs">
+      <DependentUpon>modocompra.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
