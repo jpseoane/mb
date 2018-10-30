@@ -57,19 +57,20 @@
                         
                         <%--Perfil Admin--%>                        
                         <li><a runat="server" href="~/Views/Admin/abms/gproducto.aspx">Producto</a></li>
-                        <li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>                        
-                        <li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Mesa</a></li>
-                        <li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>
-                        <li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>
+                        <%--<li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>                        --%>
+                        <%--<li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Gestion Mesa</a></li>--%>
+                        <%--<li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>--%>
+                        <%--<li><a runat="server" href="~/Views/Admin/cliente.aspx">Cliente</a></li>--%>
 
                         <%--Perfil Usuario/Admin--%>  
-                        <li><a runat="server" href="~/Views/Usuario/pedidos/modocompra.aspx">Modo Compra</a></li>                            
+                        <li><a runat="server" href="~/Views/Usuario/pedidos/asignamesa.aspx">Mesa</a></li>                        
+                        <li><a runat="server" href="~/Views/Usuario/pedidos/nuevo/npedido.aspx">Pedido</a></li>                                                
                         <li><a runat="server" href="~/Views/ajustes.aspx">Ajustes</a></li>                                                    
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <li><a runat="server" href="~/Contact">Contacto</a></li>                                         
 
                     </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                    <asp:LoginView runat="server" ID="lv" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Register">Registrarse</a></li>
@@ -78,7 +79,9 @@
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manega tu cuenta">Hola, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li><a runat="server" href="~/Account/Manage" title="Manega tu cuenta">Hola, <%: Context.User.Identity.GetUserName() %> ! 
+                                    (<asp:Label ID="lblRolCompra"  ForeColor="White" runat="server" ></asp:Label>)</a></li>
+                                
                                 <li>
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>
@@ -98,5 +101,6 @@
             </footer>
         </div>
     </form>
+
 </body>
 </html>

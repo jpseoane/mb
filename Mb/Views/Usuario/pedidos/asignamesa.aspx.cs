@@ -14,7 +14,6 @@ namespace Mb.Views.Usuario.pedidos
         {
             if (!Page.IsPostBack)
             {
-
                 UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null)
                 {

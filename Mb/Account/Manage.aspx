@@ -75,6 +75,15 @@
                 </dl>
             </div>
         </div>
+         <div class="col-md-12 col-lg-12"  id="dvMensajeCambio" runat="server" >
+            <div class="alert alert-info alert-dismissible " role="alert">
+               <h3>Cambio de compra</h3>
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <asp:Label  id="lblMensaje" runat="server" Text=""></asp:Label>
+                <a href="Manage.aspx?fc=b" id="aCambioBarra" runat="server" class="alert-link" visible="false">Si quiero pasar a la Barra!</a> 
+                <a href="Manage.aspx?fc=m" id="aCambioMesa" runat="server" class="alert-link" visible="false">Si quiero pasar a una mesa!</a>                
+            </div>
+       </div>
     </div>
 
 </asp:Content>

@@ -11,7 +11,18 @@ namespace Mb.Views.Usuario.pedidos.nuevo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack) {
+                ValidaUsuario();
 
+            }
+        }
+
+        private void ValidaUsuario()
+        {
+            if (Session["RolDeCompra"].ToString() == "Mesa") {
+
+
+            }
         }
     }
 }

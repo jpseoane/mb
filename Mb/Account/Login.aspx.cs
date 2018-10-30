@@ -38,6 +38,7 @@ namespace Mb.Account
                 switch (result)
                 {
                     case SignInStatus.Success:
+                        Session["RolDeCompra"] = "Mesa";
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                         break;
                     case SignInStatus.LockedOut:

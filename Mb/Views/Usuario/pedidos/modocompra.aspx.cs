@@ -8,6 +8,11 @@ namespace Mb.Views.Usuario.pedidos
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            RevisaModoCompra();
+        }
+
+        private void RevisaModoCompra() {
+
             //NO TIENE UN ROL DE COMPRA ASIGNADO
             if (!String.IsNullOrEmpty(Session["RolDeCompra"] as string))
             {
@@ -17,11 +22,12 @@ namespace Mb.Views.Usuario.pedidos
                 if (!String.IsNullOrEmpty(Request.QueryString["fc"]))
                 {
                     //cambiar a mesa
-                    if (Request.QueryString["fc"].ToString() == "m") {
+                    if (Request.QueryString["fc"].ToString() == "m")
+                    {
                         //Tengo que verificar que su cuenta de pedidos este salda y lo envio a registrase en mesa
 
                         Session["RolDeCompra"] = "Mesa";
-                        Response.Redirect("../pedmesa/asignamesa.aspx");                    
+                        Response.Redirect("modocompra.aspx");
                     }
                     //Si selecciono barra 
                     else if (Request.QueryString["fc"].ToString() == "b")
@@ -47,8 +53,9 @@ namespace Mb.Views.Usuario.pedidos
                 //    //HABILITO PARA QUE PUEDA CAMBIAR A MESA
 
                 //}
-            }            
-            
+            }
+
+
         }
 
         private void habiliarModo(String modo) {
