@@ -14,7 +14,7 @@
     <div class="form-row" id="dvAsignaMesa" runat="server" visible="false">
        <div lass="form-group col-lg-12" >
             <label for="txtNumeroMesa" >Numero de mesa</label><br />
-            <asp:TextBox runat="server" ID="txtNumeroMesa" placeholder="Numero de mesa" required></asp:TextBox>
+            <asp:TextBox runat="server" ID="txtNumeroMesa" CssClass="form-control" placeholder="Numero de mesa" required></asp:TextBox>
             <br />
             <asp:LinkButton ID="lnbReservar" runat="server" OnClick="lnbReservar_Click">Asginame a esta Mesa!</asp:LinkButton>
        </div>
