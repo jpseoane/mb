@@ -128,14 +128,4 @@
         </div>
     </div>
  </div>
-      <script>
-        export default {
-          data () {
-            return {
-              status: 'No activo'
-            }
-          }
-        }
-    </script>
-
 </asp:Content>

@@ -2,25 +2,27 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h1>MiBar - Nueva mesa</h1>
-        <p class="lead">Generar cada mesa y los datos para que tus clientes puedan loguearse!</p>        
+        <h1>Muro</h1>
+        <p class="lead">Comparti lo que quieras con las demas personas del Bar!</p>
     </div>
-
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <a href=""></a>
-            <h2>Datos de la mesa</h2>
-            
-            <div>
-               <label for="numMesa" >Numero de mesa</label><br />
-               <input type="text" id="txtNumMesa" runat="server" required/><br />
-                <label for="numSillaAprox" >Cantidad de sillas aproximadas</label><br />
-               <input type="text" id="txtNumSillaAprox" runat="server"/>
-
-                <asp:Button ID="btnCargar" runat="server" Text="Cargar" OnClick="btnCargar_Click" />
-            </div>
-            <br />
+    <div class="form-row" >
+    <div class="form-group col-lg-12 " >                
+        <label for="txtPublicacion">Publicacion</label><br />
+        <asp:TextBox ID="txtPublicacion" runat="server" Width="605px" CssClass="form-control"  placeholder="Descripción" Height="42px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtDescri" Text="*" 
+            runat="server" ForeColor="red" ></asp:RequiredFieldValidator>            
+    </div>
+    </div>
+    <div class="form-group col-lg-12" >        
+    <asp:Button ID="btnBuscar" runat="server"  Text="Publicar" class="btn btn-primary" CausesValidation="false" />                              
+    <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn btn-secondary" />
+    </div>
+    <div class="form-group col-lg-12" >        
+        <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <div id="divMensaje" runat="server"></div>           
         </div>
-        
-    </div>
+    </div>     
+  
+ 
 </asp:Content>

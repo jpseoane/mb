@@ -3,38 +3,39 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <h1>MiBar!!</h1>
+        <p class="lead">Bienvenido a MiBar! Una apliacion para compartir y relacionarte con todas las personas del bar y ademas podras gestionar tus pedidos sin necesidad de 
+            esperar a que te atiendan!!. Empeza ya a utilizar MiBar!!</p>
+        <p><a href="Views/Usuario/pedidos/asignamesa.aspx" class="btn btn-primary btn-lg">Asigname una Mesa!! &raquo;</a></p>
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Getting started</h2>
+            <h2>Tu mesa</h2>
             <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
+                Por medio de la gestion de la mesa podras ver a quien autorizas o no para poder realizar pedidos, quien pidio cada consumible y cuanto debe pagar
+                (Cuentas claras conservan la amistad :) )
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
+                <a class="btn btn-default" href="Views/Usuario/pedidos/asignamesa.aspx">Ver mi mesa!! &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
-            <h2>Web Hosting</h2>
+            <h2>Muro</h2>
             <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
+                Escribi en el muro del bar tus ideas, gustos, tu nombre, de donde sos, que edad tenes y compartilo con el resto del bar!.  
             </p>
             <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
+                <a class="btn btn-default" href="Views/Usuario/muro.aspx"> Quiero ir al muro!! &raquo;</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Pedidos</h2>
+            <p>
+                Pedi lo que quieras para tu mesa, pudiendo ordenar y filtrar a tu gusto. Enterarte que tiene cada producto de la carta con el maximo nivel de detalle!
+            </p>
+            <p>
+                <a class="btn btn-default" href="Views/Usuario/pedidos/nuevo/npedido.aspx"> Ya tengo mesa y quiero hacer mi pedido! &raquo;</a>
             </p>
         </div>
     </div>

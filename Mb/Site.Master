@@ -93,7 +93,7 @@
             <br />
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
+                <p>&copy; <%: DateTime.Now.Year %> - MiBar Red social</p>
             </footer>
         </div>
     </form>

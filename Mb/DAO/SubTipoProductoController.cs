@@ -16,6 +16,14 @@ namespace Mb.DAO
             }
         }
 
+        public static IEnumerable<SubTipo> GetBy()
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.SubTipoes.ToList();
+            }
+        }
+
         public static bool agregar(SubTipo subTipo)
         {
             bool cargaOk = false;

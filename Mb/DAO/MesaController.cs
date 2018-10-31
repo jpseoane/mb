@@ -38,6 +38,14 @@ namespace Mb.DAO
                 return entities.Mesas.ToList();
             }
         }
+
+        public static IEnumerable<Mesa> GetDisponibles()
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Mesas.Where(e=> e.disponible == true).ToList();
+            }
+        }
         public static bool ExisteMesaNumero(int numero)
         {
             using (mbDBContext entities = new mbDBContext())

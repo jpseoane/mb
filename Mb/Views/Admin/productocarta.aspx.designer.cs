@@ -10,7 +10,7 @@
 namespace Mb.Views.Admin {
     
     
-    public partial class producto {
+    public partial class productocarta {
         
         /// <summary>
         /// Control btnNuevo.

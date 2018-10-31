@@ -1,8 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="producto.aspx.cs" Inherits="Mb.Views.Admin.producto" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="productocarta.aspx.cs" Inherits="Mb.Views.Admin.productocarta" MasterPageFile="~/Site.Master" %>
+
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-     <div class="jumbotron">
-        <h1>MiBar - Productos</h1>
-        <p class="lead">Crear y administrar nuevos productos</p>
+    <div class="jumbotron">
+        <h1>Asignacion de productos a Carta</h1>
+        <p class="lead">Administracion de productos x carta</p>
     </div>
  
   <div class="divBody">
@@ -100,9 +101,6 @@
                                 <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Images/editreceta.png"
                                     commandname="Editar" commandargument='<%# Eval("Id")%>' Height="24px" Width="24px" 
                                     ToolTip="Editar receta" />
-                                <asp:ImageButton id="imgbtnBorrar" runat="server" CausesValidation="false"    
-                                    CommandName="Borrar" CommandArgument='<%#Eval("Id")%>'
-                                    ImageUrl="~/Images/delreceta.png" ToolTip="Eliminar receta" Height="24px" Width="24px"  />
                             </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="False" Font-Size="Smaller"  BorderStyle="None"  BorderWidth="5px"/>
                             <HeaderStyle Width="50px" />
@@ -114,9 +112,9 @@
 
      
         
-        <ajaxtoolkit:modalpopupextender ID="mpe" runat="server" PopupControlID="pnlPopup" TargetControlID="btnNuevo"
+        <ajaxToolkit:ModalPopupExtender ID="mpe" runat="server" PopupControlID="pnlPopup" TargetControlID="btnNuevo"
             OkControlID="btnCargar" CancelControlID="btnCancelar" BackgroundCssClass="modalBackground">
-        </ajaxtoolkit:modalpopupextender>
+        </ajaxToolkit:ModalPopupExtender>
         <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none">
             <div class="header">
                 Confirmation

@@ -22,13 +22,13 @@ namespace Mb.Views.Usuario.pedidos {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAsignaMesa;
         
         /// <summary>
-        /// Control txtNumeroMesa.
+        /// Control ddlNumeroMesa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumeroMesa;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNumeroMesa;
         
         /// <summary>
         /// Control lnbReservar.
@@ -56,6 +56,15 @@ namespace Mb.Views.Usuario.pedidos {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMensaje;
+        
+        /// <summary>
+        /// Control aMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aMensaje;
         
         /// <summary>
         /// Control dvUsuarioMesa.
@@ -91,7 +100,7 @@ namespace Mb.Views.Usuario.pedidos {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkActiva;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkActiva;
         
         /// <summary>
         /// Control dvGrupoMesa.

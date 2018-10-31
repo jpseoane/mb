@@ -70,7 +70,9 @@ namespace Mb.DAO
             public String email { get; set; }
             public int idMesa { get; set; }
             public int mesaNumero { get; set; }
+            public bool activo { get; set; }
             public String perfilEnMesa { get; set; }
+            public bool habilitado { get; set; }
 
             //public UsuariosDeMesa(int mnumero,String email, String perfilenMesa) {
             //    this.mesaNumero = mnumero;
@@ -96,7 +98,9 @@ namespace Mb.DAO
                                 idMesa=um.IdMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
-                                perfilEnMesa = pm.descripcion
+                                activo=um.activo,
+                                perfilEnMesa = pm.descripcion,
+                                habilitado = um.habilitado
                             };
                 
                 var userMesas = query.ToList();
@@ -120,7 +124,9 @@ namespace Mb.DAO
                                 idMesa = um.IdMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
-                                perfilEnMesa = pm.descripcion
+                                activo = um.activo,
+                                perfilEnMesa = pm.descripcion,
+                                habilitado = um.habilitado
                             };
 
                 var usuarioDeMesa = query.FirstOrDefault();
@@ -213,6 +219,7 @@ namespace Mb.DAO
             exito = false;
             try
             {
+                
                 UserMesa UserMesa = new UserMesa();
                 UserMesa.UserId = UserId;
                 UserMesa.IdMesa = idMesa;
@@ -222,6 +229,7 @@ namespace Mb.DAO
                 UserMesa.fecha = DateTime.Now;
                 using (mbDBContext UserMesaDBEntities = new mbDBContext())
                 {
+                    //UserMesaDBEntities.Entry(UserMesa).State = UserMesa.Modified;
                     UserMesaDBEntities.UserMesas.Add(UserMesa);
                     UserMesaDBEntities.SaveChanges();
                 }

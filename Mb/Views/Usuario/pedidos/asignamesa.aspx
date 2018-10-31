@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>Asignación de Mesa</h1>
-        <p class="lead">Reserve su mesa ingresando el numero!</p>        
+        <p class="lead">Reserva tu mesa ingresando el numero y autoriza a invitados!</p>        
     </div>
 <div class="container">
     <div class="row">
@@ -12,16 +12,20 @@
         </div>
     </div>
     <div class="form-row" id="dvAsignaMesa" runat="server" visible="false">
-       <div lass="form-group col-lg-12" >
+       <div class="form-group col-lg-12" >
             <label for="txtNumeroMesa" >Numero de mesa</label><br />
-            <asp:TextBox runat="server" ID="txtNumeroMesa" CssClass="form-control" placeholder="Numero de mesa" required></asp:TextBox>
+           <asp:DropDownList ID="ddlNumeroMesa" CssClass="form-control"  runat="server"></asp:DropDownList>
             <br />
             <asp:LinkButton ID="lnbReservar" runat="server" OnClick="lnbReservar_Click">Asginame a esta Mesa!</asp:LinkButton>
-       </div>
-        <div class="form-group col-lg-12" >        
+       </div>      
+    </div>
+    <div class="form-row">
+      <div class="form-group col-lg-12" >        
             <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <div id="divMensaje" runat="server"></div>           
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div id="divMensaje" runat="server">
+                    </div>           
+                <a id="aMensaje" href="nuevo/npedido.aspx" runat="server" title="Dale">Nuevo</a>
             </div>
         </div>
     </div>
@@ -37,7 +41,7 @@
                   <strong><label for="lblPerfil">Perfil:</label></strong>
                   <asp:Label ID="lblPerfil" runat="server" Text="Tu Perfil"></asp:Label><br />
                   <strong><label for="lblActivo">Activo</label></strong>
-                  <asp:CheckBox ID="chkActiva" runat="server" />                    
+                  <input type="checkbox" runat="server" id="chkActiva" disabled/>
                   
               </div>
             </div>
@@ -50,9 +54,7 @@
                   <div class="panel-heading">El grupo de tu mesa:</div>
                   <div class="panel-body">
                     <p>Estas personas estan compartiendo con vos la mesa si queres que alguno pueda o no realizar pedidos y ponerlo a cuenta de la mesa puedes confirmar el permiso por medio de la pestaña Amigos!</p>
-                  
-                  <table class="table">
-                    <asp:GridView ID="gvUsuariosEnMesa" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" >
+                    <asp:GridView CssClass="gridview" ID="gvUsuariosEnMesa" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -69,8 +71,29 @@
                                    No hay mas usuarios registrados en esta mesa
                             </div>
                         </EmptyDataTemplate>
+                        <Columns>
+                            <asp:BoundField DataField="email" HeaderText="Email" NullDisplayText="email" SortExpression="email" >
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                            </asp:BoundField>                          
+                            <asp:BoundField DataField="perfilEnMesa" HeaderText="Perfil" NullDisplayText="perfilEnMesa" SortExpression="perfilEnMesa" >
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                            </asp:BoundField> 
+                            <asp:TemplateField HeaderText="Activo">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkActivo" runat="server"  Checked='<%#Convert.ToBoolean(Eval("activo"))%>' ToolTip="Permitir amigo"/>
+                                  </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Acciones">
+                                <ItemTemplate>
+                                    <asp:ImageButton id="imgbtnBorrar" runat="server" CausesValidation="false"    
+                                        CommandName="eliminar" CommandArgument='<%#Eval("id")%>'
+                                        ImageUrl="~/Content/img/del.png" ToolTip="Eliminar Amigo de la mesa" Height="24px" Width="24px"  />
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateField>     
+                        </Columns>
                     </asp:GridView>
-                  </table>
               </div>
            </div>
         </div>

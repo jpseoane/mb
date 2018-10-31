@@ -212,6 +212,8 @@
     <Content Include="Content\img\edit20.png" />
     <Content Include="Content\img\mesa.png" />
     <Content Include="Content\img\plus.png" />
+    <Content Include="Content\img\mas32.png" />
+    <Content Include="Content\img\mas48.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="ExternalLoginResult.aspx" />
@@ -269,9 +271,11 @@
     <Content Include="Views\Admin\cliente.aspx" />
     <Content Include="Views\Admin\mesa.aspx" />
     <Content Include="Views\Admin\producto.aspx" />
+    <Content Include="Views\Admin\productocarta.aspx" />
     <Content Include="Views\Admin\usuario.aspx" />
     <Content Include="Views\asignausuariomesa.aspx" />
     <Content Include="Views\Usuario\pedidos\asignamesa.aspx" />
+    <Content Include="Views\Usuario\pedidos\nuevo\carrito.aspx" />
     <Content Include="Views\Usuario\pedidos\nuevo\npedido.aspx" />
     <Content Include="Views\Usuario\muro.aspx" />
     <Content Include="Views\Usuario\pedidos\modocompra.aspx" />
@@ -530,6 +534,13 @@
     <Compile Include="Views\Admin\producto.aspx.designer.cs">
       <DependentUpon>producto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\productocarta.aspx.cs">
+      <DependentUpon>productocarta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\productocarta.aspx.designer.cs">
+      <DependentUpon>productocarta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\usuario.aspx.cs">
       <DependentUpon>usuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -550,6 +561,13 @@
     </Compile>
     <Compile Include="Views\Usuario\pedidos\asignamesa.aspx.designer.cs">
       <DependentUpon>asignamesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Usuario\pedidos\nuevo\carrito.aspx.cs">
+      <DependentUpon>carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Usuario\pedidos\nuevo\carrito.aspx.designer.cs">
+      <DependentUpon>carrito.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Usuario\pedidos\nuevo\npedido.aspx.cs">
       <DependentUpon>npedido.aspx</DependentUpon>

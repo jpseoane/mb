@@ -27,6 +27,30 @@ namespace Mb.DAO
             }
         }
 
+        public static IEnumerable<Producto> GetByTipo(int idTipo)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Productoes.Where(e => e.IdTipo == idTipo).ToList();
+            }
+        }
+
+        public static IEnumerable<Producto> GetBySubtipo(int idSubtipo)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Productoes.Where(e => e.idSubTipo == idSubtipo).ToList();
+            }
+        }
+
+        public static IEnumerable<Producto> GetByTipoySubtipo(int idTipo, int idSubtipo)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Productoes.Where(e => e.IdTipo==idTipo && e.idSubTipo==idSubtipo).ToList();
+            }
+        }
+
         public static IEnumerable<Producto> GetConDescri()
         {
             using (mbDBContext entities = new mbDBContext())
