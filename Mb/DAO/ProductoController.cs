@@ -64,6 +64,37 @@ namespace Mb.DAO
         }
 
 
+        //En teoria traeria todos los productos de la cartaId que le pase
+        public static IEnumerable<Producto> GetTodosPorCartaId(int idCarta)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from p in entities.Productoes
+                            join cp in entities.Carta_Producto on p.id equals cp.idProducto
+                            where cp.idCarta == idCarta
+                            select p;
+
+               var productos= query.ToList();
+               return productos;                
+            }
+        }
+
+
+        //Busca en el numero de mesa usuarios habilitados
+        public static List<UserMesa> GetUserMesaByNumeroMesa(int numMesa)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from um in entities.UserMesas
+                            join me in entities.Mesas on um.IdMesa equals me.Id
+                            where me.numero == numMesa && um.habilitado == true
+                            select um;
+                var userMesas = query.ToList();
+                return userMesas;
+            }
+        }
+
+
         //public static IQueryable hola()
         //{
         //    using (mbDBContext entities = new mbDBContext())

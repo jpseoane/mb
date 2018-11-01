@@ -54,7 +54,8 @@
                   <div class="panel-heading">El grupo de tu mesa:</div>
                   <div class="panel-body">
                     <p>Estas personas estan compartiendo con vos la mesa si queres que alguno pueda o no realizar pedidos y ponerlo a cuenta de la mesa puedes confirmar el permiso por medio de la pestaña Amigos!</p>
-                    <asp:GridView CssClass="gridview" ID="gvUsuariosEnMesa" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
+                    <asp:GridView CssClass="gridview" ID="gvUsuariosEnMesa" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False"
+                        OnRowCommand="gvUsuariosEnMesa_RowCommand" DataKeyNames="id">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -80,14 +81,15 @@
                             </asp:BoundField> 
                             <asp:TemplateField HeaderText="Activo">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkActivo" runat="server"  Checked='<%#Convert.ToBoolean(Eval("activo"))%>' ToolTip="Permitir amigo"/>
+                                    <asp:CheckBox ID="chkActivo" runat="server" AutoPostBack="true"  CausesValidation="false"    
+                                        Checked='<%#Convert.ToBoolean(Eval("activo"))%>' ToolTip="Permitir amigo" OnCheckedChanged="chkApproved_CheckedChanged" />
                                   </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Acciones">
                                 <ItemTemplate>
                                     <asp:ImageButton id="imgbtnBorrar" runat="server" CausesValidation="false"    
-                                        CommandName="eliminar" CommandArgument='<%#Eval("id")%>'
+                                        CommandName="eliminar" CommandArgument='<%#Eval("id")%>' 
                                         ImageUrl="~/Content/img/del.png" ToolTip="Eliminar Amigo de la mesa" Height="24px" Width="24px"  />
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />

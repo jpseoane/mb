@@ -69,6 +69,7 @@ namespace Mb.DAO
             public int id { get; set; }
             public String email { get; set; }
             public int idMesa { get; set; }
+            public int idPerfilMesa { get; set; }
             public int mesaNumero { get; set; }
             public bool activo { get; set; }
             public String perfilEnMesa { get; set; }
@@ -82,8 +83,8 @@ namespace Mb.DAO
         }
 
         //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
-        //sean o no perfil administrador
-        public static List<UsuariosDeMesa> GetUsuariosDeMesa(int idmesa)
+        //sean o no perfil administrador X idDeMesa
+        public static List<UsuariosDeMesa> GetUsuariosPorIdMesa(int idmesa)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -108,6 +109,35 @@ namespace Mb.DAO
                 return userMesas;
             }
         }
+        //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
+        //sean o no perfil administrador X idDeUsuario
+
+        //public static List<UsuariosDeMesa> GetUsuariosDeMesaPorIdUSer(String idUser)
+        //{
+            
+        //    using (mbDBContext entities = new mbDBContext())
+        //    {
+        //        var query = from UserMesa um in entities.UserMesas
+        //                    join asu in entities.AspNetUsers on um.UserId equals asu.Id
+        //                    join ms in entities.Mesas on um.IdMesa equals ms.Id
+        //                    join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
+        //                    where asu.Id == idUser && um.habilitado == true
+        //                    select new UsuariosDeMesa
+        //                    {
+        //                        id = um.id,
+        //                        idMesa = um.IdMesa,
+        //                        email = asu.Email,
+        //                        mesaNumero = ms.numero,
+        //                        activo = um.activo,
+        //                        perfilEnMesa = pm.descripcion,
+        //                        habilitado = um.habilitado
+        //                    };
+
+        //        var userMesas = query.ToList();
+
+        //        return userMesas;
+        //    }
+        //}
 
         public static UsuariosDeMesa GetUsuarioDeMesaByIdUser(String userId)
         {
@@ -122,6 +152,7 @@ namespace Mb.DAO
                             {
                                 id = um.id,
                                 idMesa = um.IdMesa,
+                                idPerfilMesa = um.idPerfilMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
                                 activo = um.activo,
@@ -246,6 +277,29 @@ namespace Mb.DAO
 
         }
 
+        public static bool UpdateActivo(int id, bool activo)
+        {
+            exito = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.UserMesas.FirstOrDefault(e => e.id == id);
+                    if (entity != null)
+                    {
+                        entity.activo = activo;
+                        dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;                        
+                        dBEntities.SaveChanges();
+                        exito = true;
+                    }
+                }
+            }
+            catch
+            {
+                exito = false;
+            }
+            return exito;
+        }
 
 
         public static bool Borrar(int id)

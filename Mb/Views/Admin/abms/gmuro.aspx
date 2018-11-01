@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="muro.aspx.cs" Inherits="Mb.Views.Usuario.muro"  MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="gmuro.aspx.cs" Inherits="Mb.Views.Usuario.gmuro" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">

@@ -19,9 +19,9 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
-                    dvMensajeCambio.Visible = true;
-                    dvCargaProducto.Visible = false;
-                    lblMensaje.Text = "Tenes que seleccionar una mesa para poder cargar un pedido";
+                    Inicializarcombos();
+                    dvMensajeCambio.Visible = false;
+                    dvCargaProducto.Visible = true;
                 }
                 else if (usuarioDeMesa != null && usuarioDeMesa.activo == false) {
                     dvMensajeCambio.Visible = true;
@@ -31,9 +31,9 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 }
                 else
                 {
-                    Inicializarcombos();
-                    dvMensajeCambio.Visible = false;
-                    dvCargaProducto.Visible = true;
+                    dvMensajeCambio.Visible = true;
+                    dvCargaProducto.Visible = false;
+                    lblMensaje.Text = "Tenes que seleccionar una mesa para poder cargar un pedido";                    
                 }
 
             }

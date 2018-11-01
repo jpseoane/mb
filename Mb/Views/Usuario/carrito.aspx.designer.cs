@@ -7,9 +7,9 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace MiBarApp.Views {
+namespace Mb.Views.Usuario.pedidos.nuevo {
     
     
-    public partial class asignausuariomesa {
+    public partial class carrito {
     }
 }
