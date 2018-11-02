@@ -20,16 +20,14 @@ namespace MbDataAccess
         }
     
         public int id { get; set; }
-        public string UserId { get; set; }
-        public int IdMesa { get; set; }
-        public int IdMesaUsuario { get; set; }
+        public int IdUserMesa { get; set; }
         public int IdProducto { get; set; }
         public int IdEstado { get; set; }
         public int cantidad { get; set; }
         public float precio { get; set; }
         public Nullable<float> subtotal { get; set; }
+        public System.DateTime fecha { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
         public virtual ICollection<Cuenta> Cuentas { get; set; }
         public virtual EstadoPedido EstadoPedido { get; set; }
     }

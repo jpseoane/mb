@@ -1,37 +1,38 @@
-﻿using MbDataAccess;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using MbDataAccess;
+
 namespace Mb.DAO
 {
-    public static class CartaController
+    public static class CartaProductoController
     {
         public static bool exito { get; set; }
         public static String mens { get; set; }
 
-        public static Carta Get(int id)
+        public static Carta_Producto Get(int id)
         {
             using (mbDBContext entities = new mbDBContext())
             {
-                return entities.Cartas.FirstOrDefault(e => e.id == id);
+                return entities.Carta_Producto.FirstOrDefault(e => e.id == id);
             }
         }
-        public static IEnumerable<Carta> Get()
+        public static IEnumerable<Carta_Producto> Get()
         {
             using (mbDBContext entities = new mbDBContext())
             {
-                return entities.Cartas.ToList();
+                return entities.Carta_Producto.ToList();
             }
         }
-        public static bool agregar(Carta carta)
+        public static bool agregar(Carta_Producto carta_Producto)
         {
             bool cargaOk = false;
             try
             {
                 using (mbDBContext cartaDBEntities = new mbDBContext())
                 {
-                    cartaDBEntities.Cartas.Add(carta);
+                    cartaDBEntities.Carta_Producto.Add(carta_Producto);
                     cartaDBEntities.SaveChanges();
                 }
                 cargaOk = true;
@@ -43,27 +44,29 @@ namespace Mb.DAO
             return cargaOk;
         }
 
-        public static bool agregar(String descri, int idProducto, bool activa, String UserId)
+        public static bool agregar( int idProducto, int idCarta, String userId)
         {
             exito = false;
             try
             {
-                Carta carta = new Carta();
-                carta.activa = activa;
-                carta.descripcion = descri;
-                carta.UserId = UserId;
-                carta.fecha = DateTime.Now;
+                Carta_Producto carta_Producto = new Carta_Producto();
+                carta_Producto.idCarta = idCarta;
+                carta_Producto.idProducto = idProducto;
+                carta_Producto.UserId = userId;
+                carta_Producto.fecha = DateTime.Now;
+                carta_Producto.estado = 1;
                 using (mbDBContext cartaDBEntities = new mbDBContext())
                 {
-                    cartaDBEntities.Cartas.Add(carta);
+                    cartaDBEntities.Carta_Producto.Add(carta_Producto);
                     cartaDBEntities.SaveChanges();
                 }
                 exito = true;
-                //  mens = "Carga Realizada";
+             
             }
-            catch
+            catch (Exception e)
             {
                 exito = false;
+
                 //mens = "Error al intentar cargar - Carta";
 
             }
@@ -80,10 +83,10 @@ namespace Mb.DAO
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == id);
+                    var entity = dBEntities.Carta_Producto.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
-                        dBEntities.Cartas.Remove(entity);
+                        dBEntities.Carta_Producto.Remove(entity);
                         dBEntities.SaveChanges();
                         exito = true;
                     }
@@ -95,58 +98,55 @@ namespace Mb.DAO
             }
             return exito;
         }
-        public static bool update(Carta carta)
+        public static bool update(Carta_Producto carta)
         {
             exito = false;
             try
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == carta.id);
+                    var entity = dBEntities.Carta_Producto.FirstOrDefault(e => e.id == carta.id);
                     if (entity != null)
                     {
-                        entity.UserId = carta.UserId;
-                        entity.descripcion = carta.descripcion;
-                        entity.fecha = carta.fecha;
-                        dBEntities.SaveChanges();
-                    }
-                }
-            }
-            catch
-            {
-                exito = false;
-            }
-            return exito;
-        }
-
-
-        public static bool update(int id, String descri, bool activa, String UserId)
-        {
-            exito = false;
-            try
-            {
-                using (mbDBContext dBEntities = new mbDBContext())
-                {
-                    var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == id);
-                    if (entity != null)
-                    {
-                        //entity.idproducto = idProducto;
-                        entity.UserId = UserId;
-                        entity.descripcion = descri;
+                        entity.idCarta = carta.idCarta;
+                        entity.idProducto = carta.idProducto;
                         entity.fecha = DateTime.Now;
                         dBEntities.SaveChanges();
-                        //         mens = "Carta actualizada con éxito";
-                        exito = true;
                     }
                 }
             }
             catch
             {
                 exito = false;
-                //mens = "Error al intentar actualizar la carta";
             }
             return exito;
         }
 
-    }    
+
+        public static bool update(int id, int idProducto, int idCarta)
+        {
+            exito = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Carta_Producto.FirstOrDefault(e => e.id == id);
+                    if (entity != null)
+                    {                     
+                        entity.idCarta = idCarta;
+                        entity.idProducto = idProducto;
+                        entity.fecha = DateTime.Now;
+                        dBEntities.SaveChanges();
+                        exito = true;
+                    }
+                }
+            }
+            catch
+            {
+                exito = false;               
+            }
+            return exito;
+        }
+
+    }
 }

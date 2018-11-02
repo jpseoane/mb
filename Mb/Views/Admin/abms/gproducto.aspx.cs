@@ -59,26 +59,8 @@ namespace Mb.Views.Admin.abms
 
         private void CargaGrilla()
         {
-            using (mbDBContext entities = new mbDBContext())
-            {
-
-                var lalaa = from Producto p in entities.Productoes
-                            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
-                            join stp in entities.SubTipoes on p.idSubTipo equals stp.id
-                            select new
-                            {
-                                id = p.id,
-                                descriProducto=p.descripcion,
-                                descriPrecio = p.precioUnitario,
-                                descriActivo = p.activo,                                
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri=stp.descripcion_subtipo,
-                                fecha =  p.fecha_carga
-                            };
-
-                gv.DataSource = lalaa.ToList();
-                gv.DataBind();
-            }
+            gv.DataSource = ProductoController.GetCondetalleSinCarta();
+            gv.DataBind();
         }
 
         protected void btnActualizar_Click(object sender, EventArgs e)

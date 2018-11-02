@@ -95,137 +95,110 @@ namespace Mb.DAO
         }
 
 
-        //public static IQueryable hola()
-        //{
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-
-        //        //var lalaa = from Producto p in entities.Productoes
-        //        //            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
-        //        //            select new  ProductoConDescri
-        //        //            {
-        //        //                id = p.id,
-        //        //                DescripcionTipo = p.descripcion,
-        //        //                TipoNombre = tp.descripcion
-        //        //            };
-
-        //        //return lalaa;
-        //    }
-        //}
-        //public class ProductoConDescri : Producto
-        //{
-        //    public Producto producto { get; set; }
-        //    public int idTipo { get; set; }
-        //    public string tipoDEscri { get; set; }
-
-        //    public IEnumerable<ProductoConDescri> listar()
-        //    {
-        //        using (mbDBContext entities = new mbDBContext())
-        //        {
-        //            List<ProductoConDescri> headers = entities.Productoes.Select(p => new ProductoConDescri
-        //            {
-        //                producto=p,
-        //                idTipo = p.IdTipo,
-        //                ProductName = p.ProductName
-        //            }).ToList();
-
-        //            List<ProductoConDescri> headers = from Producto p in entities.Productoes
-        //                                              join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
-        //                                              select new ProductoConDescri
-        //                                              {
-        //                                                  id = p.id,
-        //                                                  DescripcionTipo = p.descripcion,
-        //                                                  TipoNombre = tp.descripcion
-        //                                              }).;
-
-        //            //var lalaa = from Producto p in entities.Productoes
-        //            //        //            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
-        //            //        //            select new  ProductoConDescri
-        //            //        //            {
-        //            //        //                id = p.id,
-        //            //        //                DescripcionTipo = p.descripcion,
-        //            //        //                TipoNombre = tp.descripcion
-        //            //        //            };
-
-        //            //        //return lalaa;
-        //        }
-        //    }
-        //}
 
 
+        public class ProductosDetalle : Producto
+        {
+            public int id { get; set; }
+            public int? idCarta { get; set; }
+            public String descriCarta { get; set; }
+            public String descripcion { get; set; }
+            public float precioUnitario { get; set; }
+            public bool activo { get; set; }            
+            public String tipoDescri { get; set; }
+            public String subTipoDescri { get; set; }
+            public DateTime fecha { get; set; }
+            
+        }
+
+    
+
+        public static List<ProductosDetalle> GetCondetalleSinCarta()
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+
+                var query = from Producto p in entities.Productoes
+                            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+                            join stp in entities.SubTipoes on p.idSubTipo equals stp.id
+                            select new ProductosDetalle
+                            {
+                                id = p.id,
+                                descripcion = p.descripcion,
+                                precioUnitario = p.precioUnitario,
+                                activo = p.activo,
+                                tipoDescri = tp.descripcion,
+                                subTipoDescri = stp.descripcion_subtipo,
+                                fecha = p.fecha_carga
+                            };
+
+                var ProducosDescri = query.ToList();
+                return ProducosDescri;
+            }
+        }
 
 
+        public static List<ProductosDetalle> GetCondetalleConCarta()
+        {
 
-        //using (mbDBContext entities = new mbDBContext())
-        //{
+            using (mbDBContext entities = new mbDBContext())
+            {
 
-        //    gv.DataSource = from Producto in entities.Productoes
-        //                    from TipoProducto in entities.TipoProductoes
-        //                    select new
-        //                    {
-        //                        ProductoNombre = Producto.descripcion,
-        //                        TipoNombre = TipoProducto.descripcion
-        //                    };
-        //    gv.DataBind();
+                var query = from p in entities.Productoes
+                            from tp in entities.TipoProductoes.Where(x => x.Id == p.id)
+                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
+                            from cp in entities.Carta_Producto.Where(h => h.idProducto == p.id).DefaultIfEmpty()
+                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
+                            select new ProductosDetalle
+                            {
+                                id = p.id,
+                                idCarta = cp.idCarta,
+                                descriCarta=ca.descripcion,
+                                descripcion = p.descripcion,
+                                precioUnitario = p.precioUnitario,
+                                activo = p.activo,
+                                tipoDescri = tp.descripcion,
+                                subTipoDescri = stp.descripcion_subtipo,
+                                fecha = p.fecha_carga
 
-        //}
+                            };
 
+                var ProducosDescri = query.ToList();
+                return ProducosDescri;
+            }
+        }
 
-        //          public class ProductHeader
-        //    {
-        //        public int ProductId { get; set; }
-        //        public string ProductName { get; set; }
-        //    }
-
-        //    List<ProductHeader> headers = context.Products.Select(p => new ProductHeader
-        //    {
-        //        ProductId = p.ProductId,
-        //        ProductName = p.ProductName
-        //    }).ToList();
-
-        //}
-
-
-
-        //public static IEnumerable<Producto> GetProductosDetalle(int estado)
-        //{
-
-        //    try
-        //    {
-        //        using (mbDBContext dBEntities = new mbDBContext())
-        //        {
-        //          var productoTipoDescri = 
-        //          dBEntities.Productoes.Join(dBEntities.TipoProductoes, pro => pro.IdTipo, tipo => tipo.Id, (pro, tipo) => new { pro, tipo }).Where(x => x.pro.IdTipo == 1);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        exito = false;
-        //    }
-
-        //}
+    
 
 
-        //public static object GetProductoConTipoProductoIgual(int tipoProducto)
-        //{
+        public static List<ProductosDetalle> GetCondetalleXCartaId(int idCarta)
+        {
 
-        //    try
-        //    {
-        //        using (mbDBContext dBEntities = new mbDBContext())
-        //        {
+            using (mbDBContext entities = new mbDBContext())
+            {
 
-        //            var productoTipoDescri = dBEntities.Productoes.Join(dBEntities.TipoProductoes, pro => pro.IdTipo, tipo => tipo.Id, (pro, tipo) => new { pro, tipo }).Where(x => x.pro.IdTipo == tipoProducto);
+                var query = from Producto p in entities.Productoes
+                            join tp in entities.TipoProductoes on p.IdTipo equals tp.Id
+                            join stp in entities.SubTipoes on p.idSubTipo equals stp.id
+                            join cp in entities.Carta_Producto on p.id equals cp.idProducto
+                            where cp.idCarta==idCarta
+                            select new ProductosDetalle
+                            {
+                                id = p.id,
+                                descripcion = p.descripcion,
+                                precioUnitario = p.precioUnitario,
+                                activo = p.activo,
+                                tipoDescri = tp.descripcion,
+                                subTipoDescri = stp.descripcion_subtipo,
+                                fecha = p.fecha_carga
 
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        exito = false;
-        //    }
+                            };
 
-        //    return productoTipoDescri;
-
-        //}
+                var ProducosDescri = query.ToList();
+                return ProducosDescri;
+            }
+        }
 
 
 
@@ -366,8 +339,31 @@ namespace Mb.DAO
             return exito;
         }
 
+        //public static bool UpdateIdCarta(int id, int idCarta)
+        //{
+        //    exito = false;
+        //    try
+        //    {
+        //        using (mbDBContext dBEntities = new mbDBContext())
+        //        {
+        //            var entity = dBEntities.Carta_Producto.Where(x => x.idCarta == idCarta && x.idProducto == id).FirstOrDefault();
+        //            if (entity != null)
+        //            {
+        //                entity. = activo;
+        //                dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+        //                dBEntities.SaveChanges();
+        //                exito = true;
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        exito = false;
+        //    }
+        //    return exito;
+        //}
 
-      
+
 
 
         public static String GetMensajeError(int numerror)

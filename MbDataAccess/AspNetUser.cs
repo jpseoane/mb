@@ -21,10 +21,9 @@ namespace MbDataAccess
             this.Cartas = new HashSet<Carta>();
             this.Clientes = new HashSet<Cliente>();
             this.MensajeMuroes = new HashSet<MensajeMuro>();
-            this.Pedidoes = new HashSet<Pedido>();
             this.Productoes = new HashSet<Producto>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
             this.UserMesas = new HashSet<UserMesa>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
@@ -39,15 +38,15 @@ namespace MbDataAccess
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public string perfil { get; set; }
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<Carta> Cartas { get; set; }
         public virtual ICollection<Cliente> Clientes { get; set; }
         public virtual ICollection<MensajeMuro> MensajeMuroes { get; set; }
-        public virtual ICollection<Pedido> Pedidoes { get; set; }
         public virtual ICollection<Producto> Productoes { get; set; }
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<UserMesa> UserMesas { get; set; }
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

@@ -404,6 +404,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="DAO\CartaController.cs" />
+    <Compile Include="DAO\CartaProductoController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
     <Compile Include="DAO\MesaController.cs" />
     <Compile Include="DAO\ProductoController.cs" />

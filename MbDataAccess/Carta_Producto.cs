@@ -21,7 +21,7 @@ namespace MbDataAccess
         public System.DateTime fecha { get; set; }
         public int estado { get; set; }
     
-        public virtual Producto Producto { get; set; }
         public virtual Carta Carta { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

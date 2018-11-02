@@ -111,7 +111,7 @@
                 <SortedDescendingCellStyle BackColor="#FFFDF8" />
                 <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 <Columns>
-                    <asp:BoundField DataField="descriProducto" HeaderText="Producto Nombre" NullDisplayText="ProductoNombre" SortExpression="descriProducto" >
+                    <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                              
                     <asp:BoundField DataField="tipoDescri" HeaderText="Tipo Prod." NullDisplayText="Tipo de producto" SortExpression="tipoDescri" >
@@ -120,15 +120,15 @@
                     <asp:BoundField DataField="subTipoDescri" HeaderText="SubTipo Prod." NullDisplayText="SubTipo de producto" SortExpression="subTipoDescri" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
-                    <asp:BoundField DataField="descriPrecio" HeaderText="Precio" NullDisplayText="Precio" SortExpression="descriPrecio" >
+                    <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio" SortExpression="precioUnitario" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>
-                    <asp:BoundField DataField="descriActivo" HeaderText="Activo" NullDisplayText="activo" SortExpression="descriActivo" >
+                    <asp:BoundField DataField="activo" HeaderText="Activo" NullDisplayText="activo" SortExpression="activo" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          
+                    </asp:BoundField>                                              
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <asp:ImageButton runat="server" causesvalidation="false"  ImageUrl="~/Content/img/edit.png"

@@ -74,12 +74,7 @@ namespace Mb.DAO
             public bool activo { get; set; }
             public String perfilEnMesa { get; set; }
             public bool habilitado { get; set; }
-
-            //public UsuariosDeMesa(int mnumero,String email, String perfilenMesa) {
-            //    this.mesaNumero = mnumero;
-            //    this.emaIl = email;
-            //    this.perfilEnMesa = perfilEnMesa;
-            //}
+          
         }
 
         //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
@@ -109,36 +104,7 @@ namespace Mb.DAO
                 return userMesas;
             }
         }
-        //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
-        //sean o no perfil administrador X idDeUsuario
-
-        //public static List<UsuariosDeMesa> GetUsuariosDeMesaPorIdUSer(String idUser)
-        //{
-            
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var query = from UserMesa um in entities.UserMesas
-        //                    join asu in entities.AspNetUsers on um.UserId equals asu.Id
-        //                    join ms in entities.Mesas on um.IdMesa equals ms.Id
-        //                    join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
-        //                    where asu.Id == idUser && um.habilitado == true
-        //                    select new UsuariosDeMesa
-        //                    {
-        //                        id = um.id,
-        //                        idMesa = um.IdMesa,
-        //                        email = asu.Email,
-        //                        mesaNumero = ms.numero,
-        //                        activo = um.activo,
-        //                        perfilEnMesa = pm.descripcion,
-        //                        habilitado = um.habilitado
-        //                    };
-
-        //        var userMesas = query.ToList();
-
-        //        return userMesas;
-        //    }
-        //}
-
+      
         public static UsuariosDeMesa GetUsuarioDeMesaByIdUser(String userId)
         {
             using (mbDBContext entities = new mbDBContext())
@@ -165,65 +131,6 @@ namespace Mb.DAO
             }
         }
 
-
-
-
-
-
-        //public List<UserMesa> GetUserMesaByNumeroMesa2(int numMesa)
-        //{
-        //    var query = from p in db.Products
-        //                where p.CategoryID == categoryID
-        //                select p;
-        //    var products = query.ToList();
-
-        //    return products;
-        //}
-
-
-
-        //        class ClientePresenter
-        //        {
-        //            public ClientePresenter() { }
-        //            public int Id { get; set; }//esto para tener referencia de que registro es..
-        //            public int Identificacion { get; set; }
-        //            public string clienteNombre { get; set; }
-        //            public string contactoNombre { get; set; }
-
-        //        }
-        //        y despues realizar:
-
-        //var result = from c in dbContext.Cliente
-        //             select new ClientePresenter
-        //             {
-        //                 Id = c.Id
-        //                Identificacion = c.Identificacion,
-        //                 clienteNombre = c.Nombre,
-        //                 contactoNombre = c.Contacto.Where(x => x.Estado && x.IdTipoContacto == 1)
-        //                                        .Select(x => x.Nombres)
-        //             };
-
-        //public class AlumnoDireccion
-        //{
-        //    public string Direccion { get; set; }
-        //    public string Nombre { get; set; }
-        //    public string Apellido { get; set; }
-        //    public string Estado { get; set; }
-        //    public double PromedioAcumulado { get; set }
-        //}
-        //public List<AlumnoDireccion> ListaJoin()
-        //{
-        //    return (from ad in model.AlumnoDireccion
-        //            join a in model.Alumno on ad.AlumnoId equals a.AlumnoId
-        //            select new AlumnoDireccion
-        //            {
-        //                Direccion = ad.Direccion,
-        //                Nombre = a.Nombre,
-        //                Apellido = a.Apellido,
-        //                Estado = a.Estado,
-        //                PromedioAcumulado = a.PromedioAcumulado
-        //            }).ToList();
-        //}
 
 
         public static bool agregar(UserMesa UserMesa)

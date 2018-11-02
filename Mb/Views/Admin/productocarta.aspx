@@ -42,7 +42,7 @@
        <div class="form-row">
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="True" PageSize="5"    CssClass="gridview"
+                    AllowPaging="True" AllowSorting="True" PageSize="5"  CssClass="gridview" DataKeyNames="id"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -57,32 +57,35 @@
                     <SortedDescendingCellStyle BackColor="#FFFDF8" />
                     <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                     <Columns>
-                        <asp:BoundField DataField="descriProducto" HeaderText="Producto Nombre" NullDisplayText="ProductoNombre" SortExpression="descriProducto" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>                              
-                        <asp:BoundField DataField="tipoDescri" HeaderText="Tipo Prod." NullDisplayText="Tipo de producto" SortExpression="tipoDescri" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>                          
-                        <asp:BoundField DataField="subTipoDescri" HeaderText="SubTipo Prod." NullDisplayText="SubTipo de producto" SortExpression="subTipoDescri" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>                          
-                        <asp:BoundField DataField="descriPrecio" HeaderText="Precio" NullDisplayText="Precio" SortExpression="descriPrecio" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>
-                        <asp:BoundField DataField="descriActivo" HeaderText="Activo" NullDisplayText="activo" SortExpression="descriActivo" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>                          
-                        <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                        </asp:BoundField>                          
+                    <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                              
+                    <asp:BoundField DataField="tipoDescri" HeaderText="Tipo Prod." NullDisplayText="Tipo de producto" SortExpression="tipoDescri" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="subTipoDescri" HeaderText="SubTipo Prod." NullDisplayText="SubTipo de producto" SortExpression="subTipoDescri" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio" SortExpression="precioUnitario" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>
+                    <asp:BoundField DataField="activo" HeaderText="Activo" NullDisplayText="activo" SortExpression="activo" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                                              
+                        <asp:BoundField DataField="descriCarta" HeaderText="Carta" NullDisplayText="Sin Carta" SortExpression="descriCarta" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
                         <asp:TemplateField HeaderText="Asignar">
                                 <HeaderTemplate>
                                         <asp:CheckBox ID="chkAsignarATodas" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                        Checked='<%#Convert.ToBoolean(Eval("idProducto"))%>' ToolTip="Asignar a todos los productos a la carta" OnCheckedChanged="chkAsignarTodas_CheckedChanged" />
+                                        Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a todos los productos a la carta" OnCheckedChanged="chkAsignarTodas_CheckedChanged" />
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                        Checked='<%#Convert.ToBoolean(Eval("idProducto"))%>' ToolTip="Asignar a Carta" OnCheckedChanged="chkAsignar_CheckedChanged" />
+                                        Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a Carta" OnCheckedChanged="chkAsignar_CheckedChanged" />
                                   </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center"  Width="50px"/>
                                 <HeaderStyle HorizontalAlign="Center"  Width="50px" />

@@ -1,4 +1,5 @@
 ﻿using Mb.DAO;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,16 @@ namespace Mb.Views.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack) {
-                CargarGrilla();
+                CargaGrilla();
                 Inicializarcombos();
             }            
         }
 
 
-
-        private void CargarGrilla() {
-            this.gv.DataSource = ProductoController.GetTodosPorCartaId(1);
-            this.gv.DataBind();
+        private void CargaGrilla()
+        {
+            gv.DataSource = ProductoController.GetCondetalleConCarta();
+            gv.DataBind();
         }
         protected void chkAsignarTodas_CheckedChanged(object sender, EventArgs e)
         {
@@ -41,16 +42,14 @@ namespace Mb.Views.Admin
 
         protected void chkAsignar_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox chkApproved = (CheckBox)sender;
-            GridViewRow gridViewRow = (GridViewRow)chkApproved.Parent.Parent;
-            int userMesaId = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
-            bool activo = chkApproved.Checked;
+            CheckBox chkAsignar = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)chkAsignar.Parent.Parent;
+            int idProducto = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
+            int idCarta = Convert.ToInt32(ddlCarta.SelectedValue);
 
             //Your update method            
-            UserMesaController.UpdateActivo(userMesaId, activo);
-
-            //Your data load method
-            //CargaMesa(Convert.ToInt32(ViewState["idMesaUsuario"]));
+            CartaProductoController.agregar(idProducto, idCarta, User.Identity.GetUserId());
+       
         }
 
 
