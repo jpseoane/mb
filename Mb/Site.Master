@@ -54,6 +54,7 @@
                         
                         <%--Perfil Admin--%>                        
                         <li><a runat="server" href="~/Views/Admin/abms/gproducto.aspx">Producto</a></li>
+                        <li><a runat="server" href="~/ExternalLoginResult.aspx">Login GOOGLE</a></li>
                         <%--<li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>    --%>
                         <%--<li><a runat="server" href="~/Views/Admin/abms/gmuro.aspx">Cartas</a></li>     --%>
                         <%--<li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Gestion Mesa</a></li>--%>

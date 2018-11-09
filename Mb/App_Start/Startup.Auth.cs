@@ -59,11 +59,25 @@ namespace Mb
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //Seteado con la de MiBar
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
+                ClientSecret = "X0oSClq7YfDBBB_kQ3WcMDQn1"
+            });
+
+
+            // IdCliente Oauth =  188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com
+            // Client Secret   =  X0oSClq7YfDBBB_kQ3WcMDQn
+
+            // IdCliente Mibar =  188020733885-bdb8ombkpbceqp3d1ar23a7f95qa99o8.apps.googleusercontent.com
+            // Client Secret   = NYFcv_bkcgPg_wY1Z104A_i1
+
+            
+
+
+        
+
         }
     }
 }
