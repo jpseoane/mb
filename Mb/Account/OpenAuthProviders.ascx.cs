@@ -33,7 +33,13 @@ namespace Mb.Account
             }
         }
 
-        public string ReturnUrl { get; set; }
+        public string ReturnUrl {
+            get
+            { return "ExternalLoginResult"; }
+            set
+            { }
+                
+        }
 
         public IEnumerable<string> GetProviderNames()
         {
