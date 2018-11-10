@@ -99,19 +99,77 @@ namespace Mb.DAO
 
         public class ProductosDetalle : Producto
         {
-            public int id { get; set; }
+            private int id { get; set; }
             public int? idCarta { get; set; }
             public String descriCarta { get; set; }
-            public String descripcion { get; set; }
-            public float precioUnitario { get; set; }
-            public bool activo { get; set; }            
+            private String descripcion { get; set; }
+            private float precioUnitario { get; set; }
+            private bool activo { get; set; }
             public String tipoDescri { get; set; }
             public String subTipoDescri { get; set; }
             public DateTime fecha { get; set; }
             
         }
 
-    
+
+
+        public static List<ProductosDetalle> GetCondetalleConCarta(int idCarta, int idTipo, int idSubTipo)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+
+                var query = from p in entities.Productoes
+                            from tp in entities.TipoProductoes.Where(x => x.Id == p.id)
+                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
+                            from cp in entities.Carta_Producto.Where(h => h.idProducto == p.id).DefaultIfEmpty()
+                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
+                            select new ProductosDetalle
+                            {
+                                id = p.id,
+                                idCarta = cp.idCarta,
+                                descriCarta = ca.descripcion,
+                                descripcion = p.descripcion,
+                                precioUnitario = p.precioUnitario,
+                                activo = p.activo,
+                                tipoDescri = tp.descripcion,
+                                subTipoDescri = stp.descripcion_subtipo,
+                                fecha = p.fecha_carga
+
+                            };
+
+                var ProducosDescri = query.ToList();
+                return ProducosDescri;
+            }
+
+
+            //var result = this.context.employees.Where(
+            //     x => x.Id == id &&
+            //     (LocationId == null || LocationId.Contains(x.locationId)) &&
+            //     (PayrollNo == null || x.payrollNo == PayrollNo) &&
+            //     (rowVersion == null || x.rowVersion > rowVersion));
+
+            // Otra formaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+            //    var query = from u in DataContext.Users
+            //                where u.Division == strUserDiv
+            //                && u.Age > 18
+            //                && u.Height > strHeightinFeet
+            //                select u;
+
+            //    if (useAge)
+            //        query = query.Where(u => u.Age > age);
+
+            //    if (useHeight)
+            //        query = query.Where(u => u.Height > strHeightinFeet);
+
+            //    // Build the results at the end
+            //    var results = query.Select(u => new DTO_UserMaster
+            //    {
+            //        Prop1 = u.Name,
+            //    }).ToList();
+        }
+
 
         public static List<ProductosDetalle> GetCondetalleSinCarta()
         {
@@ -136,6 +194,8 @@ namespace Mb.DAO
                 var ProducosDescri = query.ToList();
                 return ProducosDescri;
             }
+
+
         }
 
 

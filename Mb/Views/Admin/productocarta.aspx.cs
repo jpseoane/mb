@@ -70,5 +70,18 @@ namespace Mb.Views.Admin
             this.ddlCarta.DataSource = CartaController.Get();
             this.ddlCarta.DataBind();
         }
+
+        protected void btnListar_Click(object sender, EventArgs e)
+        {
+            CargaGrilla();
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.ddlTipo.ClearSelection();
+            this.ddlSubTipo.ClearSelection();
+            this.ddlCarta.ClearSelection();
+            CargaGrilla();
+        }
     }
 }

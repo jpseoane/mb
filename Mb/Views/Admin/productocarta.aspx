@@ -25,18 +25,17 @@
        </div>
        <div class="form-row">
            <div class="form-group col-lg-12" >        
-               <asp:Button ID="btnAsignar" runat="server"  Text="Asignar" class="btn btn-primary" />
-               <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
-               <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn  btn-secondary" visible="False"/>
+               <asp:Button ID="btnListar" runat="server"  Text="Listar" class="btn btn-primary" OnClick="btnListar_Click" />
+               <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" OnClick="btnLimpiar_Click" />
            </div>
        </div>            
        <div class="form-row">
-          <div class="form-group col-lg-12" >        
-            <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" ></div>
+           <div class="form-group col-lg-12" >        
+            <div id="div1" runat="server" class="alert alert-warning alert-dismissable" visible="false">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <div id="divMensaje" runat="server">
+            <div id="div2" runat="server">
             </div>           
-        </div>
+            </div>
       </div>
        <!-- GridView-->
        <div class="form-row">
