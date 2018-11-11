@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Nemiro.OAuth;
 
 namespace Mb.Account
 {
@@ -14,32 +15,28 @@ namespace Mb.Account
         {
             if (IsPostBack)
             {
-                var provider = Request.Form["provider"];
-                if (provider == null)
-                {
-                    return;
-                }
-                // Solicitar un redireccionamiento al proveedor del inicio de sesión externo
-                string redirectUrl = ResolveUrl(String.Format(CultureInfo.InvariantCulture, "~/Account/RegisterExternalLogin?{0}={1}&returnUrl={2}", IdentityHelper.ProviderNameKey, provider, ReturnUrl));
-                var properties = new AuthenticationProperties() { RedirectUri = redirectUrl };
-                // Agregar verificación de xsrf al vincular cuentas
-                if (Context.User.Identity.IsAuthenticated)
-                {
-                    properties.Dictionary[IdentityHelper.XsrfKey] = Context.User.Identity.GetUserId();
-                }
-                Context.GetOwinContext().Authentication.Challenge(properties, provider);
-                Response.StatusCode = 401;
-                Response.End();
+
+
+                // gets a provider name from the data-provider
+            //    string provider = ((LinkButton)sender).Attributes["data-provider"];
+                // build the return address
+                //string returnUrl = new Uri(Request.Url, "../ExternalLoginResult.aspx").AbsoluteUri;
+                ////
+                //// redirect user into external site for authorization
+                //OAuthWeb.RedirectToAuthorization("Google", returnUrl);
+
+          
             }
         }
 
-        public string ReturnUrl {
-            get
-            { return "ExternalLoginResult"; }
-            set
-            { }
-                
-        }
+        public string ReturnUrl { get; set; }
+        //public string ReturnUrl {
+        //    get
+        //    { return "ExternalLoginResult"; }
+        //    set
+        //    { }
+
+        //}
 
         public IEnumerable<string> GetProviderNames()
         {

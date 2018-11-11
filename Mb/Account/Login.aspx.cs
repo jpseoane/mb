@@ -5,6 +5,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using Mb.Models;
+using System.Web.UI.WebControls;
+using Nemiro.OAuth;
+using Microsoft.Owin.Security;
 
 namespace Mb.Account
 {
@@ -15,12 +18,12 @@ namespace Mb.Account
             RegisterHyperLink.NavigateUrl = "Register";
             // Habilite esta opción una vez tenga la confirmación de la cuenta habilitada para la funcionalidad de restablecimiento de contraseña
             //ForgotPasswordHyperLink.NavigateUrl = "Forgot";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
             if (!String.IsNullOrEmpty(returnUrl))
             {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }
+
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -57,5 +60,18 @@ namespace Mb.Account
                 }
             }
         }
+
+
+        protected void RedirectToLogin_Click(object sender, EventArgs e)
+        {
+            // gets a provider name from the data-provider
+            string provider = ((LinkButton)sender).Attributes["data-provider"];
+            // build the return address
+            string returnUrl = new Uri(Request.Url, "../ExternalLoginResult.aspx").AbsoluteUri;
+            //
+            // redirect user into external site for authorization
+            OAuthWeb.RedirectToAuthorization(provider, returnUrl);
+        }
+
     }
 }

@@ -5,6 +5,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using Mb.Models;
+using System.Security.Claims;
+using System.Collections.Generic;
+using Nemiro.OAuth;
 
 namespace Mb.Account
 {
@@ -30,7 +33,7 @@ namespace Mb.Account
         protected void Page_Load()
         {
             // Procesar el resultado de un proveedor de autenticación en la solicitud
-            ProviderName = IdentityHelper.GetProviderNameFromRequest(Request);
+            ProviderName = IdentityHelper.GetProviderNameFromRequest(Request);            
             if (String.IsNullOrEmpty(ProviderName))
             {
                 RedirectOnFail();
@@ -40,45 +43,104 @@ namespace Mb.Account
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-                var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
-                if (loginInfo == null)
-                {
-                    RedirectOnFail();
-                    return;
-                }
-                var user = manager.Find(loginInfo.Login);
-                if (user != null)
-                {
-                    signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-                    IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
-                }
-                else if (User.Identity.IsAuthenticated)
-                {
-                    // Aplicar comprobación de Xsrf durante la vinculación
-                    var verifiedloginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo(IdentityHelper.XsrfKey, User.Identity.GetUserId());
-                    if (verifiedloginInfo == null)
-                    {
-                        RedirectOnFail();
-                        return;
-                    }
+                                                                                      
+                var result = OAuthWeb.VerifyAuthorization();
+                //        Response.Write(String.Format("Provider: {0}<br />", result.ProviderName));
 
-                    var result = manager.AddLogin(User.Identity.GetUserId(), verifiedloginInfo.Login);
-                    if (result.Succeeded)
+                if (result.IsSuccessfully)
+                {
+                    // successfully
+                    var user2 = result.UserInfo;
+
+
+                    var claims = new List<Claim>();
+                    claims.Add(new Claim(ClaimTypes.Name, user2.UserName));
+                    claims.Add(new Claim(ClaimTypes.Email, user2.Email));
+                    var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ExternalCookie);
+
+
+
+                    var ctx = Request.GetOwinContext();
+                    var authenticationManager = ctx.Authentication;
+                    authenticationManager.SignIn(id);
+
+
+
+                    ExternalLoginInfo loginInfo = new ExternalLoginInfo();
+                    //UserLoginInfo a = new UserLoginInfo("google", IdentityHelper.XsrfKey);
+
+                    loginInfo.ExternalIdentity = id;
+                    loginInfo.DefaultUserName = user2.UserName;
+
+                    loginInfo.Email = user2.Email;
+                    
+                    
+                    //loginInfo.Login = a;
+
+                    //  loginInfo.Login = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
+
+                    UserLoginInfo userLoginInfo = new UserLoginInfo(user2.UserName, "externo");
+                    loginInfo.Login = userLoginInfo;
+
+                    var loginInfo2 = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
+
+                    var user = manager.Find(userLoginInfo);
+                    if (user != null)
                     {
+                        signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                    }
+                    else if (User.Identity.IsAuthenticated)
+                    {
+                        // Aplicar comprobación de Xsrf durante la vinculación
+                        var verifiedloginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo(IdentityHelper.XsrfKey, User.Identity.GetUserId());
+                        if (verifiedloginInfo == null)
+                        {
+                            RedirectOnFail();
+                            return;
+                        }
+
+
+
+                        var resultLogin = manager.AddLogin(User.Identity.GetUserId(), verifiedloginInfo.Login);
+                        if (resultLogin.Succeeded)
+                        {
+                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                        }
+                        else
+                        {
+                            AddErrors(resultLogin);
+                            return;
+                        }
                     }
                     else
                     {
-                        AddErrors(result);
-                        return;
+                        email.Text = loginInfo.Email;
                     }
+
+
                 }
                 else
                 {
-                    email.Text = loginInfo.Email;
+                    RedirectOnFail();
+                    return;
+
                 }
-            }
-        }        
+
+
+
+
+
+
+
+                //if (loginInfo == null)
+                //{
+                //    RedirectOnFail();
+                //    return;
+                //}
+
+            }//POSTABACK
+        }  //Page load      
         
         protected void LogIn_Click(object sender, EventArgs e)
         {
@@ -97,12 +159,17 @@ namespace Mb.Account
             IdentityResult result = manager.Create(user);
             if (result.Succeeded)
             {
-                var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
-                if (loginInfo == null)
-                {
-                    RedirectOnFail();
-                    return;
-                }
+                //var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
+                //if (loginInfo == null)
+                //{
+                //    RedirectOnFail();
+                //    return;
+                //}
+
+                ExternalLoginInfo loginInfo = new ExternalLoginInfo();
+                UserLoginInfo userLoginInfo = new UserLoginInfo("juan pablo", "externo");
+                loginInfo.Login = userLoginInfo;
+
                 result = manager.AddLogin(user.Id, loginInfo.Login);
                 if (result.Succeeded)
                 {

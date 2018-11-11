@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using Nemiro.OAuth;
 
 namespace Mb
 {
@@ -66,18 +67,31 @@ namespace Mb
                     throw new InvalidOperationException("Error de validación del token Anti-XSRF.");
                 }
             }
+          
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ////LoginStatus anombreusuario = (LoginStatus)lv.FindControl("anombreusuario");
+
+            //LinkButton anombreusuario = new LinkButton();
+            //anombreusuario = (LinkButton)lv.FindControl("anombreusuario");
+            //anombreusuario.Text = "Hola";
+            ////anombreusuario.Text = "El nombre que se me cante la chota";
+
+            ////(this.lv.FindControl("anombreusuario") as LoginStatus).Text = "Some text";
 
 
-           
         }
+
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            //LinkButton anombreusuario = (LinkButton)lv.FindControl("anombreusuario");
+            //anombreusuario.Text = "";
         }
     }
 

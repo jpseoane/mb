@@ -57,9 +57,9 @@
         </div>
 
         <div class="col-md-4">
-            <section id="socialLoginForm">
-                <uc:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
-            </section>
+            <h2>Social Logins</h2>
+            <asp:LinkButton ID="lnkGoogle2" runat="server" data-provider="google" Text="Google" onclick="RedirectToLogin_Click" />                
+            
         </div>
     </div>
 </asp:Content>

@@ -35,8 +35,31 @@ namespace Mb
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
+
+
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ExternalCookie
+            });
+
             // Usar una cookie para almacenar temporalmente información sobre un usuario que inicia sesión con un proveedor de inicio de sesión de un tercero
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            
+
+            //Seteado con la de MiBar
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
+                ClientSecret = "X0oSClq7YfDBBB_kQ3WcMDQn1"
+            });
+
+
+            app.UseFacebookAuthentication(
+               appId: "X0oSClq7YfDBBB_kQ3WcMDQn1",
+               appSecret: "X0oSClq7YfDBBB_kQ3WcMDQn1");
+
+
 
             // Habilita a la aplicación para almacenar temporalmente la información del usuario cuando estén comprobando el segundo factor en el proceso de autenticación de dos factores.
             app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
@@ -55,16 +78,9 @@ namespace Mb
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            
 
-            //Seteado con la de MiBar
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
-                ClientSecret = "X0oSClq7YfDBBB_kQ3WcMDQn1"
-            });
+
 
 
             // IdCliente Oauth =  188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com
@@ -73,10 +89,10 @@ namespace Mb
             // IdCliente Mibar =  188020733885-bdb8ombkpbceqp3d1ar23a7f95qa99o8.apps.googleusercontent.com
             // Client Secret   = NYFcv_bkcgPg_wY1Z104A_i1
 
-            
 
 
-        
+
+
 
         }
     }
