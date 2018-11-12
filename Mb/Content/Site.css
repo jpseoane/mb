@@ -137,15 +137,16 @@ input[type="select"] {
     font-family: "arial";
     background-color: #FFFFFF;
     width: 100%;
-    font-size: small;
+    font-size: large;
+    border:0px;
 }
 
     .gridview th {
-        background: #5d7b9d;
-        /*#5d7b9d*/
-        padding: 5px;
+        /* background: #5d7b9d; */
+        padding: 2%;
         font-size: small;
         text-align: center;
+        border: 0px;
     }
 
         .gridview th a {
@@ -159,11 +160,16 @@ input[type="select"] {
             }
 
     .gridview td {
-        background: #f7f6f3;
-        color: #333333;
-        
-        font: small "arial";
         padding: 4px;
+        font-size: small;
+        font-family: cursive;
+        font-weight: 500;
+        border: 0px;
+    }
+
+    .gridview  tr td  .izq{
+        text-align:left;
+        font-size:medium;
     }
 
     .gridview tr.even td {

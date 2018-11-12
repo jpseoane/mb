@@ -407,6 +407,7 @@
     <Compile Include="DAO\CartaProductoController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
     <Compile Include="DAO\MesaController.cs" />
+    <Compile Include="DAO\PedidoController.cs" />
     <Compile Include="DAO\ProductoController.cs" />
     <Compile Include="DAO\SubTipoProductoController.cs" />
     <Compile Include="DAO\TipoProductoController.cs" />

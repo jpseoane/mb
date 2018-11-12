@@ -42,18 +42,30 @@ namespace Mb.Views.Usuario.pedidos.nuevo
 
         private void Inicializarcombos()
         {
+            ListItem selecc = new ListItem("Seleccionar", "0");
             this.ddlCarta.DataTextField = ("descripcion");
             this.ddlCarta.DataValueField = ("Id");
-            this.ddlCarta.DataSource = CartaController.Get();
+            this.ddlCarta.DataSource = CartaController.Get();            
             this.ddlCarta.DataBind();
+            this.ddlCarta.Items.Insert(0,selecc);
+            this.ddlCarta.SelectedIndex = 0;
+
+          
             this.ddlTipo.DataTextField = ("descripcion");
             this.ddlTipo.DataValueField = ("Id");
             this.ddlTipo.DataSource = TipoProductoController.Get();
             this.ddlTipo.DataBind();
+
+            this.ddlTipo.Items.Insert(0, "Todos");
+            this.ddlTipo.SelectedIndex = 0;
+
             this.ddlSubTipo.DataTextField = ("descripcion_subtipo");
             this.ddlSubTipo.DataValueField = ("id");
             this.ddlSubTipo.DataSource = SubTipoProductoController.Get();
-            this.ddlSubTipo.DataBind();            
+            this.ddlSubTipo.DataBind();
+
+            this.ddlSubTipo.Items.Insert(0, "Todos");
+            this.ddlSubTipo.SelectedIndex = 0;
         }
 
         protected void ddlTipo_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,11 +74,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
             this.ddlSubTipo.DataValueField = ("id");
             this.ddlSubTipo.DataSource = SubTipoProductoController.Get();
         }
-
-        protected void ddlSubTipo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+               
                
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -76,65 +84,28 @@ namespace Mb.Views.Usuario.pedidos.nuevo
 
         private void CargaGrilla()
         {
+            int? idTipo = null;
+            int? idSubTipo = null;
 
-            gv.DataSource = ProductoController.GetByTipo(Convert.ToInt32(ddlTipo.SelectedValue));
+            if (this.ddlSubTipo.SelectedIndex.ToString() != "0") {
+                idSubTipo = Convert.ToInt32(ddlSubTipo.SelectedValue.ToString());
+            }
+
+            if (this.ddlTipo.SelectedIndex.ToString() != "0")
+            {
+                idTipo = Convert.ToInt32(ddlTipo.SelectedValue.ToString());
+            }
+
+            gv.DataSource = ProductoController.GetConFiltro(Convert.ToInt32(ddlCarta.SelectedValue), idTipo, idSubTipo);
             gv.DataBind();
         }
 
-}
+        protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.ToString() == "agregar"){
 
-
-
-
-
-    // <T> is the type of data in the list.
-    // If you have a List<int>, for example, then call this as follows:
-    // List<int> ListOfInt;
-    // DataTable ListTable = BuildDataTable<int>(ListOfInt);
-    //public static DataTable BuildDataTable<T>(IList<T> lst)
-    //{
-    //    //create DataTable Structure
-    //    DataTable tbl = CreateTable<T>();
-    //    Type entType = typeof(T);
-    //    PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(entType);
-    //    //get the list item and add into the list
-    //    foreach (T item in lst)
-    //    {
-    //        DataRow row = tbl.NewRow();
-    //        foreach (PropertyDescriptor prop in properties)
-    //        {
-    //            row[prop.Name] = prop.GetValue(item);
-    //        }
-    //        tbl.Rows.Add(row);
-    //    }
-    //    return tbl;
-    //}
-
-    //private static DataTable CreateTable<T>()
-    //{
-    //    //T –> ClassName
-    //    Type entType = typeof(T);
-    //    //set the datatable name as class name
-    //    DataTable tbl = new DataTable(entType.Name);
-    //    //get the property list
-    //    PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(entType);
-    //    foreach (PropertyDescriptor prop in properties)
-    //    {
-    //        //add property as column
-    //        tbl.Columns.Add(prop.Name, prop.PropertyType);
-    //    }
-    //    return tbl;
-    //}
-//    Next, get the DataTable's default view:
-
-//DataView NewView = MyDataTable.DefaultView;
-//    A complete example would be as follows:
-
-//List<int> ListOfInt = new List<int>();
-//    // populate list
-//    DataTable ListAsDataTable = BuildDataTable<int>(ListOfInt);
-//    DataView ListAsDataView = ListAsDataTable.DefaultView;
-
-
+            }
+        }
+    }
 
 }
