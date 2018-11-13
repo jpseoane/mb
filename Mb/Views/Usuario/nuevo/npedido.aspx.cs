@@ -1,4 +1,5 @@
 ﻿using Mb.DAO;
+using MbDataAccess;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
+                    ViewState["idUserMesa"] = usuarioDeMesa.id;
                     Inicializarcombos();
                     dvMensajeCambio.Visible = false;
                     dvCargaProducto.Visible = true;
@@ -68,13 +70,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
             this.ddlSubTipo.SelectedIndex = 0;
         }
 
-        protected void ddlTipo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.ddlSubTipo.DataTextField = ("descripcion_subtipo");
-            this.ddlSubTipo.DataValueField = ("id");
-            this.ddlSubTipo.DataSource = SubTipoProductoController.Get();
-        }
-               
+      
                
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -103,6 +99,35 @@ namespace Mb.Views.Usuario.pedidos.nuevo
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName.ToString() == "agregar"){
+
+                // id codigo  descripcion fecha
+                // 1	E Encargado	2018-10-01 00:00:00.000
+                // 2	EP En preparacion	2018-10-01 00:00:00.000
+                // 3	PP Preparandose	2018-10-01 00:00:00.000
+                // 4	PE Para Entregar	2018-10-01 00:00:00.000
+                // 5	EN Entregado	2018-10-01 00:00:00.000
+
+              //  Pedido nuevoPedido = new Pedido();
+                //Estado (Encargado)
+                //nuevoPedido.IdEstado = 1;
+                ////Usuario
+                //nuevoPedido.IdUserMesa = Convert.ToInt32(ViewState["idUserMesa"]);
+                ////Producto
+                //nuevoPedido.IdProducto = Convert.ToInt32(e.CommandArgument.ToString());
+                ////Precio
+                int index = Convert.ToInt32(e.CommandArgument) - 1;
+                float precioUnitario2 = (float)gv.DataKeys[index].Value;
+                //nuevoPedido.precio = precioUnitario2;
+                //Cantidad
+                GridViewRow row = gv.Rows[index];
+                TextBox txtCantidad = row.FindControl("txtCantidad") as TextBox;
+                //nuevoPedido.cantidad = Convert.ToInt32(txtCantidad.Text);
+                //Usuario
+                PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2);
+
+
+
+
 
             }
         }

@@ -14,6 +14,11 @@ namespace MbDataAccess
     
     public partial class UserMesa
     {
+        public UserMesa()
+        {
+            this.Pedidoes = new HashSet<Pedido>();
+        }
+    
         public int id { get; set; }
         public string UserId { get; set; }
         public int IdMesa { get; set; }
@@ -25,5 +30,6 @@ namespace MbDataAccess
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Mesa Mesa { get; set; }
         public virtual PerfilMesa PerfilMesa { get; set; }
+        public virtual ICollection<Pedido> Pedidoes { get; set; }
     }
 }

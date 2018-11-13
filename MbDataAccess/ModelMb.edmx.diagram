@@ -45,6 +45,8 @@
         <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
         <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" />
+        <AssociationConnector Association="mbModel.FK_Pedido_Producto" />
+        <AssociationConnector Association="mbModel.FK_Pedido_UserMesa" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

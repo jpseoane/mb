@@ -402,6 +402,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pedido_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_UserMesa">
+          <End Role="UserMesa" Type="Self.UserMesa" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdUserMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producto_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -578,6 +602,14 @@
             <End Role="EstadoPedido" EntitySet="EstadoPedido" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Producto" Association="Self.FK_Pedido_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_UserMesa" Association="Self.FK_Pedido_UserMesa">
+            <End Role="UserMesa" EntitySet="UserMesa" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producto_AspNetUsers" Association="Self.FK_Producto_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Producto" EntitySet="Producto" />
@@ -728,6 +760,14 @@
           <AssociationSet Name="AspNetUserRoles" Association="mbModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Producto" Association="mbModel.FK_Pedido_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_UserMesa" Association="mbModel.FK_Pedido_UserMesa">
+            <End Role="UserMesa" EntitySet="UserMesas" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -928,10 +968,12 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="cantidad" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
-          <Property Name="subtotal" Type="Single" />
+          <Property Name="subtotal" Type="Single" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cuentas" Relationship="mbModel.FK_Cuenta_Pedido1" FromRole="Pedido" ToRole="Cuenta" />
           <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
+          <NavigationProperty Name="UserMesa" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="Pedido" ToRole="UserMesa" />
         </EntityType>
         <EntityType Name="PerfilMesa">
           <Key>
@@ -958,6 +1000,7 @@
           <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Producto" ToRole="Carta_Producto" />
           <NavigationProperty Name="SubTipo" Relationship="mbModel.FK_Producto_SubTipo" FromRole="Producto" ToRole="SubTipo" />
           <NavigationProperty Name="TipoProducto" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
+          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Producto" FromRole="Producto" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="QR">
           <Key>
@@ -1011,6 +1054,7 @@
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_UserMesa_AspNetUsers" FromRole="UserMesa" ToRole="AspNetUser" />
           <NavigationProperty Name="Mesa" Relationship="mbModel.FK_UserMesa_Mesa" FromRole="UserMesa" ToRole="Mesa" />
           <NavigationProperty Name="PerfilMesa" Relationship="mbModel.FK_UserMesa_PerfilMesa" FromRole="UserMesa" ToRole="PerfilMesa" />
+          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="UserMesa" ToRole="Pedido" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1211,6 +1255,30 @@
         <Association Name="AspNetUserRoles">
           <End Type="mbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Pedido_Producto">
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_UserMesa">
+          <End Type="mbModel.UserMesa" Role="UserMesa" Multiplicity="1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdUserMesa" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>

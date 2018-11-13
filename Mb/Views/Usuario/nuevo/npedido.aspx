@@ -28,12 +28,12 @@
                     </div>
                     <div class="form-group col-lg-4" >        
                         <label for="ddlTipo">Tipo</label><br />
-                        <asp:DropDownList ID="ddlTipo" CssClass="form-control"  runat="server" OnSelectedIndexChanged="ddlTipo_SelectedIndexChanged"></asp:DropDownList>           
+                        <asp:DropDownList ID="ddlTipo" CssClass="form-control"  runat="server" ></asp:DropDownList>           
                   
                     </div>
                     <div class="form-group col-lg-4" >        
                         <label for="ddlSubTipo">SubTipo</label><br />
-                        <asp:DropDownList ID="ddlSubTipo" CssClass="form-control"  runat="server"  OnSelectedIndexChanged="ddlSubTipo_SelectedIndexChanged"></asp:DropDownList> 
+                        <asp:DropDownList ID="ddlSubTipo" CssClass="form-control"  runat="server"  ></asp:DropDownList> 
                     </div>
                </div>
                <div class="form-row" >                    
@@ -54,7 +54,7 @@
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->
                         <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview"
+                                AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview" DataKeyNames="precioUnitario"
                                 AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
@@ -63,7 +63,13 @@
                                     </asp:BoundField>                          
                                     <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Sin precio" SortExpression="precioUnitario" >
                                         <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                          
+                                    </asp:BoundField>                        
+                                    <asp:TemplateField HeaderText="Cantidad">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtCantidad" CssClass="form-control" TextMode="Number" ToolTip="Ingrese la cantidad deseada del producto" CausesValidation="false"  Width="30%" runat="server">1</asp:TextBox>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Center" Width="50%" />
+                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
                                             <asp:ImageButton runat="server" ID="imgbtnAgregar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"

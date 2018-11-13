@@ -17,6 +17,7 @@ namespace MbDataAccess
         public Producto()
         {
             this.Carta_Producto = new HashSet<Carta_Producto>();
+            this.Pedidoes = new HashSet<Pedido>();
         }
     
         public int id { get; set; }
@@ -32,5 +33,6 @@ namespace MbDataAccess
         public virtual ICollection<Carta_Producto> Carta_Producto { get; set; }
         public virtual SubTipo SubTipo { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
+        public virtual ICollection<Pedido> Pedidoes { get; set; }
     }
 }

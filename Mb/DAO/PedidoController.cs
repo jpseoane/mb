@@ -19,44 +19,38 @@ namespace Mb.DAO
                 return entities.Pedidoes.FirstOrDefault(e => e.id == id);
             }
         }
-        public static IEnumerable<Pedido> Get()
+
+        public static IEnumerable<Pedido> GetAll()
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 return entities.Pedidoes.ToList();
             }
         }
+            
 
-        public static IEnumerable<Pedido> GetByTipo(int id)
-        {
-            using (mbDBContext entities = new mbDBContext())
-            {
-                return entities.Pedidoes.Where(e => e.id == id).ToList();
-            }
-        }
-
-        //Obtener todos los pedidos de la mesa
-        public static IEnumerable<Pedido> GetTodos(int  numMesa)
+        //Pedidos X Mesa
+        public static IEnumerable<Pedido> GetTodos(int numMesa)
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 var PedidoTipo = (from p in entities.Pedidoes
-                                    join um in entities.UserMesas on p.IdUserMesa equals um.id
-                                    join me in entities.Mesas  on um.IdMesa equals me.Id
-                                    where me.numero== numMesa
+                                  join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                  join me in entities.Mesas on um.IdMesa equals me.Id
+                                  where me.numero == numMesa
                                   select p).ToList();
 
                 return entities.Pedidoes.ToList();
             }
         }
-        
-        //Obtener todos los pedidos del usuario
+
+        //Pedidos X usuario
         public static IEnumerable<Pedido> GetTodos(AspNetUser aspNetUser)
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 var PedidoTipo = (from p in entities.Pedidoes
-                                  join um in entities.UserMesas on p.IdUserMesa equals um.id                                  
+                                  join um in entities.UserMesas on p.IdUserMesa equals um.id
                                   where um.UserId == aspNetUser.Id
                                   select p).ToList();
 
@@ -65,51 +59,26 @@ namespace Mb.DAO
         }
 
 
-        //En teoria traeria todos los Pedidos de la cartaId que le pase
-        public static IEnumerable<Pedido> GetTodosPorCartaId(int idCarta)
+
+
+        //Pedidos X Mesa Con cierto Estado
+        public static IEnumerable<Pedido> GetXMesaXestado(int numMesa, int idEstado)
         {
+
             using (mbDBContext entities = new mbDBContext())
             {
-                var query = from p in entities.Pedidoes                         
-                            where cp.idCarta == idCarta
-                            select p;
+                var PedidoTipo = (from p in entities.Pedidoes
+                                  join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                  join me in entities.Mesas on um.IdMesa equals me.Id
+                                  where me.numero == numMesa && p.IdEstado==idEstado
+                                  select p).ToList();
 
-
-                var Pedidos = query.ToList();
-                return Pedidos;
-            }
-        }
-
-        //Filtrar por Tipo y Subtipo
-        public static IEnumerable<Pedido> GetConFiltro(int idCarta, int? idTipo, int? idSubtipo)
-        {
-            using (mbDBContext entities = new mbDBContext())
-            {
-                var query = (from p in entities.Pedidoes                           
-                             where cp.idCarta == idCarta
-                             select p).ToList();
-
-                if (idTipo != null)
-                {
-                    query = (from p in query
-                             where p.IdTipo == idTipo
-                             select p).ToList();
-                }
-
-                if (idSubtipo != null)
-                {
-                    query = (from p in query
-                             where p.idSubTipo == idSubtipo
-                             select p).ToList();
-                }
-
-                //var Pedidos = query.ToList();
-                return query;
+                return entities.Pedidoes.ToList();
             }
         }
 
 
-      
+
 
 
 
@@ -117,45 +86,46 @@ namespace Mb.DAO
         {
             private int id { get; set; }
             public int? idUserMesa { get; set; }
-            public int? idProducto { get; set; }
-            public int? idEstado { get; set; }
-            public String estadoPedido { get; set; }
-            public String descriProducto { get; set; }            
-            private float precioUnitario { get; set; }
+            public String userName { get; set; }
+            public int? idProducto { get; set; }            
+            public String descriProducto { get; set; }
+            public float precioUnitario { get; set; }
             public int? cantidad { get; set; }
-            private float subTotal { get; set; }
+            public float subTotal { get; set; }
             public DateTime fecha { get; set; }
+            public int? idEstado { get; set; }
+            public String descriEstadoPedido { get; set; }
+
 
         }
 
 
-
-        public static List<PedidosDetalle> GetCondetalleConCarta(int idCarta, int idTipo, int idSubTipo)
+        //Traer el datalle del pedido para el usuarioMesa
+        public static List<PedidosDetalle> GetCondetalle(UserMesa userMesa)
         {
 
             using (mbDBContext entities = new mbDBContext())
             {
-
                 var query = from p in entities.Pedidoes
-                            from tp in entities.TipoPedidoes.Where(x => x.Id == p.id)
-                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
-                            from cp in entities.Carta_Pedido.Where(h => h.idPedido == p.id).DefaultIfEmpty()
-                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
+                            from um in entities.UserMesas.Where(a => a.id == p.IdUserMesa) //Join UserMesa
+                            from apu in entities.AspNetUsers.Where(b => b.Id == um.UserId) //Join AspnetUser
+                            from pr in entities.Productoes.Where(c => c.id == p.IdProducto) //Join Producto
+                            from ep in entities.EstadoPedidoes.Where(d => d.id == p.IdEstado) //Join EstadoProducto
                             select new PedidosDetalle
                             {
                                 id = p.id,
-                                idCarta = cp.idCarta,
-                                descriCarta = ca.descripcion,
-                                descripcion = p.descripcion,
-                                precioUnitario = p.precioUnitario,
-                                activo = p.activo,
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri = stp.descripcion_subtipo,
-                                fecha = p.fecha_carga
-
+                                idUserMesa=um.id,
+                                userName =apu.UserName,
+                                idProducto=pr.id,
+                                descriProducto=pr.descripcion,
+                                precioUnitario=pr.precioUnitario,
+                                cantidad =p.cantidad,
+                                subTotal =p.subtotal,
+                                fecha =p.fecha,
+                                idEstado =ep.id,
+                                descriEstadoPedido=ep.descripcion
                             };
-
-                var ProducosDescri = query.ToList();
+                var ProducosDescri = query.Where(u => u.UserMesa.id==userMesa.id).ToList();
                 return ProducosDescri;
             }
 
@@ -188,105 +158,23 @@ namespace Mb.DAO
         }
 
 
-        public static List<PedidosDetalle> GetCondetalleSinCarta()
-        {
-
-            using (mbDBContext entities = new mbDBContext())
-            {
-
-                var query = from Pedido p in entities.Pedidoes
-                            join tp in entities.TipoPedidoes on p.IdTipo equals tp.Id
-                            join stp in entities.SubTipoes on p.idSubTipo equals stp.id
-                            select new PedidosDetalle
-                            {
-                                id = p.id,
-                                descripcion = p.descripcion,
-                                precioUnitario = p.precioUnitario,
-                                activo = p.activo,
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri = stp.descripcion_subtipo,
-                                fecha = p.fecha_carga
-                            };
-
-                var ProducosDescri = query.ToList();
-                return ProducosDescri;
-            }
+   
 
 
-        }
-
-
-        public static List<PedidosDetalle> GetCondetalleConCarta()
-        {
-
-            using (mbDBContext entities = new mbDBContext())
-            {
-
-                var query = from p in entities.Pedidoes
-                            from tp in entities.TipoPedidoes.Where(x => x.Id == p.id)
-                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
-                            from cp in entities.Carta_Pedido.Where(h => h.idPedido == p.id).DefaultIfEmpty()
-                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
-                            select new PedidosDetalle
-                            {
-                                id = p.id,
-                                idCarta = cp.idCarta,
-                                descriCarta = ca.descripcion,
-                                descripcion = p.descripcion,
-                                precioUnitario = p.precioUnitario,
-                                activo = p.activo,
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri = stp.descripcion_subtipo,
-                                fecha = p.fecha_carga
-
-                            };
-
-                var ProducosDescri = query.ToList();
-                return ProducosDescri;
-            }
-        }
-
-
-
-
-        public static List<PedidosDetalle> GetCondetalleXCartaId(int idCarta)
-        {
-
-            using (mbDBContext entities = new mbDBContext())
-            {
-
-                var query = from Pedido p in entities.Pedidoes
-                            join tp in entities.TipoPedidoes on p.IdTipo equals tp.Id
-                            join stp in entities.SubTipoes on p.idSubTipo equals stp.id
-                            join cp in entities.Carta_Pedido on p.id equals cp.idPedido
-                            where cp.idCarta == idCarta
-                            select new PedidosDetalle
-                            {
-                                id = p.id,
-                                descripcion = p.descripcion,
-                                precioUnitario = p.precioUnitario,
-                                activo = p.activo,
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri = stp.descripcion_subtipo,
-                                fecha = p.fecha_carga
-
-                            };
-
-                var ProducosDescri = query.ToList();
-                return ProducosDescri;
-            }
-        }
-
-
-
-
-
-
-        public static bool agregar(Pedido Pedido)
+        public static bool agregar(UserMesa userMesa, Producto  producto, int idEstadoProducto,
+                                   int cantidad, double precioUnitario)
         {
             exito = false;
             try
             {
+                Pedido Pedido = new Pedido();
+                Pedido.IdUserMesa = userMesa.id;
+                Pedido.IdProducto = producto.id;
+                Pedido.IdEstado = idEstadoProducto;
+                Pedido.cantidad = cantidad;
+                Pedido.precio = (float)precioUnitario;
+                Pedido.subtotal = (float) (precioUnitario * cantidad);
+                Pedido.fecha = DateTime.Now;
                 using (mbDBContext PedidoDBEntities = new mbDBContext())
                 {
                     PedidoDBEntities.Pedidoes.Add(Pedido);
@@ -297,24 +185,26 @@ namespace Mb.DAO
             catch
             {
                 exito = false;
+                errorPedido = new ErrorPedido(1, "Error al carga Pedido por parametros");
             }
             return exito;
+
         }
 
-        public static bool agregar(String UserId, int idTipo, int idSubTipo,
-                                   String descripcion, double precioUnitario, bool activo)
+        public static bool agregar(int idUserMesa, int idProducto, int idEstadoProducto,
+                               int cantidad, double precioUnitario)
         {
             exito = false;
             try
             {
                 Pedido Pedido = new Pedido();
-                Pedido.UserId = UserId;
-                Pedido.IdTipo = idTipo;
-                Pedido.idSubTipo = idSubTipo;
-                Pedido.descripcion = descripcion;
-                Pedido.precioUnitario = (float)precioUnitario;
-                Pedido.activo = activo;
-                Pedido.fecha_carga = DateTime.Now;
+                Pedido.IdUserMesa = idUserMesa;
+                Pedido.IdProducto = idProducto;
+                Pedido.IdEstado = idEstadoProducto;
+                Pedido.cantidad = cantidad;
+                Pedido.precio = (float)precioUnitario;
+                Pedido.subtotal = (float)(precioUnitario * cantidad);
+                Pedido.fecha = DateTime.Now;
                 using (mbDBContext PedidoDBEntities = new mbDBContext())
                 {
                     PedidoDBEntities.Pedidoes.Add(Pedido);
@@ -355,23 +245,26 @@ namespace Mb.DAO
             }
             return TodoOk;
         }
-        public static bool update(Pedido Pedido)
+        // id codigo  descripcion fecha
+        // 1	E Encargado	2018-10-01 00:00:00.000
+        // 2	EP En preparacion	2018-10-01 00:00:00.000
+        // 3	PP Preparandose	2018-10-01 00:00:00.000
+        // 4	PE Para Entregar	2018-10-01 00:00:00.000
+        // 5	EN Entregado	2018-10-01 00:00:00.000
+
+        //Actualizar el estado de un pedido 
+        public static bool UpdatePedidoEstado(int idPedido, int idEstado)
         {
             exito = false;
             try
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Pedidoes.FirstOrDefault(e => e.id == Pedido.id);
+                    var entity = dBEntities.Pedidoes.Where(x => x.id == idPedido).FirstOrDefault();
                     if (entity != null)
                     {
-                        entity.UserId = Pedido.UserId;
-                        entity.IdTipo = Pedido.IdTipo;
-                        entity.idSubTipo = Pedido.idSubTipo;
-                        entity.descripcion = Pedido.descripcion;
-                        entity.precioUnitario = Pedido.precioUnitario;
-                        entity.activo = Pedido.activo;
-                        entity.fecha_carga = DateTime.Now;
+                        entity.IdEstado =idEstado;
+                        dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
                         exito = true;
                     }
@@ -384,27 +277,25 @@ namespace Mb.DAO
             return exito;
         }
 
+// id codigo  descripcion fecha
+// 1	E Encargado	2018-10-01 00:00:00.000
+// 2	EP En preparacion	2018-10-01 00:00:00.000
+// 3	PP Preparandose	2018-10-01 00:00:00.000
+// 4	PE Para Entregar	2018-10-01 00:00:00.000
+// 5	EN Entregado	2018-10-01 00:00:00.000
 
-        public static bool update(int id, String UserId, int idTipo, int idSubTipo,
-                                   String descripcion, Double precioUnitario, bool activo)
+        //Actualizar el estado de una lista de pedidos para cierta mesa (numero de mesa) al idEstado que se le pasa
+        public static bool UpdatePedidosDeMesaEstado(int numeroMesa, int idEstado)
         {
-            exito = false;
+            IEnumerable<Pedido> ListaPedidosDeMesa= GetTodos(numeroMesa); 
             try
             {
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
-                    var entity = dBEntities.Pedidoes.FirstOrDefault(e => e.id == id);
-                    if (entity != null)
-                    {
-                        entity.UserId = UserId;
-                        entity.IdTipo = idTipo;
-                        entity.idSubTipo = idSubTipo;
-                        entity.descripcion = descripcion;
-                        entity.precioUnitario = (float)precioUnitario;
-                        entity.activo = activo;
-                        entity.fecha_carga = DateTime.Now;
+                    foreach (Pedido pedido  in ListaPedidosDeMesa){
+                        pedido.IdEstado = idEstado;
+                        dBEntities.Entry(pedido).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
-
                         exito = true;
                     }
                 }
@@ -415,30 +306,6 @@ namespace Mb.DAO
             }
             return exito;
         }
-
-        //public static bool UpdateIdCarta(int id, int idCarta)
-        //{
-        //    exito = false;
-        //    try
-        //    {
-        //        using (mbDBContext dBEntities = new mbDBContext())
-        //        {
-        //            var entity = dBEntities.Carta_Pedido.Where(x => x.idCarta == idCarta && x.idPedido == id).FirstOrDefault();
-        //            if (entity != null)
-        //            {
-        //                entity. = activo;
-        //                dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-        //                dBEntities.SaveChanges();
-        //                exito = true;
-        //            }
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        exito = false;
-        //    }
-        //    return exito;
-        //}
 
 
 
