@@ -106,15 +106,6 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 // 3	PP Preparandose	2018-10-01 00:00:00.000
                 // 4	PE Para Entregar	2018-10-01 00:00:00.000
                 // 5	EN Entregado	2018-10-01 00:00:00.000
-
-              //  Pedido nuevoPedido = new Pedido();
-                //Estado (Encargado)
-                //nuevoPedido.IdEstado = 1;
-                ////Usuario
-                //nuevoPedido.IdUserMesa = Convert.ToInt32(ViewState["idUserMesa"]);
-                ////Producto
-                //nuevoPedido.IdProducto = Convert.ToInt32(e.CommandArgument.ToString());
-                ////Precio
                 int index = Convert.ToInt32(e.CommandArgument) - 1;
                 float precioUnitario2 = (float)gv.DataKeys[index].Value;
                 //nuevoPedido.precio = precioUnitario2;

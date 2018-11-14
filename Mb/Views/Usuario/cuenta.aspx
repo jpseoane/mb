@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-       <div  id="dvCargaProducto" runat="server"  visible="false" >
+       <div  id="dvDetalleCuenta" runat="server"  visible="false" >
                <div class="form-row" >
                     <div class="form-group col-lg-12" >        
                         <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click"  />

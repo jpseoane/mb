@@ -19,6 +19,12 @@
                </div>
            </div>
        <div  id="dvCargaProducto" runat="server"  visible="false" >
+               <div class="form-row" style="text-align:right">
+                    <div class="form-group col-lg-12" >                    
+                                <asp:LinkButton  PostBackUrl="~/Views/Usuario/detallepedido.aspx" runat="server" CssClass="btn btn-toolbar"
+                                    CausesValidation="false" >Detalle del pedido</asp:LinkButton>
+                    </div>
+               </div>
                <div class="form-row" >
                     <div class="form-group col-lg-4" >        
                         <label for="ddlCarta">Carta</label><br />

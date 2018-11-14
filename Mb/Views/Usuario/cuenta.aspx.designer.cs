@@ -31,13 +31,13 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.WebControls.Label lblMensaje;
         
         /// <summary>
-        /// Control dvCargaProducto.
+        /// Control dvDetalleCuenta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvCargaProducto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvDetalleCuenta;
         
         /// <summary>
         /// Control btnBuscar.

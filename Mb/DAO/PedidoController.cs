@@ -125,7 +125,7 @@ namespace Mb.DAO
                                 idEstado =ep.id,
                                 descriEstadoPedido=ep.descripcion
                             };
-                var ProducosDescri = query.Where(u => u.UserMesa.id==userMesa.id).ToList();
+                var ProducosDescri = query.Where(u => u.id==userMesa.id).ToList();
                 return ProducosDescri;
             }
 

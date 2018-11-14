@@ -17,35 +17,44 @@
                 </div>
             </div>
         </div>
-       <div  id="dvCargaProducto" runat="server"  visible="false" >
-               <div class="form-row" >
-                    <div class="form-group col-lg-12" >        
-                        <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click"  />
-                        <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
-                    </div>
+       <div  id="dvDetallePedido" runat="server"  visible="false" >
+               <div class="form-row" >                    
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->
                         <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                                 AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview"
-                                AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
+                                AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand"  >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
+                                    <asp:BoundField DataField="usuario" HeaderText="usuario" NullDisplayText="Sin usuario" SortExpression="usuario" >
+                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>                          
+                                    <asp:BoundField DataField="cantidad" HeaderText="Cant." NullDisplayText="Sin cantidad" SortExpression="cantidad" >
+                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>                          
                                     <asp:BoundField  DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
                                         <ItemStyle CssClass="izq" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                          
+                                    </asp:BoundField>                                                              
                                     <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Sin precio" SortExpression="precioUnitario" >
+                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>                          
+                                    <asp:BoundField DataField="subtotal" HeaderText="Subtotal" NullDisplayText="Sin subtotal" SortExpression="subtotal" >
                                         <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
-                                            <asp:ImageButton runat="server" ID="imgbtnAgregar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
-                                                commandname="agregar" commandargument='<%# Eval("id")%>' Height="48px" Width="48px" 
-                                                ToolTip="Agregar a mi carrito" />                                           
+                                            <asp:ImageButton runat="server" ID="imgbtnCancelar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
+                                                commandname="cancelar" commandargument='<%# Eval("id")%>' Height="48px" Width="48px" 
+                                                ToolTip="Se podra cancelar el pedido solo si no empezo a prepararse" />                                           
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>
                                     </asp:TemplateField>     
                                     </Columns>
                         </asp:GridView>
+                        <div class="form-group col-lg-12" >        
+                            <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta"  />
+                            <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
+                        </div>
                     </div>
               </div>
                <div class="form-row" >             
