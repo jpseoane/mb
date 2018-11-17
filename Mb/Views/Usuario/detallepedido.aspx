@@ -18,44 +18,84 @@
             </div>
         </div>
        <div  id="dvDetallePedido" runat="server"  visible="false" >
+              <div class="form-row" style="text-align:right">
+                    <div class="form-group col-lg-12" >                    
+                                <asp:LinkButton  PostBackUrl="~/Views/Usuario/nuevo/npedido.aspx" runat="server" CssClass="btn btn-toolbar"
+                                    CausesValidation="false" >Volver</asp:LinkButton>
+                    </div>
+               </div>
+              <div class="form-row">
+                <div class="form-group col-lg-12" >        
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Detalle de pedidos de la mesa N° <strong><b><span runat="server" id="h3Mesa"></span></b></strong></h3>
+                      </div>
+                      <div class="panel-body">
+                          <strong><label for="lblMail">Email: </label></strong>
+                          <asp:Label ID="lblMail" runat="server" Text="Tu mail"></asp:Label><br />
+                          <strong><label for="lblPerfil">Perfil:</label></strong>
+                          <asp:Label ID="lblPerfil" runat="server" Text="Tu Perfil"></asp:Label><br />
+                          <strong><label for="lblActivo">Activo</label></strong>
+                          <input type="checkbox" runat="server" id="chkActiva" disabled/>
+                  
+                      </div>
+                    </div>
+                </div>
+               </div>
                <div class="form-row" >                    
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->
+                        <div class="scrolling-table-container">
                         <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview"
-                                AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand"  >
+                                AllowSorting="True"  CssClass="gridview" DataKeyNames="idEstado" 
+                                AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gv_RowCommand"  >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
-                                    <asp:BoundField DataField="usuario" HeaderText="usuario" NullDisplayText="Sin usuario" SortExpression="usuario" >
-                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                  <%--  <asp:BoundField DataField="userName" HeaderText="usuario" NullDisplayText="Sin usuario" SortExpression="userName" >
+                                        <ItemStyle HorizontalAlign="Center"  Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField> --%>                         
+                                    <asp:BoundField DataField="fecha" HeaderText="fecha" NullDisplayText="Sin fecha" SortExpression="fecha" >
+                                        <ItemStyle HorizontalAlign="Center"  Font-Size="Small" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
+                                    
                                     <asp:BoundField DataField="cantidad" HeaderText="Cant." NullDisplayText="Sin cantidad" SortExpression="cantidad" >
-                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                        <ItemStyle HorizontalAlign="Center"  Font-Size="Small" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
-                                    <asp:BoundField  DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
-                                        <ItemStyle CssClass="izq" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                                                              
+                                    <asp:BoundField  DataField="descriProducto" HeaderText="Descripcion" HeaderStyle-HorizontalAlign="Left" NullDisplayText="descripcion" SortExpression="descriProducto" >
+                                        <HeaderStyle CssClass="izq" HorizontalAlign="Left" />
+                                        <ItemStyle CssClass="izq" Font-Bold="true" Font-Size="Small" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>                          
+                                    
                                     <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Sin precio" SortExpression="precioUnitario" >
-                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                        <ItemStyle HorizontalAlign="Center"  Font-Size="Small" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
-                                    <asp:BoundField DataField="subtotal" HeaderText="Subtotal" NullDisplayText="Sin subtotal" SortExpression="subtotal" >
-                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                          
+                                   <%-- <asp:BoundField DataField="subtotal" HeaderText="Subtotal" NullDisplayText="Sin subtotal" SortExpression="subtotal" >
+                                        <ItemStyle HorizontalAlign="Center"  Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>  --%>                        
+                                    
+                               <%--     <asp:BoundField DataField="descriEstadoPedido" HeaderText="descriEstadoPedido" NullDisplayText="Sin descriEstadoPedido" SortExpression="descriEstadoPedido" >
+                                        <ItemStyle HorizontalAlign="Center" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
+                                    </asp:BoundField>  --%>                        
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
                                             <asp:ImageButton runat="server" ID="imgbtnCancelar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
-                                                commandname="cancelar" commandargument='<%# Eval("id")%>' Height="48px" Width="48px" 
+                                                commandname="cancelar" commandargument='<%# Eval("idProducto")%>' Height="24px" Width="24px" 
                                                 ToolTip="Se podra cancelar el pedido solo si no empezo a prepararse" />                                           
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>
                                     </asp:TemplateField>     
                                     </Columns>
+           
                         </asp:GridView>
-                        <div class="form-group col-lg-12" >        
-                            <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta"  />
-                            <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
                         </div>
                     </div>
+                   <div class="form-group col-lg-12" >        
+                       <div class="text-right">
+                           <asp:Label ID="lblTotal" runat="server" >Total de la mesa :$890 </asp:Label>
+                       </div>    
+                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta"  />
+                        <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />                       
+                   </div>
               </div>
                <div class="form-row" >             
                    <div class="form-group col-lg-12" >        

@@ -23,8 +23,24 @@ namespace Mb.Views.Usuario
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
                     dvMensajeCambio.Visible = false;
                     dvDetallePedido.Visible = true;
-                    gv.DataSource=PedidoController.GetCondetalle(usuarioDeMesa);
-                    gv.DataBind();
+                    try
+                    {
+                        h3Mesa.InnerText = "" + usuarioDeMesa.mesaNumero;
+                        lblMail.Text = usuarioDeMesa.email;
+                        lblPerfil.Text = usuarioDeMesa.perfilEnMesa;
+                        chkActiva.Checked = usuarioDeMesa.activo;
+                        gv.DataSource = PedidoController.GetCondetalle(usuarioDeMesa.id);
+                        gv.DataBind();
+                        if (gv.Rows.Count > 0) {
+                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero));
+                        }
+
+                    }
+                    catch (Exception ex){
+                        lblMensaje.Text = ex.Message;
+                    }
+
+                    
                     
 
                 }

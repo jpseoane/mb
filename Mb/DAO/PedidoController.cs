@@ -78,6 +78,23 @@ namespace Mb.DAO
         }
 
 
+        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos
+        public static float ObtnerSubtotalXMesaXEstado(int numMesa)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Subtotal = (from p in entities.Pedidoes
+                                  join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                  join me in entities.Mesas on um.IdMesa equals me.Id
+                                  where me.numero == numMesa
+                                  select p.cantidad * p.precio
+                                  );
+                                  
+
+                return Subtotal.Sum();
+            }
+        }
 
 
 
@@ -101,16 +118,17 @@ namespace Mb.DAO
 
 
         //Traer el datalle del pedido para el usuarioMesa
-        public static List<PedidosDetalle> GetCondetalle(UserMesa userMesa)
+        public static List<PedidosDetalle> GetCondetalle(int idUserMesa)
         {
 
             using (mbDBContext entities = new mbDBContext())
             {
-                var query = from p in entities.Pedidoes
-                            from um in entities.UserMesas.Where(a => a.id == p.IdUserMesa) //Join UserMesa
-                            from apu in entities.AspNetUsers.Where(b => b.Id == um.UserId) //Join AspnetUser
-                            from pr in entities.Productoes.Where(c => c.id == p.IdProducto) //Join Producto
-                            from ep in entities.EstadoPedidoes.Where(d => d.id == p.IdEstado) //Join EstadoProducto
+                var query = from Pedido p in entities.Pedidoes
+                            join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+                            join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
+                            join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
+                            join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
+                            where p.IdUserMesa==idUserMesa
                             select new PedidosDetalle
                             {
                                 id = p.id,
@@ -125,9 +143,11 @@ namespace Mb.DAO
                                 idEstado =ep.id,
                                 descriEstadoPedido=ep.descripcion
                             };
-                var ProducosDescri = query.Where(u => u.id==userMesa.id).ToList();
-                return ProducosDescri;
+                var PedidosDetalle = query.ToList();
+                //var ProducosDescri = query.Where(p => p.idUserMesa == idUserMesa).ToList();
+                return PedidosDetalle;
             }
+
 
 
             //var result = this.context.employees.Where(
