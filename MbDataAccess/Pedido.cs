@@ -14,11 +14,6 @@ namespace MbDataAccess
     
     public partial class Pedido
     {
-        public Pedido()
-        {
-            this.Cuentas = new HashSet<Cuenta>();
-        }
-    
         public int id { get; set; }
         public int IdUserMesa { get; set; }
         public int IdProducto { get; set; }
@@ -26,11 +21,12 @@ namespace MbDataAccess
         public int cantidad { get; set; }
         public float precio { get; set; }
         public float subtotal { get; set; }
+        public Nullable<int> idCuenta { get; set; }
         public System.DateTime fecha { get; set; }
     
-        public virtual ICollection<Cuenta> Cuentas { get; set; }
         public virtual EstadoPedido EstadoPedido { get; set; }
         public virtual Producto Producto { get; set; }
         public virtual UserMesa UserMesa { get; set; }
+        public virtual Cuenta Cuenta { get; set; }
     }
 }

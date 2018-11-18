@@ -62,7 +62,7 @@ namespace Mb.DAO
 
 
         //Pedidos X Mesa Con cierto Estado
-        public static IEnumerable<Pedido> GetXMesaXestado(int numMesa, int idEstado)
+        public static IEnumerable<Pedido> GetXMesaXestado(int numMesa, EnumEstadoPedido enumEstado)
         {
 
             using (mbDBContext entities = new mbDBContext())
@@ -70,10 +70,25 @@ namespace Mb.DAO
                 var PedidoTipo = (from p in entities.Pedidoes
                                   join um in entities.UserMesas on p.IdUserMesa equals um.id
                                   join me in entities.Mesas on um.IdMesa equals me.Id
-                                  where me.numero == numMesa && p.IdEstado==idEstado
+                                  where me.numero == numMesa && p.IdEstado==(int) enumEstado
                                   select p).ToList();
 
                 return entities.Pedidoes.ToList();
+            }
+        }
+
+        public static bool ExistenPedidosPendientes(int numMesa)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Existe = (from p in entities.Pedidoes
+                                  join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                  join me in entities.Mesas on um.IdMesa equals me.Id
+                                  where me.numero == numMesa && p.IdEstado != (int) EnumEstadoPedido.Entregado
+                                  select p).Any();
+
+                return Existe;
             }
         }
 
@@ -91,6 +106,24 @@ namespace Mb.DAO
                                   select p.cantidad * p.precio
                                   );
                                   
+
+                return Subtotal.Sum();
+            }
+        }
+
+        //Obtener el subtotal de la mesa para el estado
+        public static float ObtnerSubtotalXMesaXEstado(int numMesa, EnumEstadoPedido enumEstado)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Subtotal = (from p in entities.Pedidoes
+                                join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                join me in entities.Mesas on um.IdMesa equals me.Id
+                                where me.numero == numMesa && p.IdEstado == (int) enumEstado
+                                select p.cantidad * p.precio
+                                  );
+
 
                 return Subtotal.Sum();
             }
@@ -147,34 +180,6 @@ namespace Mb.DAO
                 //var ProducosDescri = query.Where(p => p.idUserMesa == idUserMesa).ToList();
                 return PedidosDetalle;
             }
-
-
-
-            //var result = this.context.employees.Where(
-            //     x => x.Id == id &&
-            //     (LocationId == null || LocationId.Contains(x.locationId)) &&
-            //     (PayrollNo == null || x.payrollNo == PayrollNo) &&
-            //     (rowVersion == null || x.rowVersion > rowVersion));
-
-            // Otra formaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-            //    var query = from u in DataContext.Users
-            //                where u.Division == strUserDiv
-            //                && u.Age > 18
-            //                && u.Height > strHeightinFeet
-            //                select u;
-
-            //    if (useAge)
-            //        query = query.Where(u => u.Age > age);
-
-            //    if (useHeight)
-            //        query = query.Where(u => u.Height > strHeightinFeet);
-
-            //    // Build the results at the end
-            //    var results = query.Select(u => new DTO_UserMaster
-            //    {
-            //        Prop1 = u.Name,
-            //    }).ToList();
         }
 
 
@@ -265,15 +270,11 @@ namespace Mb.DAO
             }
             return TodoOk;
         }
-        // id codigo  descripcion fecha
-        // 1	E Encargado	2018-10-01 00:00:00.000
-        // 2	EP En preparacion	2018-10-01 00:00:00.000
-        // 3	PP Preparandose	2018-10-01 00:00:00.000
-        // 4	PE Para Entregar	2018-10-01 00:00:00.000
-        // 5	EN Entregado	2018-10-01 00:00:00.000
+
+        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Preparandose = 3, Por_Entregar = 4, Entregado = 5};
 
         //Actualizar el estado de un pedido 
-        public static bool UpdatePedidoEstado(int idPedido, int idEstado)
+        public static bool UpdatePedidoEstado(int idPedido, EnumEstadoPedido enumEstado)
         {
             exito = false;
             try
@@ -283,7 +284,7 @@ namespace Mb.DAO
                     var entity = dBEntities.Pedidoes.Where(x => x.id == idPedido).FirstOrDefault();
                     if (entity != null)
                     {
-                        entity.IdEstado =idEstado;
+                        entity.IdEstado =(int)enumEstado;
                         dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
                         exito = true;
@@ -297,15 +298,8 @@ namespace Mb.DAO
             return exito;
         }
 
-// id codigo  descripcion fecha
-// 1	E Encargado	2018-10-01 00:00:00.000
-// 2	EP En preparacion	2018-10-01 00:00:00.000
-// 3	PP Preparandose	2018-10-01 00:00:00.000
-// 4	PE Para Entregar	2018-10-01 00:00:00.000
-// 5	EN Entregado	2018-10-01 00:00:00.000
-
         //Actualizar el estado de una lista de pedidos para cierta mesa (numero de mesa) al idEstado que se le pasa
-        public static bool UpdatePedidosDeMesaEstado(int numeroMesa, int idEstado)
+        public static bool UpdatePedidosDeMesaEstado(int numeroMesa, EnumEstadoPedido enumEstado)
         {
             IEnumerable<Pedido> ListaPedidosDeMesa= GetTodos(numeroMesa); 
             try
@@ -313,7 +307,7 @@ namespace Mb.DAO
                 using (mbDBContext dBEntities = new mbDBContext())
                 {
                     foreach (Pedido pedido  in ListaPedidosDeMesa){
-                        pedido.IdEstado = idEstado;
+                        pedido.IdEstado = (int) enumEstado;
                         dBEntities.Entry(pedido).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
                         exito = true;

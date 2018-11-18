@@ -1,9 +1,6 @@
 ﻿using Mb.DAO;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using static Mb.DAO.UserMesaController;
@@ -21,6 +18,7 @@ namespace Mb.Views.Usuario
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
+                    ViewState["numeroMesa"] = usuarioDeMesa.mesaNumero;
                     dvMensajeCambio.Visible = false;
                     dvDetallePedido.Visible = true;
                     try
@@ -32,17 +30,14 @@ namespace Mb.Views.Usuario
                         gv.DataSource = PedidoController.GetCondetalle(usuarioDeMesa.id);
                         gv.DataBind();
                         if (gv.Rows.Count > 0) {
-                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero));
+                            PedidoController.EnumEstadoPedido enumEstadoPedido = PedidoController.EnumEstadoPedido.Encargado;
+                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero, enumEstadoPedido));
                         }
 
                     }
                     catch (Exception ex){
                         lblMensaje.Text = ex.Message;
                     }
-
-                    
-                    
-
                 }
                 else if (usuarioDeMesa != null && usuarioDeMesa.activo == false)
                 {
@@ -69,6 +64,63 @@ namespace Mb.Views.Usuario
         }
 
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
+
+        protected void btnPedirCuenta_Click(object sender, EventArgs e)
+        {
+
+            if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
+            {
+                //Mensaje("Pedir cuenta",);
+                
+
+
+
+
+            }
+            else
+            {
+                Mensaje("existe", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
+                
+            }
+            
+            
+        }
+
+        private void Mensaje(String movimiento, bool exito, String mensaje="")
+        {
+            if (exito)
+            {
+                divPrueba.Attributes.Add("class", "alert alert-success");
+                
+                if (mensaje != "")
+                {
+                    divMensaje.InnerText = mensaje;
+                }
+                else
+                {
+                    divMensaje.InnerText = movimiento + " exitosa";
+                }
+            }
+            else
+            {
+                divPrueba.Attributes.Add("class", "alert alert-warning");
+                if (mensaje != "")
+                {
+                    divMensaje.InnerText = mensaje;
+                }
+                else
+                {
+                    divMensaje.InnerText = "Eror en " + movimiento;
+                }
+                
+            }
+            divPrueba.Visible = true;
+        }
+
+        protected void btnRefrescar_Click(EventArgs e)
         {
 
         }

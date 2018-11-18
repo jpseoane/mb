@@ -113,8 +113,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdPedido" Type="int" Nullable="false" />
-          <Property Name="estadoCod" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="idUserMesa" Type="int" Nullable="false" />
+          <Property Name="estadoCod" Type="int" Nullable="false" />
           <Property Name="estado_descri" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="total" Type="real" Nullable="false" />
@@ -179,7 +179,8 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
           <Property Name="precio" Type="real" Nullable="false" />
-          <Property Name="subtotal" Type="real" />
+          <Property Name="subtotal" Type="real" Nullable="false" />
+          <Property Name="idCuenta" Type="int" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PerfilMesa">
@@ -298,18 +299,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cuenta_Pedido1">
-          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
-          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pedido">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Cuenta">
-              <PropertyRef Name="IdPedido" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -387,6 +376,18 @@
             </Principal>
             <Dependent Role="Mesa">
               <PropertyRef Name="idqr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idCuenta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -570,10 +571,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cuenta_Pedido1" Association="Self.FK_Cuenta_Pedido1">
-            <End Role="Pedido" EntitySet="Pedido" />
-            <End Role="Cuenta" EntitySet="Cuenta" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -597,6 +594,10 @@
           <AssociationSet Name="FK_Mesa_QR1" Association="Self.FK_Mesa_QR1">
             <End Role="QR" EntitySet="QR" />
             <End Role="Mesa" EntitySet="Mesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Cuenta" Association="Self.FK_Pedido_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK_Pedido_EstadoPedido1" Association="Self.FK_Pedido_EstadoPedido1">
             <End Role="EstadoPedido" EntitySet="EstadoPedido" />
@@ -679,13 +680,11 @@
           <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
           <EntitySet Name="Carta_Producto" EntityType="mbModel.Carta_Producto" />
           <EntitySet Name="Clientes" EntityType="mbModel.Cliente" />
-          <EntitySet Name="Cuentas" EntityType="mbModel.Cuenta" />
           <EntitySet Name="Employees" EntityType="mbModel.Employee" />
           <EntitySet Name="EstadoPedidoes" EntityType="mbModel.EstadoPedido" />
           <EntitySet Name="Members" EntityType="mbModel.Member" />
           <EntitySet Name="MensajeMuroes" EntityType="mbModel.MensajeMuro" />
           <EntitySet Name="Mesas" EntityType="mbModel.Mesa" />
-          <EntitySet Name="Pedidoes" EntityType="mbModel.Pedido" />
           <EntitySet Name="PerfilMesas" EntityType="mbModel.PerfilMesa" />
           <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
           <EntitySet Name="QRs" EntityType="mbModel.QR" />
@@ -729,14 +728,6 @@
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="Carta_Producto" EntitySet="Carta_Producto" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cuenta_Pedido1" Association="mbModel.FK_Cuenta_Pedido1">
-            <End Role="Pedido" EntitySet="Pedidoes" />
-            <End Role="Cuenta" EntitySet="Cuentas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pedido_EstadoPedido1" Association="mbModel.FK_Pedido_EstadoPedido1">
-            <End Role="EstadoPedido" EntitySet="EstadoPedidoes" />
-            <End Role="Pedido" EntitySet="Pedidoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_Mesa_QR1" Association="mbModel.FK_Mesa_QR1">
             <End Role="QR" EntitySet="QRs" />
             <End Role="Mesa" EntitySet="Mesas" />
@@ -761,12 +752,22 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Pedidoes" EntityType="mbModel.Pedido" />
+          <AssociationSet Name="FK_Pedido_EstadoPedido1" Association="mbModel.FK_Pedido_EstadoPedido1">
+            <End Role="EstadoPedido" EntitySet="EstadoPedidoes" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pedido_Producto" Association="mbModel.FK_Pedido_Producto">
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
           <AssociationSet Name="FK_Pedido_UserMesa" Association="mbModel.FK_Pedido_UserMesa">
             <End Role="UserMesa" EntitySet="UserMesas" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <EntitySet Name="Cuentas" EntityType="mbModel.Cuenta" />
+          <AssociationSet Name="FK_Pedido_Cuenta" Association="mbModel.FK_Pedido_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuentas" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
           </EntityContainer>
@@ -892,18 +893,6 @@
           <Property Name="edad" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Cliente_AspNetUsers1" FromRole="Cliente" ToRole="AspNetUser" />
         </EntityType>
-        <EntityType Name="Cuenta">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdPedido" Type="Int32" Nullable="false" />
-          <Property Name="estadoCod" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="estado_descri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="total" Type="Single" Nullable="false" />
-          <NavigationProperty Name="Pedido" Relationship="mbModel.FK_Cuenta_Pedido1" FromRole="Cuenta" ToRole="Pedido" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="ID" />
@@ -957,23 +946,6 @@
           <Property Name="disponible" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="QR" Relationship="mbModel.FK_Mesa_QR1" FromRole="Mesa" ToRole="QR" />
           <NavigationProperty Name="UserMesas" Relationship="mbModel.FK_UserMesa_Mesa" FromRole="Mesa" ToRole="UserMesa" />
-        </EntityType>
-        <EntityType Name="Pedido">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUserMesa" Type="Int32" Nullable="false" />
-          <Property Name="IdProducto" Type="Int32" Nullable="false" />
-          <Property Name="IdEstado" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="precio" Type="Single" Nullable="false" />
-          <Property Name="subtotal" Type="Single" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Cuentas" Relationship="mbModel.FK_Cuenta_Pedido1" FromRole="Pedido" ToRole="Cuenta" />
-          <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
-          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
-          <NavigationProperty Name="UserMesa" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="Pedido" ToRole="UserMesa" />
         </EntityType>
         <EntityType Name="PerfilMesa">
           <Key>
@@ -1168,30 +1140,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cuenta_Pedido1">
-          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="1" />
-          <End Type="mbModel.Cuenta" Role="Cuenta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pedido">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Cuenta">
-              <PropertyRef Name="IdPedido" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedido_EstadoPedido1">
-          <End Type="mbModel.EstadoPedido" Role="EstadoPedido" Multiplicity="1" />
-          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EstadoPedido">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Mesa_QR1">
           <End Type="mbModel.QR" Role="QR" Multiplicity="1" />
           <End Type="mbModel.Mesa" Role="Mesa" Multiplicity="*" />
@@ -1256,6 +1204,36 @@
           <End Type="mbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUserMesa" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Single" Nullable="false" />
+          <Property Name="subtotal" Type="Single" Nullable="false" />
+          <Property Name="idCuenta" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
+          <NavigationProperty Name="UserMesa" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="Pedido" ToRole="UserMesa" />
+          <NavigationProperty Name="Cuenta" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Pedido" ToRole="Cuenta" />
+        </EntityType>
+        <Association Name="FK_Pedido_EstadoPedido1">
+          <End Type="mbModel.EstadoPedido" Role="EstadoPedido" Multiplicity="1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoPedido">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pedido_Producto">
           <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
           <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
@@ -1277,6 +1255,30 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="IdUserMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUserMesa" Type="Int32" Nullable="false" />
+          <Property Name="estadoCod" Type="Int32" Nullable="false" />
+          <Property Name="estado_descri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="total" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Cuenta" ToRole="Pedido" />
+        </EntityType>
+        <Association Name="FK_Pedido_Cuenta">
+          <End Type="mbModel.Cuenta" Role="Cuenta" Multiplicity="0..1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idCuenta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1411,18 +1413,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cuentas">
-            <EntityTypeMapping TypeName="mbModel.Cuenta">
-              <MappingFragment StoreEntitySet="Cuenta">
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />
-                <ScalarProperty Name="estadoCod" ColumnName="estadoCod" />
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="mbModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
@@ -1475,20 +1465,6 @@
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="idqr" ColumnName="idqr" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pedidoes">
-            <EntityTypeMapping TypeName="mbModel.Pedido">
-              <MappingFragment StoreEntitySet="Pedido">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-                <ScalarProperty Name="IdUserMesa" ColumnName="IdUserMesa" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1575,6 +1551,33 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Pedidoes">
+            <EntityTypeMapping TypeName="mbModel.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdUserMesa" ColumnName="IdUserMesa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuentas">
+            <EntityTypeMapping TypeName="mbModel.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />
+                <ScalarProperty Name="estadoCod" ColumnName="estadoCod" />
+                <ScalarProperty Name="idUserMesa" ColumnName="idUserMesa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

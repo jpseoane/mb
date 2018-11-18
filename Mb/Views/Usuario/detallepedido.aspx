@@ -73,9 +73,9 @@
                                         <ItemStyle HorizontalAlign="Center"  Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>  --%>                        
                                     
-                               <%--     <asp:BoundField DataField="descriEstadoPedido" HeaderText="descriEstadoPedido" NullDisplayText="Sin descriEstadoPedido" SortExpression="descriEstadoPedido" >
+                                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="descriEstadoPedido" NullDisplayText="Sin descriEstadoPedido" SortExpression="descriEstadoPedido" >
                                         <ItemStyle HorizontalAlign="Center" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>  --%>                        
+                                    </asp:BoundField>                          
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
                                             <asp:ImageButton runat="server" ID="imgbtnCancelar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
@@ -91,10 +91,10 @@
                     </div>
                    <div class="form-group col-lg-12" >        
                        <div class="text-right">
-                           <asp:Label ID="lblTotal" runat="server" >Total de la mesa :$890 </asp:Label>
+                           <asp:Label ID="lblTotal" runat="server" ></asp:Label>
                        </div>    
-                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta"  />
-                        <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />                       
+                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta" OnClick="btnPedirCuenta_Click"  />
+                        <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" OnClick="btnRefrescar_Click" />                       
                    </div>
               </div>
                <div class="form-row" >             

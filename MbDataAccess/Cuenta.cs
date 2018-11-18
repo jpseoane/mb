@@ -14,13 +14,18 @@ namespace MbDataAccess
     
     public partial class Cuenta
     {
+        public Cuenta()
+        {
+            this.Pedidoes = new HashSet<Pedido>();
+        }
+    
         public int id { get; set; }
-        public int IdPedido { get; set; }
-        public string estadoCod { get; set; }
+        public int idUserMesa { get; set; }
+        public int estadoCod { get; set; }
         public string estado_descri { get; set; }
         public System.DateTime fecha { get; set; }
         public float total { get; set; }
     
-        public virtual Pedido Pedido { get; set; }
+        public virtual ICollection<Pedido> Pedidoes { get; set; }
     }
 }

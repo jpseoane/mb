@@ -407,6 +407,7 @@
     </Compile>
     <Compile Include="DAO\CartaController.cs" />
     <Compile Include="DAO\CartaProductoController.cs" />
+    <Compile Include="DAO\CuentaController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
     <Compile Include="DAO\MesaController.cs" />
     <Compile Include="DAO\PedidoController.cs" />
