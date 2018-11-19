@@ -40,31 +40,49 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvDetalleCuenta;
         
         /// <summary>
-        /// Control btnBuscar.
+        /// Control Span1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span1;
         
         /// <summary>
-        /// Control btnLimpiar.
+        /// Control lblUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLimpiar;
+        protected global::System.Web.UI.WebControls.Label lblUsuario;
         
         /// <summary>
-        /// Control gv.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
+        
+        /// <summary>
+        /// Control lblTotalCuenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalCuenta;
+        
+        /// <summary>
+        /// Control btnPagar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPagar;
         
         /// <summary>
         /// Control divPrueba.

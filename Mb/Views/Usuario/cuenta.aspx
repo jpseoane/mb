@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>Cuenta</h1>
-        <p class="lead">Detalle de la cuenta para la mesa</p>
+        <p class="lead">Detalle de la cuenta para la mesa y su estado</p>
     </div>
  <div class="container">
         <!-- dvMensajeCambio-->
@@ -16,47 +16,39 @@
                     <a href="asignamesa.aspx" class="alert-link">Ir a Mesa!</a>                
                 </div>
             </div>
-        </div>
+        </div> <!-- dvMensajeCambio-->
        <div  id="dvDetalleCuenta" runat="server"  visible="false" >
-               <div class="form-row" >
-                    <div class="form-group col-lg-12" >        
-                        <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click"  />
-                        <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
-                    </div>
-                    <div class="form-group col-lg-12 " >                
-                        <!-- GridView-->
-                        <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview"
-                                AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
-                                <EmptyDataRowStyle HorizontalAlign="Center" />
-                                <Columns>                                    
-                                    <asp:BoundField  DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
-                                        <ItemStyle CssClass="izq" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                          
-                                    <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Sin precio" SortExpression="precioUnitario" >
-                                        <ItemStyle HorizontalAlign="Center" Font-Bold="true" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField>                          
-                                    <asp:TemplateField HeaderText="Acciones">
-                                        <ItemTemplate>
-                                            <asp:ImageButton runat="server" ID="imgbtnAgregar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
-                                                commandname="agregar" commandargument='<%# Eval("id")%>' Height="48px" Width="48px" 
-                                                ToolTip="Agregar a mi carrito" />                                           
-                                        </ItemTemplate>
-                                        <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>
-                                    </asp:TemplateField>     
-                                    </Columns>
-                        </asp:GridView>
-                    </div>
-              </div>
-               <div class="form-row" >             
-                   <div class="form-group col-lg-12" >        
-                        <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <div id="divMensaje" runat="server"></div>           
-                        </div>
+            <div class="form-row">
+                <div class="form-group col-lg-12" >        
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Detalle de la cuenta solicitada para la mesa N° <strong><b><span runat="server" id="Span1"></span></b></strong></h3>
+                      </div>
+                      <div class="panel-body">
+                        <strong><label for="lblUsuario">Uuario que solicita la cuenta: </label></strong>
+                        <asp:Label ID="lblUsuario" CssClass="form-control" runat="server" Text="Usuario"></asp:Label><br />
+                        <strong><label for="lblEstadoCuenta">Estado de la cuenta:</label></strong>
+                        <asp:Label ID="lblFecha" CssClass="form-control" runat="server" Text="Fecha"></asp:Label><br />
+                        <strong><label for="lblTotal">Total</label></strong>
+                        <asp:Label ID="lblTotalCuenta" CssClass="form-control" runat="server" Text="Total"></asp:Label><br />
+                      </div>
                     </div>
                 </div>
-       </div>  <!-- divCargaDePedido-->
+           </div>   
+           <div class="form-row" >
+                <div class="form-group col-lg-12" >        
+                    <asp:Button ID="btnPagar" runat="server"  Text="Pagar con MercadoPago" class="btn btn-primary" />
+                </div>                
+           </div>
+           <div class="form-row" >             
+                <div class="form-group col-lg-12" >        
+                    <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <div id="divMensaje" runat="server"></div>           
+                    </div>
+                </div>
+           </div>
+       </div>  <!-- dvDetalleCuenta-->
  </div><!-- Container-->
 </asp:Content>
 

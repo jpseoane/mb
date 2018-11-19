@@ -1,4 +1,5 @@
 ﻿using Mb.DAO;
+using MbDataAccess;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Web.UI;
@@ -29,9 +30,8 @@ namespace Mb.Views.Usuario
                         chkActiva.Checked = usuarioDeMesa.activo;
                         gv.DataSource = PedidoController.GetCondetalle(usuarioDeMesa.id);
                         gv.DataBind();
-                        if (gv.Rows.Count > 0) {
-                            PedidoController.EnumEstadoPedido enumEstadoPedido = PedidoController.EnumEstadoPedido.Encargado;
-                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero, enumEstadoPedido));
+                        if (gv.Rows.Count > 0) {                            
+                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero, PedidoController.EnumEstadoPedido.Encargado));
                         }
 
                     }
@@ -70,26 +70,27 @@ namespace Mb.Views.Usuario
 
         protected void btnPedirCuenta_Click(object sender, EventArgs e)
         {
-
             if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
             {
-                //Mensaje("Pedir cuenta",);
-                
-
-
-
-
+                //Pedir cuenta
+               Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));
+                if (cuenta != null)
+                {
+                    this.btnPedirCuenta.Enabled = false;
+                    Response.Redirect("cuenta.aspx");
+                }
+                else
+                {
+                    Mensaje("", false, "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
+                }
             }
             else
             {
-                Mensaje("existe", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
-                
+                Mensaje("", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
             }
-            
-            
         }
 
-        private void Mensaje(String movimiento, bool exito, String mensaje="")
+        private void Mensaje(String movimiento="", bool exito, String mensaje="")
         {
             if (exito)
             {
