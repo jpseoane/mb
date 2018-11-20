@@ -54,6 +54,21 @@ namespace Mb.DAO
             }
         }
 
+        public static bool ExisteCuentaActiva(int numMesa)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Existe = (from cu in entities.Cuentas
+                              join um in entities.UserMesas on cu.idUserMesa equals um.id
+                              join me in entities.Mesas on um.IdMesa equals me.Id
+                              where me.numero == numMesa
+                              select cu).Any();
+
+                return Existe;
+            }
+        }
+
         ////Cuentas X usuario
         //public static IEnumerable<Cuenta> GetTodos(AspNetUser aspNetUser)
         //{
