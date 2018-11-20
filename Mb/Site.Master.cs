@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Web;
+using System.Web.Providers.Entities;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Mb.Models;
 using Microsoft.AspNet.Identity;
-using Nemiro.OAuth;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Mb
 {
@@ -73,14 +72,27 @@ namespace Mb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ////LoginStatus anombreusuario = (LoginStatus)lv.FindControl("anombreusuario");
+            if (!Page.IsPostBack)
+            {
+                if (Context.User.Identity.IsAuthenticated)
+                {
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    var currentUser = manager.FindById(Context.User.Identity.GetUserId());
+                    
+                    if (currentUser.perfil.ToLower().ToString() == "cliente")
+                    {
+                        ulAdmin.Visible = false;
+                        ulUsuario.Visible = true;
+                    }
+                    else
+                    {
+                        ulUsuario.Visible = false;
+                        ulAdmin.Visible = true;
+                    }
 
-            //LinkButton anombreusuario = new LinkButton();
-            //anombreusuario = (LinkButton)lv.FindControl("anombreusuario");
-            //anombreusuario.Text = "Hola";
-            ////anombreusuario.Text = "El nombre que se me cante la chota";
+                }
 
-            ////(this.lv.FindControl("anombreusuario") as LoginStatus).Text = "Some text";
+            }
 
 
         }

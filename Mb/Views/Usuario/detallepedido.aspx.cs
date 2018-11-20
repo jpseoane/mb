@@ -14,7 +14,6 @@ namespace Mb.Views.Usuario
         {
             if (!Page.IsPostBack)
             {
-             
                     //Busca si ya estas logueado en una mesa
                     UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
@@ -91,7 +90,7 @@ namespace Mb.Views.Usuario
             }
         }
 
-        private void Mensaje(String movimiento="", bool exito, String mensaje="")
+        private void Mensaje(String movimiento, bool exito, String mensaje="")
         {
             if (exito)
             {
