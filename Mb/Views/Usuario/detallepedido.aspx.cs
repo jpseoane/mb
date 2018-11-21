@@ -90,7 +90,7 @@ namespace Mb.Views.Usuario
             }
         }
 
-        private void Mensaje(String movimiento="", bool exito, String mensaje="")
+        private void Mensaje(String movimiento, bool exito, String mensaje="")
         {
             if (exito)
             {

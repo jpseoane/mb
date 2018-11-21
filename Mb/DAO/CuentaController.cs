@@ -121,7 +121,7 @@ namespace Mb.DAO
         //    }
         //}
 
-        ////Obtener el subtotal de la mesa para el estado
+        ////Obtener el subtotal de la mesa para el estado+++
         //public static float ObtnerSubtotalXMesaXEstado(int numMesa, EnumEstadoCuenta enumEstado)
         //{
 
