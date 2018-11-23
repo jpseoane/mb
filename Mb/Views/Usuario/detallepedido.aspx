@@ -94,8 +94,9 @@
                        <div class="text-right">
                            <asp:Label ID="lblTotal" runat="server" ></asp:Label>
                        </div>    
-                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Cerrar la mesa y pedir que me traigan la cuenta" OnClick="btnPedirCuenta_Click"  />
-                        <asp:Button ID="btnRefrescar" runat="server"  Text="Refrescar" class="btn btn-warning" formnovalidate="" CausesValidation="false" OnClick="btnRefrescar_Click" />                       
+                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Ver el detalle de la cuenta"  />
+                        <asp:LinkButton  PostBackUrl="~/Views/Usuario/cuenta.aspx" runat="server" ID="lbDcuenta" CssClass="btn btn-toolbar" Visible="false"
+                                    CausesValidation="false" >Detalle de Cuenta</asp:LinkButton>
                    </div>
               </div>
                <div class="form-row" >             

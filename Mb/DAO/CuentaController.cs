@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static Mb.DAO.UserMesaController;
 
 namespace Mb.DAO
 {
@@ -158,15 +159,16 @@ namespace Mb.DAO
 
 
 
-        public static Cuenta CrearyObtnerCuenta(int iduserMesa,int numeroMesa)
+        public static Cuenta CrearyObtnerCuenta(UsuarioMesaDetalle usuarioMesaDetalle)
         {
             try
             {
+              //  UserMesa userMesa = UserMesaController.Get(iduserMesa);
                 Cuenta Cuenta = new Cuenta();
-                Cuenta.idUserMesa = iduserMesa;
+                Cuenta.idUserMesa = usuarioMesaDetalle.id;
                 Cuenta.estadoCod = (int) EnumEstadoCuenta.Solicitada;
                 Cuenta.estado_descri = EnumEstadoCuenta.Solicitada.ToString();
-                Cuenta.total = PedidoController.ObtnerSubtotalXMesaXEstado(numeroMesa);                
+                Cuenta.total = PedidoController.ObtnerSubtotalXMesaXEstado(usuarioMesaDetalle.mesaNumero);                
                 Cuenta.fecha = DateTime.Now;
                 using (mbDBContext CuentaDBEntities = new mbDBContext())
                 {
@@ -180,7 +182,7 @@ namespace Mb.DAO
                 errorCuenta = new ErrorCuenta(1, "Error al carga Cuenta por parametros");
             }
 
-            return GetXUsuMesaXEstado(iduserMesa, EnumEstadoCuenta.Solicitada);
+            return GetXUsuMesaXEstado(usuarioMesaDetalle.id, EnumEstadoCuenta.Solicitada);
 
         }
 

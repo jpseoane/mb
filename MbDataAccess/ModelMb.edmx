@@ -1215,7 +1215,7 @@
           <Property Name="cantidad" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
           <Property Name="subtotal" Type="Single" Nullable="false" />
-          <Property Name="idCuenta" Type="Int32" />
+          <Property Name="idCuenta" Type="Int32" Nullable="true" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
           <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />

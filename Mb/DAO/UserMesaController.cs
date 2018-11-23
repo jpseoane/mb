@@ -64,9 +64,10 @@ namespace Mb.DAO
         }
 
 
-        public class UsuariosDeMesa : UserMesa
+        public class UsuarioMesaDetalle : UserMesa
         {
             public int id { get; set; }
+            public String idUser { get; set; }
             public String email { get; set; }
             public int idMesa { get; set; }
             public int idPerfilMesa { get; set; }
@@ -79,7 +80,7 @@ namespace Mb.DAO
 
         //Obtiene todos los usuarios que estan guardados hasta el momento en la mesa del usuario con habilitado (activo) 
         //sean o no perfil administrador X idDeMesa
-        public static List<UsuariosDeMesa> GetUsuariosPorIdMesa(int idmesa)
+        public static List<UsuarioMesaDetalle> GetUsuariosPorIdMesa(int idmesa)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -87,11 +88,12 @@ namespace Mb.DAO
                             join asu in entities.AspNetUsers on um.UserId equals asu.Id
                             join ms in entities.Mesas on um.IdMesa equals ms.Id
                             join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
-                            where um.IdMesa== idmesa && um.habilitado==true
-                            select new UsuariosDeMesa
+                            where um.IdMesa == idmesa && um.habilitado == true
+                            select new UsuarioMesaDetalle
                             {
                                 id = um.id,
-                                idMesa=um.IdMesa,
+                                idUser = asu.Id,
+                                idMesa =um.IdMesa,
                                 email = asu.Email,
                                 mesaNumero = ms.numero,
                                 activo=um.activo,
@@ -105,7 +107,7 @@ namespace Mb.DAO
             }
         }
       
-        public static UsuariosDeMesa GetUsuarioDeMesaByIdUser(String userId)
+        public static UsuarioMesaDetalle GetUsuarioDeMesaByIdUser(String userId)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -114,7 +116,7 @@ namespace Mb.DAO
                             join ms in entities.Mesas on um.IdMesa equals ms.Id
                             join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
                             where asu.Id == userId
-                            select new UsuariosDeMesa
+                            select new UsuarioMesaDetalle
                             {
                                 id = um.id,
                                 idMesa = um.IdMesa,

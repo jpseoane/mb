@@ -103,13 +103,13 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.WebControls.Button btnPedirCuenta;
         
         /// <summary>
-        /// Control btnRefrescar.
+        /// Control lbDcuenta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRefrescar;
+        protected global::System.Web.UI.WebControls.LinkButton lbDcuenta;
         
         /// <summary>
         /// Control divPrueba.

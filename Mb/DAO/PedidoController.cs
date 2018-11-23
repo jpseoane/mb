@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static Mb.DAO.UserMesaController;
 
 namespace Mb.DAO
 {
@@ -134,7 +135,7 @@ namespace Mb.DAO
 
         public class PedidosDetalle : Pedido
         {
-            private int id { get; set; }
+            private int id { get; set; }            
             public int? idUserMesa { get; set; }
             public String userName { get; set; }
             public int? idProducto { get; set; }            
@@ -187,7 +188,7 @@ namespace Mb.DAO
 
 
         public static bool agregar(UserMesa userMesa, Producto  producto, int idEstadoProducto,
-                                   int cantidad, double precioUnitario)
+                                   int cantidad, double precioUnitario, int? idCuenta)
         {
             exito = false;
             try
@@ -199,6 +200,7 @@ namespace Mb.DAO
                 Pedido.cantidad = cantidad;
                 Pedido.precio = (float)precioUnitario;
                 Pedido.subtotal = (float) (precioUnitario * cantidad);
+                Pedido.idCuenta = idCuenta;
                 Pedido.fecha = DateTime.Now;
                 using (mbDBContext PedidoDBEntities = new mbDBContext())
                 {
@@ -217,7 +219,7 @@ namespace Mb.DAO
         }
 
         public static bool agregar(int idUserMesa, int idProducto, int idEstadoProducto,
-                               int cantidad, double precioUnitario)
+                               int cantidad, double precioUnitario, int? idCuenta)
         {
             exito = false;
             try
@@ -229,6 +231,7 @@ namespace Mb.DAO
                 Pedido.cantidad = cantidad;
                 Pedido.precio = (float)precioUnitario;
                 Pedido.subtotal = (float)(precioUnitario * cantidad);
+                Pedido.idCuenta = idCuenta;
                 Pedido.fecha = DateTime.Now;
                 using (mbDBContext PedidoDBEntities = new mbDBContext())
                 {
@@ -271,7 +274,7 @@ namespace Mb.DAO
             return TodoOk;
         }
 
-        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Preparandose = 3, Por_Entregar = 4, Entregado = 5};
+        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Preparandose = 3, Por_Entregar = 4, Entregado = 5, PedidoDeCuenta = 6 };
 
         //Actualizar el estado de un pedido 
         public static bool UpdatePedidoEstado(int idPedido, EnumEstadoPedido enumEstado)
@@ -319,6 +322,39 @@ namespace Mb.DAO
                 exito = false;
             }
             return exito;
+        }
+
+        //Actualizar el estado de una lista de pedidos para cierta mesa (numero de mesa) al idEstado que se le pasa
+        public static Cuenta PedirCuentaMesa(UsuarioMesaDetalle  usuarioMesaDetalle)
+        {
+            //Creo la cuenta
+            Cuenta cuenta = CuentaController.CrearyObtnerCuenta(usuarioMesaDetalle);
+            if (cuenta != null)
+            {            
+                try
+                {
+                    //Obtengo los pedidos de la mesa
+                    IEnumerable<Pedido> ListaPedidosDeMesa = GetTodos(usuarioMesaDetalle.mesaNumero);
+
+                    using (mbDBContext dBEntities = new mbDBContext())
+                    {
+                        //Actualizo el estado de los pedidos y le asigno su id de cuenta
+                        foreach (Pedido pedido in ListaPedidosDeMesa)
+                        {
+                            pedido.IdEstado = (int) EnumEstadoPedido.PedidoDeCuenta;
+                            pedido.idCuenta = cuenta.id;
+                            dBEntities.Entry(pedido).State = System.Data.Entity.EntityState.Modified;
+                            dBEntities.SaveChanges();
+                            exito = true;
+                        }
+                    }
+                }
+                catch
+                {
+                    exito = false;
+                }
+            }
+            return cuenta;
         }
 
 

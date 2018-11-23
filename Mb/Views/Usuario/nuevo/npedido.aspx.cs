@@ -17,7 +17,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
         {
             if (!Page.IsPostBack) {
                 //Busca si ya estas logueado en una mesa
-                UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
@@ -114,7 +114,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 TextBox txtCantidad = row.FindControl("txtCantidad") as TextBox;
                 //nuevoPedido.cantidad = Convert.ToInt32(txtCantidad.Text);
                 //Usuario
-                PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2);
+                PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2,null);
 
 
 

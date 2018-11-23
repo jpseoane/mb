@@ -16,7 +16,7 @@ namespace Mb.Views.Usuario.pedidos
             if (!Page.IsPostBack)
             {
                 //Busca si ya estas logueado en una mesa
-                UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());                
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());                
                 if (usuarioDeMesa != null)
                 {
                     //Si el usuario en mesa NO es admin

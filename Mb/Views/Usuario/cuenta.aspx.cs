@@ -17,7 +17,7 @@ namespace Mb.Views.Usuario
             if (!Page.IsPostBack)
             {
                 //Busca si ya estas logueado en una mesa
-                UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;                  

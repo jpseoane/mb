@@ -14,8 +14,8 @@ namespace Mb.Views.Usuario
         {
             if (!Page.IsPostBack)
             {
-                    //Busca si ya estas logueado en una mesa
-                    UsuariosDeMesa usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                //Busca si ya estas logueado en una mesa
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null && usuarioDeMesa.activo == true)
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
@@ -73,9 +73,11 @@ namespace Mb.Views.Usuario
             if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
             {
                 //Pedir cuenta
-               Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));
-                if (cuenta != null)
+                //  Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));                
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                if (usuarioDeMesa != null)
                 {
+                    Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
                     this.btnPedirCuenta.Enabled = false;
                     Response.Redirect("cuenta.aspx");
                 }
