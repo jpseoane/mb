@@ -11,7 +11,7 @@
     </address>
 
     <address>
-        <strong>Soporte:</strong>   <a href="mailto:Soporte@mibar.com">SoporteMiBar@mibar.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@mibar.com">Marketing@mibar.com</a>
+        <strong>Soporte:</strong>   <a href="mailto:Soporte@mibar.com">SoporteMiBar@MiBar.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@mibar.com">Marketing@MiBar.com</a>
     </address>
 </asp:Content>

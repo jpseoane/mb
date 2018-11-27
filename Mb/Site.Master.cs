@@ -4,9 +4,11 @@ using System.Web.Providers.Entities;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Mb.DAO;
 using Mb.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using static Mb.DAO.UserMesaController;
 
 namespace Mb
 {
@@ -78,9 +80,13 @@ namespace Mb
                 {
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
                     var currentUser = manager.FindById(Context.User.Identity.GetUserId());
-                    
                     if (currentUser.perfil.ToLower().ToString() == "cliente")
                     {
+
+                        UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(Context.User.Identity.GetUserId());
+                        bool existe= DAO.CuentaController.ExisteCuentaActiva(usuarioDeMesa.mesaNumero);
+                        liPedido.Visible = !existe;
+                        liCuenta.Visible = existe;
                         ulAdmin.Visible = false;
                         ulUsuario.Visible = true;
                     }

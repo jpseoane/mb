@@ -43,7 +43,26 @@ namespace Mb.DAO
             }
         }
 
-        public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta)
+
+        //Obtener cuenta X IdUserMesa
+        public static Cuenta GetXNumeroMesa(int numeroMesa)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                Cuenta cuenta = (from cu in entities.Cuentas
+                              join um in entities.UserMesas on cu.idUserMesa equals um.id
+                              join me in entities.Mesas on um.IdMesa equals me.Id
+                              where me.numero == numeroMesa && cu.estadoCod != (int)EnumEstadoCuenta.Cerrada
+                                select cu).FirstOrDefault();
+
+                return cuenta;
+            }
+        }
+
+
+
+
+public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -63,7 +82,21 @@ namespace Mb.DAO
                 var Existe = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
                               join me in entities.Mesas on um.IdMesa equals me.Id
-                              where me.numero == numMesa
+                              where me.numero == numMesa && cu.estadoCod != (int)EnumEstadoCuenta.Cerrada
+                              select cu).Any();
+
+                return Existe;
+            }
+        }
+
+        public static bool ExisteCuentaActiva(String userId)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Existe = (from cu in entities.Cuentas
+                              join um in entities.UserMesas on cu.idUserMesa equals um.id
+                              where um.UserId == userId && cu.estadoCod != (int) EnumEstadoCuenta.Cerrada
                               select cu).Any();
 
                 return Existe;

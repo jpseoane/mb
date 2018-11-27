@@ -1,4 +1,5 @@
 ﻿using Mb.DAO;
+using MbDataAccess;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,21 @@ namespace Mb.Views.Usuario
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;                  
                     dvMensajeCambio.Visible = false;
-                    dvDetalleCuenta.Visible = true;
+                    Cuenta cuenta = CuentaController.GetXNumeroMesa(usuarioDeMesa.mesaNumero);
+
+                    if (cuenta != null)
+                    {
+                        //Muestra el detalle de la cuenta
+                        lblUsuario.Text = usuarioDeMesa.email;
+                        this.lblFecha.Text = cuenta.fecha.ToString("dd/MM/yyyy");
+                        this.lblTotalCuenta.Text = Convert.ToString(cuenta.total);
+                        dvDetalleCuenta.Visible = true;
+                        spNmesa.InnerText = Convert.ToString(usuarioDeMesa.mesaNumero);
+                    }
+                    else
+                    {
+                        //Todavia no pediste la cuenta
+                    }
                 }
                 else if (usuarioDeMesa != null && usuarioDeMesa.activo == false)
                 {

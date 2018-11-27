@@ -5,7 +5,7 @@
         <h1>Muro</h1>
         <p class="lead">Comparti lo que quieras con las demas personas del Bar!</p>
     </div>
-    <div class="form-row" >
+    <div class="form-row" >    
     <div class="form-group col-lg-12 " >                
         <label for="txtTitulo">Titulo</label><br />
         <asp:TextBox ID="txtTitulo" runat="server" Width="605px" CssClass="form-control"  placeholder="Titulo" Height="42px"></asp:TextBox>

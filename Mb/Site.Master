@@ -45,6 +45,7 @@
                     </button>
                     <a class="navbar-brand" runat="server" href="~/">MiBar</a>
                 </div>
+               <%--<nav id="menu">--%>
                 <div class="navbar-collapse collapse">
                     <ul id="ulAdmin" runat="server"  visible="false"  class="nav navbar-nav">
                         <%--Perfil Admin--%>                                                
@@ -58,8 +59,15 @@
                     <ul id="ulUsuario" runat="server"  visible="false" class="nav navbar-nav">
                         <%--Perfil Usuario--%>
                         <li><a runat="server" href="~/Views/Usuario/nuevo/asignamesa.aspx">Mesa</a></li>                        
-                        <li><a runat="server" href="~/Views/Usuario/nuevo/npedido.aspx">Pedido</a></li>                                                
-                        <li><a runat="server" href="~/Views/Usuario/cuenta.aspx">Cuenta</a></li>                                                                                                                  
+                        <li runat="server"  id="liPedido" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a runat="server" href="~/Views/Usuario/nuevo/npedido.aspx">Generar</a></li>                                                                
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Usuario/detallepedido.aspx">Detalle</a></li>
+                            </ul>
+                        </li>
+                        <li runat="server" id="liCuenta"><a runat="server" href="~/Views/Usuario/cuenta.aspx">Cuenta</a></li>                                                                                                                  
                         <li><a runat="server" href="~/Views/Usuario/nuevo/nmuro.aspx">Muro</a></li>                                                                                                        
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
@@ -83,6 +91,7 @@
                         </LoggedInTemplate>
                     </asp:LoginView>
                 </div>
+                <%--</nav>--%>
             </div>
         </div>
         <div class="container body-content">
@@ -90,6 +99,18 @@
             </asp:ContentPlaceHolder>           
             <br />
             <hr />
+            <%-- <script>
+                    $(document).ready(function() {
+                        $menu = $('#menu').find('ul').find('li');                        
+                        $menu.hover(function () {
+                            $(this).children('ul').stop();
+                            $(this).children('ul').slideDown();
+                        }, function() {
+                            $(this).children('ul').stop();
+                            $(this).children('ul').slideUp();
+                        });
+                    });
+            </script>--%>
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - MiBar Red social</p>
             </footer>

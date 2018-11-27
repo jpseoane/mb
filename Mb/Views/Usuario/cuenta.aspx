@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cuenta.aspx.cs" Inherits="Mb.Views.Usuario.cuenta"  MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="jumbotron">
+    <div class="jumbotron container">
         <h1>Cuenta</h1>
         <p class="lead">Detalle de la cuenta para la mesa y su estado</p>
     </div>
@@ -22,7 +22,7 @@
                 <div class="form-group col-lg-12" >        
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <h3 class="panel-title">Detalle de la cuenta solicitada para la mesa N° <strong><b><span runat="server" id="Span1"></span></b></strong></h3>
+                        <h3 class="panel-title">Detalle de la cuenta solicitada para la mesa N° <strong><b><span runat="server" id="spNmesa"></span></b></strong></h3>
                       </div>
                       <div class="panel-body">
                         <strong><label for="lblUsuario">Uuario que solicita la cuenta: </label></strong>

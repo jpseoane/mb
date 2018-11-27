@@ -266,6 +266,7 @@
     <Content Include="Views\Admin\abms\nuevo\ncarta.aspx" />
     <Content Include="Views\Admin\abms\nuevo\nmesa.aspx" />
     <Content Include="Views\Admin\abms\nuevo\nproducto.aspx" />
+    <Content Include="Views\Admin\muestramuro.aspx" />
     <Content Include="Views\Admin\productocarta.aspx" />
     <Content Include="Views\Usuario\ajustes.aspx" />
     <Content Include="Views\Usuario\cuenta.aspx" />
@@ -410,6 +411,7 @@
     <Compile Include="DAO\CuentaController.cs" />
     <Compile Include="DAO\ErrorControler.cs" />
     <Compile Include="DAO\MesaController.cs" />
+    <Compile Include="DAO\MuroController.cs" />
     <Compile Include="DAO\PedidoController.cs" />
     <Compile Include="DAO\ProductoController.cs" />
     <Compile Include="DAO\SubTipoProductoController.cs" />
@@ -498,6 +500,13 @@
     </Compile>
     <Compile Include="Views\Admin\abms\nuevo\nproducto.aspx.designer.cs">
       <DependentUpon>nproducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\muestramuro.aspx.cs">
+      <DependentUpon>muestramuro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\muestramuro.aspx.designer.cs">
+      <DependentUpon>muestramuro.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\productocarta.aspx.cs">
       <DependentUpon>productocarta.aspx</DependentUpon>

@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="jumbotron">
+    <div class="jumbotron container">
         <h1>MiBar!!</h1>
         <p class="lead">Bienvenido a MiBar! Una apliacion para compartir y relacionarte con todas las personas del bar y ademas podras gestionar tus pedidos sin necesidad de 
             esperar a que te atiendan!!. Empeza ya a utilizar MiBar!!</p>
