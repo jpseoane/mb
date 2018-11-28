@@ -40,7 +40,6 @@ namespace MbDataAccess
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EstadoPedido> EstadoPedidoes { get; set; }
         public DbSet<Member> Members { get; set; }
-        public DbSet<MensajeMuro> MensajeMuroes { get; set; }
         public DbSet<Mesa> Mesas { get; set; }
         public DbSet<PerfilMesa> PerfilMesas { get; set; }
         public DbSet<Producto> Productoes { get; set; }
@@ -49,8 +48,9 @@ namespace MbDataAccess
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<TipoProducto> TipoProductoes { get; set; }
         public DbSet<UserMesa> UserMesas { get; set; }
-        public DbSet<Pedido> Pedidoes { get; set; }
         public DbSet<Cuenta> Cuentas { get; set; }
+        public DbSet<Pedido> Pedidoes { get; set; }
+        public DbSet<MensajeMuro> MensajeMuroes { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

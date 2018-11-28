@@ -16,6 +16,7 @@ namespace MbDataAccess
     {
         public int id { get; set; }
         public string UserId { get; set; }
+        public string titulo { get; set; }
         public string mensaje { get; set; }
         public int estadoCod { get; set; }
         public string estado_descri { get; set; }

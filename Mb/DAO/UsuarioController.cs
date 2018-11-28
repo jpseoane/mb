@@ -10,9 +10,7 @@ namespace Mb.DAO
     {       
             public static bool exito { get; set; }
             public static String mens { get; set; }
-            
             public static bool resultado { get; set; }
-
 
             public static AspNetUser GetbyId(String id)
             {
@@ -22,7 +20,6 @@ namespace Mb.DAO
                 }
             }
         
-
             public static IEnumerable<AspNetUser> GetTodos()
             {
                 using (mbDBContext entities = new mbDBContext())
@@ -41,9 +38,6 @@ namespace Mb.DAO
                     return query;
                 }
             }
-
-
-     
             public static bool agregar(AspNetUser AspNetUser)
             {
                 exito = false;
@@ -86,8 +80,5 @@ namespace Mb.DAO
                 }
                 return exito;
             }
-         
-
-       
-        }
+    }
 }

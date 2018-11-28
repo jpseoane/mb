@@ -152,6 +152,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="mensaje" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="estadoCod" Type="int" Nullable="false" />
           <Property Name="estado_descri" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -179,7 +180,7 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
           <Property Name="precio" Type="real" Nullable="false" />
-          <Property Name="subtotal" Type="real" Nullable="false" />
+          <Property Name="subtotal" Type="float" Nullable="false" />
           <Property Name="idCuenta" Type="int" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
@@ -683,7 +684,6 @@
           <EntitySet Name="Employees" EntityType="mbModel.Employee" />
           <EntitySet Name="EstadoPedidoes" EntityType="mbModel.EstadoPedido" />
           <EntitySet Name="Members" EntityType="mbModel.Member" />
-          <EntitySet Name="MensajeMuroes" EntityType="mbModel.MensajeMuro" />
           <EntitySet Name="Mesas" EntityType="mbModel.Mesa" />
           <EntitySet Name="PerfilMesas" EntityType="mbModel.PerfilMesa" />
           <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
@@ -707,10 +707,6 @@
           <AssociationSet Name="FK_Cliente_AspNetUsers1" Association="mbModel.FK_Cliente_AspNetUsers1">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Cliente" EntitySet="Clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MensajeMuro_AspNetUsers" Association="mbModel.FK_MensajeMuro_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="MensajeMuro" EntitySet="MensajeMuroes" />
           </AssociationSet>
           <AssociationSet Name="FK_Producto_AspNetUsers" Association="mbModel.FK_Producto_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -752,7 +748,12 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Cuentas" EntityType="mbModel.Cuenta" />
           <EntitySet Name="Pedidoes" EntityType="mbModel.Pedido" />
+          <AssociationSet Name="FK_Pedido_Cuenta" Association="mbModel.FK_Pedido_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuentas" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pedido_EstadoPedido1" Association="mbModel.FK_Pedido_EstadoPedido1">
             <End Role="EstadoPedido" EntitySet="EstadoPedidoes" />
             <End Role="Pedido" EntitySet="Pedidoes" />
@@ -765,10 +766,10 @@
             <End Role="UserMesa" EntitySet="UserMesas" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
-          <EntitySet Name="Cuentas" EntityType="mbModel.Cuenta" />
-          <AssociationSet Name="FK_Pedido_Cuenta" Association="mbModel.FK_Pedido_Cuenta">
-            <End Role="Cuenta" EntitySet="Cuentas" />
-            <End Role="Pedido" EntitySet="Pedidoes" />
+          <EntitySet Name="MensajeMuroes" EntityType="mbModel.MensajeMuro" />
+          <AssociationSet Name="FK_MensajeMuro_AspNetUsers" Association="mbModel.FK_MensajeMuro_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="MensajeMuro" EntitySet="MensajeMuroes" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -849,10 +850,10 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="mbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
           <NavigationProperty Name="Clientes" Relationship="mbModel.FK_Cliente_AspNetUsers1" FromRole="AspNetUser" ToRole="Cliente" />
-          <NavigationProperty Name="MensajeMuroes" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="AspNetUser" ToRole="MensajeMuro" />
           <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="AspNetUser" ToRole="Producto" />
           <NavigationProperty Name="UserMesas" Relationship="mbModel.FK_UserMesa_AspNetUsers" FromRole="AspNetUser" ToRole="UserMesa" />
           <NavigationProperty Name="AspNetRoles" Relationship="mbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="MensajeMuroes" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="AspNetUser" ToRole="MensajeMuro" />
         </EntityType>
         <EntityType Name="Carta">
           <Key>
@@ -920,19 +921,6 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RefreshToken" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="GmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MensajeMuro">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="mensaje" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="estadoCod" Type="Int32" Nullable="false" />
-          <Property Name="estado_descri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="reportado" Type="Boolean" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="MensajeMuro" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Mesa">
           <Key>
@@ -1080,18 +1068,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MensajeMuro_AspNetUsers">
-          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="mbModel.MensajeMuro" Role="MensajeMuro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MensajeMuro">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Producto_AspNetUsers">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
@@ -1204,6 +1180,18 @@
           <End Type="mbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUserMesa" Type="Int32" Nullable="false" />
+          <Property Name="estadoCod" Type="Int32" Nullable="false" />
+          <Property Name="estado_descri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="total" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Cuenta" ToRole="Pedido" />
+        </EntityType>
         <EntityType Name="Pedido">
           <Key>
             <PropertyRef Name="id" />
@@ -1214,14 +1202,26 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="cantidad" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
-          <Property Name="subtotal" Type="Single" Nullable="false" />
-          <Property Name="idCuenta" Type="Int32" Nullable="true" />
+          <Property Name="subtotal" Type="Double" Nullable="false" />
+          <Property Name="idCuenta" Type="Int32" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cuenta" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Pedido" ToRole="Cuenta" />
           <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
           <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
           <NavigationProperty Name="UserMesa" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="Pedido" ToRole="UserMesa" />
-          <NavigationProperty Name="Cuenta" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Pedido" ToRole="Cuenta" />
         </EntityType>
+        <Association Name="FK_Pedido_Cuenta">
+          <End Type="mbModel.Cuenta" Role="Cuenta" Multiplicity="0..1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pedido_EstadoPedido1">
           <End Type="mbModel.EstadoPedido" Role="EstadoPedido" Multiplicity="1" />
           <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
@@ -1258,27 +1258,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Cuenta">
+        <EntityType Name="MensajeMuro">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idUserMesa" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mensaje" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="estadoCod" Type="Int32" Nullable="false" />
           <Property Name="estado_descri" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="reportado" Type="Boolean" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="total" Type="Single" Nullable="false" />
-          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Cuenta" ToRole="Pedido" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="MensajeMuro" ToRole="AspNetUser" />
         </EntityType>
-        <Association Name="FK_Pedido_Cuenta">
-          <End Type="mbModel.Cuenta" Role="Cuenta" Multiplicity="0..1" />
-          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+        <Association Name="FK_MensajeMuro_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.MensajeMuro" Role="MensajeMuro" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cuenta">
-              <PropertyRef Name="id" />
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="idCuenta" />
+            <Dependent Role="MensajeMuro">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1443,19 +1445,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MensajeMuroes">
-            <EntityTypeMapping TypeName="mbModel.MensajeMuro">
-              <MappingFragment StoreEntitySet="MensajeMuro">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="reportado" ColumnName="reportado" />
-                <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />
-                <ScalarProperty Name="estadoCod" ColumnName="estadoCod" />
-                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Mesas">
             <EntityTypeMapping TypeName="mbModel.Mesa">
               <MappingFragment StoreEntitySet="Mesa">
@@ -1551,6 +1540,18 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Cuentas">
+            <EntityTypeMapping TypeName="mbModel.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />
+                <ScalarProperty Name="estadoCod" ColumnName="estadoCod" />
+                <ScalarProperty Name="idUserMesa" ColumnName="idUserMesa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pedidoes">
             <EntityTypeMapping TypeName="mbModel.Pedido">
               <MappingFragment StoreEntitySet="Pedido">
@@ -1566,14 +1567,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cuentas">
-            <EntityTypeMapping TypeName="mbModel.Cuenta">
-              <MappingFragment StoreEntitySet="Cuenta">
-                <ScalarProperty Name="total" ColumnName="total" />
+          <EntitySetMapping Name="MensajeMuroes">
+            <EntityTypeMapping TypeName="mbModel.MensajeMuro">
+              <MappingFragment StoreEntitySet="MensajeMuro">
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="reportado" ColumnName="reportado" />
                 <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />
                 <ScalarProperty Name="estadoCod" ColumnName="estadoCod" />
-                <ScalarProperty Name="idUserMesa" ColumnName="idUserMesa" />
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

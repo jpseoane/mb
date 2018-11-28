@@ -172,7 +172,7 @@ namespace Mb.DAO
                                 descriProducto=pr.descripcion,
                                 precioUnitario=pr.precioUnitario,
                                 cantidad =p.cantidad,
-                                subTotal =p.subtotal,
+                                subTotal =(float) p.subtotal,
                                 fecha =p.fecha,
                                 idEstado =ep.id,
                                 descriEstadoPedido=ep.descripcion

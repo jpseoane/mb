@@ -6,27 +6,7 @@
         <p class="lead">Mira lo que comparten las mesas en este momento!!!</p>
     </div>
     <div class="form-row" >    
-            <asp:ListView ID="ListView1" runat="server" GroupItemCount="1" DataSourceID="sqlds" DataKeyNames="ID">
-                <LayoutTemplate>
-                    <table cellpadding="0" runat="server" id="tblDepartments" cellspacing="2">
-                        <tr runat="server" id="groupPlaceholder" />
-                    </table>
-                </LayoutTemplate>
-                <GroupTemplate>
-                    <tr runat="server" id="ProductsRow">
-                        <td runat="server" id="itemPlaceholder" />
-                    </tr>
-                </GroupTemplate>
-                <ItemTemplate>
-                    <td id="Td2" align="center">
-                    </td>
-                </ItemTemplate>
-                <EmptyDataTemplate>
-                    <tr>
-                        <td>No data</td>
-                    </tr>
-                </EmptyDataTemplate>
-        </asp:ListView>
+     
     </div>
     <div class="form-group col-lg-12" >        
     <asp:Button ID="btnBuscar" runat="server"  Text="Publicar" class="btn btn-primary" CausesValidation="false" />                              

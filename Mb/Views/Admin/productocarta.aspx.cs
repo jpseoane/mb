@@ -32,8 +32,11 @@ namespace Mb.Views.Admin
             int userMesaId = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
             bool activo = chkApproved.Checked;
 
+            
+            //TODO: Falta terminar esto
+
             //Your update method            
-            UserMesaController.UpdateActivo(userMesaId, activo);
+           // UserMesaController.UpdateActivo(userMesaId, activo);
 
             //Your data load method
            // CargaMesa(Convert.ToInt32(ViewState["idMesaUsuario"]));

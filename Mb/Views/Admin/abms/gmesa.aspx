@@ -45,9 +45,9 @@
     </div>     
     <!-- GridView-->
     <div class="form-row">
-        <div class="form-group col-lg-6" >        
-            <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                AllowPaging="True" AllowSorting="True" PageSize="5"  
+        <div class="form-group col-lg-12" >        
+            <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center"  Width="100%"
+                AllowPaging="True" AllowSorting="True" PageSize="15"  
                 ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
                 <RowStyle Height="50px" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -63,16 +63,16 @@
                 <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 <Columns>
                     <asp:BoundField DataField="numero" HeaderText="numero" NullDisplayText="numero" SortExpression="numero" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="cant_silla_aprox" HeaderText="Cant. Silla Aprox." NullDisplayText="Sin cantidad" SortExpression="cant_silla_aprox" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="disponible" HeaderText="Disponible" NullDisplayText="disponible" SortExpression="disponible" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="fecha_creacion" HeaderText="Fecha" NullDisplayText="Sin Fecha Creacion" SortExpression="fecha_creacion" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
                     </asp:BoundField>                          
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>

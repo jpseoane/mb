@@ -11,19 +11,24 @@
         <label for="txtTitulo">Titulo</label><br />
         <asp:TextBox ID="txtTitulo" runat="server"  CssClass="form-control"  placeholder="Titulo" ></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtTitulo" Text="*" 
-            runat="server" ForeColor="red" ></asp:RequiredFieldValidator>            
+            runat="server" ForeColor="red" ></asp:RequiredFieldValidator>   
+        <asp:RangeValidator ID="RangeValidator2" ControlToValidate="txtTitulo" MinimumValue="0" MaximumValue="50"  runat="server" Text="*"
+            ErrorMessage="Mensaje titulo debe ser menor a 50 caracteres"></asp:RangeValidator>  
     </div>
     <div class="form-group col-lg-12 " >                
-        <label for="txtComentario">Comentario</label><br />
-        <asp:TextBox ID="txtComentario" runat="server" TextMode="MultiLine" CssClass="form-control"  placeholder="Comentario" ></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtComentario" Text="*" 
-            runat="server" ForeColor="red" ></asp:RequiredFieldValidator>            
+        <label for="txtPublicacion">Publicacion</label><br />
+        <asp:TextBox ID="txtPublicacion" runat="server" TextMode="MultiLine" CssClass="form-control"  placeholder="Publicacion" ></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPublicacion" Text="*" 
+            runat="server" ForeColor="red" ></asp:RequiredFieldValidator>         
+        <asp:RangeValidator ID="RangeValidator1" ControlToValidate="txtPublicacion" MinimumValue="0" MaximumValue="255"  runat="server" Text="*"
+            ErrorMessage="Mensaje publicacion debe ser menor a 255 caracteres"></asp:RangeValidator>  
     </div>
     </div>
     <div class="form-row" >
-        <div class="form-group col-lg-12" >        
-        <asp:Button ID="btnBuscar" runat="server"  Text="Publicar" class="btn btn-primary" CausesValidation="false" />                              
-        <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn btn-secondary" />
+        <div class="form-group col-lg-12" >  
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" Font-Size="Small" />
+        <asp:Button ID="btnCargar" runat="server"  Text="Publicar" class="btn btn-primary" OnClick="btnCargar_Click"  />                              
+        <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-secondary" CausesValidation="false" OnClick="btnLimpiar_Click" />
         </div>
         <div class="form-group col-lg-12" >        
             <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">

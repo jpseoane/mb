@@ -52,13 +52,22 @@
                         <li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>
                         <li><a runat="server" href="~/Views/Admin/abms/gproducto.aspx">Producto</a></li>
                         <li><a runat="server" href="~/Views/Admin/productocarta.aspx">ProdXCarta</a></li>                        
-                        <li><a runat="server" href="~/Views/Admin/abms/gmuro.aspx">Muro</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Muro<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a runat="server" href="~/Views/Admin/abms/gmuro.aspx">Gestionar</a></li>                                                                
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Admin/muestramuro.aspx">Mostar al bar</a></li>
+                                <li role="separator" class="divider"></li>
+                               <li><a runat="server" href="~/Views/Usuario/nuevo/nmuro.aspx">Publicar</a></li>                                                                
+                            </ul>
+                        </li>
                         <li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Gestion Mesa</a></li>
-                        <li><a runat="server" href="~/Views/Admin/usuario.aspx">Usuario</a></li>
                     </ul>
                     <ul id="ulUsuario" runat="server"  visible="false" class="nav navbar-nav">
                         <%--Perfil Usuario--%>
-                        <li><a runat="server" href="~/Views/Usuario/nuevo/asignamesa.aspx">Mesa</a></li>                        
+                        <li><a runat="server" href="~/Views/Usuario/nuevo/asignamesa.aspx">Mesa</a></li>        
+                        
                         <li runat="server"  id="liPedido" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pedidos<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -67,6 +76,7 @@
                                 <li><a runat="server" href="~/Views/Usuario/detallepedido.aspx">Detalle</a></li>
                             </ul>
                         </li>
+
                         <li runat="server" id="liCuenta"><a runat="server" href="~/Views/Usuario/cuenta.aspx">Cuenta</a></li>                                                                                                                  
                         <li><a runat="server" href="~/Views/Usuario/nuevo/nmuro.aspx">Muro</a></li>                                                                                                        
                         <li><a runat="server" href="~/About">Acerca de</a></li>
