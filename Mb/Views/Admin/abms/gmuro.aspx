@@ -32,7 +32,7 @@
 
     <div class="form-row" >
          <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="True" PageSize="5"  CssClass="gridview" DataKeyNames="id"
+                    AllowPaging="True" AllowSorting="false" PageSize="5"  CssClass="gridview" DataKeyNames="id"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False"  >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />

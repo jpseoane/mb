@@ -47,7 +47,7 @@
     <div class="form-row">
         <div class="form-group col-lg-12" >        
             <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center"  Width="100%"
-                AllowPaging="True" AllowSorting="True" PageSize="15"  
+                AllowPaging="True" AllowSorting="false" PageSize="15"  
                 ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
                 <RowStyle Height="50px" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />

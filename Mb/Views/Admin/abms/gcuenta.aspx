@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="productocarta.aspx.cs" Inherits="Mb.Views.Admin.productocarta" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="gcuenta.aspx.cs" Inherits="Mb.Views.Admin.abms.gcuenta" MasterPageFile="~/Site.Master" %>
+
 
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div class="jumbotron">
-        <h1>Asignacion de productos a Carta</h1>
-        <p class="lead">Administracion de productos x carta</p>
+        <h1>Administracion de cuenta</h1>
+        <p class="lead">Gestionar las cuentas</p>
     </div>
     <div class="Container" >
        <div class="form-row">

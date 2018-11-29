@@ -15,6 +15,13 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Ajustes">
+          <Key>
+            <PropertyRef Name="idajuste" />
+          </Key>
+          <Property Name="idajuste" Type="int" Nullable="false" />
+          <Property Name="nombrebar" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -77,16 +84,9 @@
           <Property Name="activa" Type="bit" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Carta_Producto">
           <Key>
             <PropertyRef Name="id" />
-            
-            
-            
-            
-            
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idCarta" Type="int" Nullable="false" />
@@ -529,12 +529,14 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="mbModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ajustes" EntityType="Self.Ajustes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carta" EntityType="Self.Carta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Carta_Producto" EntityType="Self.Carta_Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoPedido" EntityType="Self.EstadoPedido" Schema="dbo" store:Type="Tables" />
@@ -548,16 +550,6 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMesa" EntityType="Self.UserMesa" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Carta_Producto" EntityType="Self.Carta_Producto" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Carta_Producto].[id] AS [id], 
-[Carta_Producto].[idCarta] AS [idCarta], 
-[Carta_Producto].[idProducto] AS [idProducto], 
-[Carta_Producto].[UserId] AS [UserId], 
-[Carta_Producto].[fecha] AS [fecha], 
-[Carta_Producto].[estado] AS [estado]
-FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Carta_AspNetUsers" Association="Self.FK_Carta_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Carta" EntitySet="Carta" />
@@ -683,13 +675,10 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <EntitySet Name="AspNetUserClaims" EntityType="mbModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="mbModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="mbModel.AspNetUser" />
-          <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
-          <EntitySet Name="Carta_Producto" EntityType="mbModel.Carta_Producto" />
           <EntitySet Name="Clientes" EntityType="mbModel.Cliente" />
           <EntitySet Name="EstadoPedidoes" EntityType="mbModel.EstadoPedido" />
           <EntitySet Name="Mesas" EntityType="mbModel.Mesa" />
           <EntitySet Name="PerfilMesas" EntityType="mbModel.PerfilMesa" />
-          <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
           <EntitySet Name="QRs" EntityType="mbModel.QR" />
           <EntitySet Name="SubTipoes" EntityType="mbModel.SubTipo" />
           <EntitySet Name="sysdiagrams" EntityType="mbModel.sysdiagram" />
@@ -703,29 +692,13 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_Carta_AspNetUsers" Association="mbModel.FK_Carta_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Carta" EntitySet="Cartas" />
-          </AssociationSet>
           <AssociationSet Name="FK_Cliente_AspNetUsers1" Association="mbModel.FK_Cliente_AspNetUsers1">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Cliente" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Producto_AspNetUsers" Association="mbModel.FK_Producto_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserMesa_AspNetUsers" Association="mbModel.FK_UserMesa_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="UserMesa" EntitySet="UserMesas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carta_Producto_Carta" Association="mbModel.FK_Carta_Producto_Carta">
-            <End Role="Carta" EntitySet="Cartas" />
-            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Carta_Producto_Producto" Association="mbModel.FK_Carta_Producto_Producto">
-            <End Role="Producto" EntitySet="Productoes" />
-            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
           </AssociationSet>
           <AssociationSet Name="FK_Mesa_QR1" Association="mbModel.FK_Mesa_QR1">
             <End Role="QR" EntitySet="QRs" />
@@ -738,14 +711,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <AssociationSet Name="FK_UserMesa_PerfilMesa" Association="mbModel.FK_UserMesa_PerfilMesa">
             <End Role="PerfilMesa" EntitySet="PerfilMesas" />
             <End Role="UserMesa" EntitySet="UserMesas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Producto_SubTipo" Association="mbModel.FK_Producto_SubTipo">
-            <End Role="SubTipo" EntitySet="SubTipoes" />
-            <End Role="Producto" EntitySet="Productoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Producto_TipoProducto" Association="mbModel.FK_Producto_TipoProducto">
-            <End Role="TipoProducto" EntitySet="TipoProductoes" />
-            <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="mbModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -770,13 +735,41 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             <End Role="EstadoPedido" EntitySet="EstadoPedidoes" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Pedido_UserMesa" Association="mbModel.FK_Pedido_UserMesa">
+            <End Role="UserMesa" EntitySet="UserMesas" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <EntitySet Name="Ajustes" EntityType="mbModel.Ajuste" />
+          <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
+          <EntitySet Name="Carta_Producto" EntityType="mbModel.Carta_Producto" />
+          <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
+          <AssociationSet Name="FK_Carta_AspNetUsers" Association="mbModel.FK_Carta_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Carta" EntitySet="Cartas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_AspNetUsers" Association="mbModel.FK_Producto_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto_Carta" Association="mbModel.FK_Carta_Producto_Carta">
+            <End Role="Carta" EntitySet="Cartas" />
+            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carta_Producto_Producto" Association="mbModel.FK_Carta_Producto_Producto">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Carta_Producto" EntitySet="Carta_Producto" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pedido_Producto" Association="mbModel.FK_Pedido_Producto">
             <End Role="Producto" EntitySet="Productoes" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_UserMesa" Association="mbModel.FK_Pedido_UserMesa">
-            <End Role="UserMesa" EntitySet="UserMesas" />
-            <End Role="Pedido" EntitySet="Pedidoes" />
+          <AssociationSet Name="FK_Producto_SubTipo" Association="mbModel.FK_Producto_SubTipo">
+            <End Role="SubTipo" EntitySet="SubTipoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_TipoProducto" Association="mbModel.FK_Producto_TipoProducto">
+            <End Role="TipoProducto" EntitySet="TipoProductoes" />
+            <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -848,37 +841,12 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="perfil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="mbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="mbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
           <NavigationProperty Name="Clientes" Relationship="mbModel.FK_Cliente_AspNetUsers1" FromRole="AspNetUser" ToRole="Cliente" />
-          <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="AspNetUser" ToRole="Producto" />
           <NavigationProperty Name="UserMesas" Relationship="mbModel.FK_UserMesa_AspNetUsers" FromRole="AspNetUser" ToRole="UserMesa" />
           <NavigationProperty Name="AspNetRoles" Relationship="mbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="MensajeMuroes" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="AspNetUser" ToRole="MensajeMuro" />
-        </EntityType>
-        <EntityType Name="Carta">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="activa" Type="Boolean" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
-          <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta" ToRole="Carta_Producto" />
-        </EntityType>
-        <EntityType Name="Carta_Producto">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCarta" Type="Int32" Nullable="false" />
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carta" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta_Producto" ToRole="Carta" />
-          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Carta_Producto" ToRole="Producto" />
+          <NavigationProperty Name="Cartas" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="AspNetUser" ToRole="Carta" />
+          <NavigationProperty Name="Productoes" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="AspNetUser" ToRole="Producto" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -925,24 +893,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="cod" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="UserMesas" Relationship="mbModel.FK_UserMesa_PerfilMesa" FromRole="PerfilMesa" ToRole="UserMesa" />
-        </EntityType>
-        <EntityType Name="Producto">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IdTipo" Type="Int32" Nullable="false" />
-          <Property Name="idSubTipo" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="precioUnitario" Type="Single" Nullable="false" />
-          <Property Name="activo" Type="Boolean" Nullable="false" />
-          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="Producto" ToRole="AspNetUser" />
-          <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Producto" ToRole="Carta_Producto" />
-          <NavigationProperty Name="SubTipo" Relationship="mbModel.FK_Producto_SubTipo" FromRole="Producto" ToRole="SubTipo" />
-          <NavigationProperty Name="TipoProducto" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
-          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Producto" FromRole="Producto" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="QR">
           <Key>
@@ -1027,18 +977,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Carta_AspNetUsers">
-          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Carta">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cliente_AspNetUsers1">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="mbModel.Cliente" Role="Cliente" Multiplicity="*" />
@@ -1047,18 +985,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Cliente">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Producto_AspNetUsers">
-          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Producto">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1072,30 +998,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Principal>
             <Dependent Role="UserMesa">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carta_Producto_Carta">
-          <End Type="mbModel.Carta" Role="Carta" Multiplicity="1" />
-          <End Type="mbModel.Carta_Producto" Role="Carta_Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Carta">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Carta_Producto">
-              <PropertyRef Name="idCarta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Carta_Producto_Producto">
-          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
-          <End Type="mbModel.Carta_Producto" Role="Carta_Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Carta_Producto">
-              <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1132,30 +1034,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Principal>
             <Dependent Role="UserMesa">
               <PropertyRef Name="idPerfilMesa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Producto_SubTipo">
-          <End Type="mbModel.SubTipo" Role="SubTipo" Multiplicity="1" />
-          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubTipo">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="idSubTipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Producto_TipoProducto">
-          <End Type="mbModel.TipoProducto" Role="TipoProducto" Multiplicity="1" />
-          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoProducto">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="IdTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1231,8 +1109,8 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cuenta" Relationship="mbModel.FK_Pedido_Cuenta" FromRole="Pedido" ToRole="Cuenta" />
           <NavigationProperty Name="EstadoPedido" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="Pedido" ToRole="EstadoPedido" />
-          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
           <NavigationProperty Name="UserMesa" Relationship="mbModel.FK_Pedido_UserMesa" FromRole="Pedido" ToRole="UserMesa" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Pedido_Producto" FromRole="Pedido" ToRole="Producto" />
         </EntityType>
         <Association Name="FK_Pedido_Cuenta">
           <End Type="mbModel.Cuenta" Role="Cuenta" Multiplicity="0..1" />
@@ -1258,6 +1136,116 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pedido_UserMesa">
+          <End Type="mbModel.UserMesa" Role="UserMesa" Multiplicity="1" />
+          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserMesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdUserMesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Ajuste">
+          <Key>
+            <PropertyRef Name="idajuste" />
+          </Key>
+          <Property Name="idajuste" Type="Int32" Nullable="false" />
+          <Property Name="nombrebar" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Carta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Carta_AspNetUsers" FromRole="Carta" ToRole="AspNetUser" />
+          <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta" ToRole="Carta_Producto" />
+        </EntityType>
+        <EntityType Name="Carta_Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCarta" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carta" Relationship="mbModel.FK_Carta_Producto_Carta" FromRole="Carta_Producto" ToRole="Carta" />
+          <NavigationProperty Name="Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Carta_Producto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipo" Type="Int32" Nullable="false" />
+          <Property Name="idSubTipo" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="precioUnitario" Type="Single" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="fecha_carga" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Producto_AspNetUsers" FromRole="Producto" ToRole="AspNetUser" />
+          <NavigationProperty Name="Carta_Producto" Relationship="mbModel.FK_Carta_Producto_Producto" FromRole="Producto" ToRole="Carta_Producto" />
+          <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_Producto" FromRole="Producto" ToRole="Pedido" />
+          <NavigationProperty Name="SubTipo" Relationship="mbModel.FK_Producto_SubTipo" FromRole="Producto" ToRole="SubTipo" />
+          <NavigationProperty Name="TipoProducto" Relationship="mbModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
+        </EntityType>
+        <Association Name="FK_Carta_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carta">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_AspNetUsers">
+          <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carta_Producto_Carta">
+          <End Type="mbModel.Carta" Role="Carta" Multiplicity="1" />
+          <End Type="mbModel.Carta_Producto" Role="Carta_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Carta_Producto">
+              <PropertyRef Name="idCarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carta_Producto_Producto">
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="mbModel.Carta_Producto" Role="Carta_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Carta_Producto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pedido_Producto">
           <End Type="mbModel.Producto" Role="Producto" Multiplicity="1" />
           <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
@@ -1270,15 +1258,27 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedido_UserMesa">
-          <End Type="mbModel.UserMesa" Role="UserMesa" Multiplicity="1" />
-          <End Type="mbModel.Pedido" Role="Pedido" Multiplicity="*" />
+        <Association Name="FK_Producto_SubTipo">
+          <End Type="mbModel.SubTipo" Role="SubTipo" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserMesa">
+            <Principal Role="SubTipo">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Pedido">
-              <PropertyRef Name="IdUserMesa" />
+            <Dependent Role="Producto">
+              <PropertyRef Name="idSubTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_TipoProducto">
+          <End Type="mbModel.TipoProducto" Role="TipoProducto" Multiplicity="1" />
+          <End Type="mbModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1368,29 +1368,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cartas">
-            <EntityTypeMapping TypeName="mbModel.Carta">
-              <MappingFragment StoreEntitySet="Carta">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="activa" ColumnName="activa" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Carta_Producto">
-            <EntityTypeMapping TypeName="mbModel.Carta_Producto">
-              <MappingFragment StoreEntitySet="Carta_Producto">
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="idCarta" ColumnName="idCarta" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="mbModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
@@ -1432,20 +1409,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               <MappingFragment StoreEntitySet="PerfilMesa">
                 <ScalarProperty Name="cod" ColumnName="cod" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Productoes">
-            <EntityTypeMapping TypeName="mbModel.Producto">
-              <MappingFragment StoreEntitySet="Producto">
-                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
-                <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
-                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1549,6 +1512,51 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
                 <ScalarProperty Name="IdUserMesa" ColumnName="IdUserMesa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ajustes">
+            <EntityTypeMapping TypeName="mbModel.Ajuste">
+              <MappingFragment StoreEntitySet="Ajustes">
+                <ScalarProperty Name="nombrebar" ColumnName="nombrebar" />
+                <ScalarProperty Name="idajuste" ColumnName="idajuste" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cartas">
+            <EntityTypeMapping TypeName="mbModel.Carta">
+              <MappingFragment StoreEntitySet="Carta">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carta_Producto">
+            <EntityTypeMapping TypeName="mbModel.Carta_Producto">
+              <MappingFragment StoreEntitySet="Carta_Producto">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idCarta" ColumnName="idCarta" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="mbModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="fecha_carga" ColumnName="fecha_carga" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idSubTipo" ColumnName="idSubTipo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

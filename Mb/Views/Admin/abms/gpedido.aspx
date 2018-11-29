@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="productocarta.aspx.cs" Inherits="Mb.Views.Admin.productocarta" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="gpedido.aspx.cs" Inherits="Mb.Views.Admin.abms.gpedido" MasterPageFile="~/Site.Master" %>
+
 
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div class="jumbotron">
@@ -41,7 +42,7 @@
        <div class="form-row">
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="false" PageSize="5"  CssClass="gridview" DataKeyNames="id"
+                    AllowPaging="True" AllowSorting="True" PageSize="5"  CssClass="gridview" DataKeyNames="id"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />

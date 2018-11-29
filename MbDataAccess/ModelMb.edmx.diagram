@@ -10,13 +10,10 @@
         <EntityTypeShape EntityType="mbModel.AspNetUserClaim" Width="1.5" PointX="14.625" PointY="12.875" />
         <EntityTypeShape EntityType="mbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="13.75" />
         <EntityTypeShape EntityType="mbModel.AspNetUser" Width="1.5" PointX="0.875" PointY="13.375" />
-        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="5.25" PointY="16.25" />
-        <EntityTypeShape EntityType="mbModel.Carta_Producto" Width="1.5" PointX="7.5" PointY="15.75" />
         <EntityTypeShape EntityType="mbModel.Cliente" Width="1.5" PointX="14.625" PointY="15.625" />
         <EntityTypeShape EntityType="mbModel.EstadoPedido" Width="1.5" PointX="12.375" PointY="5.25" />
         <EntityTypeShape EntityType="mbModel.Mesa" Width="1.5" PointX="6" PointY="5" />
         <EntityTypeShape EntityType="mbModel.PerfilMesa" Width="1.5" PointX="6.125" PointY="7.875" />
-        <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="3.25" PointY="11.375" />
         <EntityTypeShape EntityType="mbModel.QR" Width="1.5" PointX="3.75" PointY="5.25" />
         <EntityTypeShape EntityType="mbModel.SubTipo" Width="1.5" PointX="3.125" PointY="9.25" />
         <EntityTypeShape EntityType="mbModel.sysdiagram" Width="1.5" PointX="8.75" PointY="6.625" />
@@ -24,17 +21,11 @@
         <EntityTypeShape EntityType="mbModel.UserMesa" Width="1.5" PointX="8.25" PointY="11.625" />
         <AssociationConnector Association="mbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="mbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" />
         <AssociationConnector Association="mbModel.FK_Cliente_AspNetUsers1" />
-        <AssociationConnector Association="mbModel.FK_Producto_AspNetUsers" />
         <AssociationConnector Association="mbModel.FK_UserMesa_AspNetUsers" />
-        <AssociationConnector Association="mbModel.FK_Carta_Producto_Carta" />
-        <AssociationConnector Association="mbModel.FK_Carta_Producto_Producto" />
         <AssociationConnector Association="mbModel.FK_Mesa_QR1" />
         <AssociationConnector Association="mbModel.FK_UserMesa_Mesa" />
         <AssociationConnector Association="mbModel.FK_UserMesa_PerfilMesa" />
-        <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
-        <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="mbModel.MensajeMuro" Width="1.5" PointX="10.75" PointY="16.25" />
         <AssociationConnector Association="mbModel.FK_MensajeMuro_AspNetUsers" />
@@ -43,8 +34,18 @@
         <EntityTypeShape EntityType="mbModel.Pedido" Width="1.5" PointX="12.875" PointY="7.75" />
         <AssociationConnector Association="mbModel.FK_Pedido_Cuenta" />
         <AssociationConnector Association="mbModel.FK_Pedido_EstadoPedido1" />
-        <AssociationConnector Association="mbModel.FK_Pedido_Producto" />
         <AssociationConnector Association="mbModel.FK_Pedido_UserMesa" />
+        <EntityTypeShape EntityType="mbModel.Ajuste" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="mbModel.Carta" Width="1.5" PointX="3.5" PointY="20" />
+        <EntityTypeShape EntityType="mbModel.Carta_Producto" Width="1.5" PointX="11" PointY="21" />
+        <EntityTypeShape EntityType="mbModel.Producto" Width="1.5" PointX="8.75" PointY="16.125" />
+        <AssociationConnector Association="mbModel.FK_Carta_AspNetUsers" />
+        <AssociationConnector Association="mbModel.FK_Producto_AspNetUsers" />
+        <AssociationConnector Association="mbModel.FK_Carta_Producto_Carta" />
+        <AssociationConnector Association="mbModel.FK_Carta_Producto_Producto" />
+        <AssociationConnector Association="mbModel.FK_Pedido_Producto" />
+        <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
+        <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

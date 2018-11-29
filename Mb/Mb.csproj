@@ -261,19 +261,19 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\Admin\abms\gcarta.aspx" />
+    <Content Include="Views\Admin\abms\gcuenta.aspx" />
     <Content Include="Views\Admin\abms\gmesa.aspx" />
+    <Content Include="Views\Admin\abms\gpedido.aspx" />
     <Content Include="Views\Admin\abms\gproducto.aspx" />
     <Content Include="Views\Admin\abms\nuevo\ncarta.aspx" />
     <Content Include="Views\Admin\abms\nuevo\nmesa.aspx" />
     <Content Include="Views\Admin\abms\nuevo\nproducto.aspx" />
     <Content Include="Views\Admin\muestramuro.aspx" />
     <Content Include="Views\Admin\productocarta.aspx" />
-    <Content Include="Views\Usuario\ajustes.aspx" />
     <Content Include="Views\Usuario\cuenta.aspx" />
     <Content Include="Views\Usuario\detallepedido.aspx" />
     <Content Include="Views\Usuario\nuevo\asignamesa.aspx" />
     <Content Include="Views\Admin\abms\gmuro.aspx" />
-    <Content Include="Views\Usuario\carrito.aspx" />
     <Content Include="Views\Usuario\nuevo\nmuro.aspx" />
     <Content Include="Views\Usuario\nuevo\npedido.aspx" />
     <Content Include="Views\Usuario\muro.aspx" />
@@ -467,12 +467,26 @@
     <Compile Include="Views\Admin\abms\gcarta.aspx.designer.cs">
       <DependentUpon>gcarta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\abms\gcuenta.aspx.cs">
+      <DependentUpon>gcuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gcuenta.aspx.designer.cs">
+      <DependentUpon>gcuenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\abms\gmesa.aspx.cs">
       <DependentUpon>gmesa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\Admin\abms\gmesa.aspx.designer.cs">
       <DependentUpon>gmesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gpedido.aspx.cs">
+      <DependentUpon>gpedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\abms\gpedido.aspx.designer.cs">
+      <DependentUpon>gpedido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\abms\gproducto.aspx.cs">
       <DependentUpon>gproducto.aspx</DependentUpon>
@@ -516,13 +530,6 @@
     <Compile Include="Views\Admin\productocarta.aspx.designer.cs">
       <DependentUpon>productocarta.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuario\ajustes.aspx.cs">
-      <DependentUpon>ajustes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Usuario\ajustes.aspx.designer.cs">
-      <DependentUpon>ajustes.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Usuario\cuenta.aspx.cs">
       <DependentUpon>cuenta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -550,13 +557,6 @@
     </Compile>
     <Compile Include="Views\Admin\abms\gmuro.aspx.designer.cs">
       <DependentUpon>gmuro.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Usuario\carrito.aspx.cs">
-      <DependentUpon>carrito.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Usuario\carrito.aspx.designer.cs">
-      <DependentUpon>carrito.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Usuario\nuevo\nmuro.aspx.cs">
       <DependentUpon>nmuro.aspx</DependentUpon>

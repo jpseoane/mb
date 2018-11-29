@@ -26,7 +26,7 @@ namespace MbDataAccess
     
         public virtual Cuenta Cuenta { get; set; }
         public virtual EstadoPedido EstadoPedido { get; set; }
-        public virtual Producto Producto { get; set; }
         public virtual UserMesa UserMesa { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

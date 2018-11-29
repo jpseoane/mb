@@ -31,8 +31,8 @@ namespace MbDataAccess
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual ICollection<Carta_Producto> Carta_Producto { get; set; }
+        public virtual ICollection<Pedido> Pedidoes { get; set; }
         public virtual SubTipo SubTipo { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
-        public virtual ICollection<Pedido> Pedidoes { get; set; }
     }
 }

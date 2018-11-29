@@ -76,7 +76,7 @@
     <div class="form-row">
         <div class="form-group col-lg-6" style="text-align:center; " >        
             <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                AllowPaging="True" AllowSorting="True" PageSize="5"  
+                AllowPaging="True" AllowSorting="false" PageSize="5"  
                 ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" HorizontalAlign="Center" />

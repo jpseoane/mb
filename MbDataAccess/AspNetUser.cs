@@ -18,12 +18,12 @@ namespace MbDataAccess
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            this.Cartas = new HashSet<Carta>();
             this.Clientes = new HashSet<Cliente>();
-            this.Productoes = new HashSet<Producto>();
             this.UserMesas = new HashSet<UserMesa>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.MensajeMuroes = new HashSet<MensajeMuro>();
+            this.Cartas = new HashSet<Carta>();
+            this.Productoes = new HashSet<Producto>();
         }
     
         public string Id { get; set; }
@@ -42,11 +42,11 @@ namespace MbDataAccess
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual ICollection<Carta> Cartas { get; set; }
         public virtual ICollection<Cliente> Clientes { get; set; }
-        public virtual ICollection<Producto> Productoes { get; set; }
         public virtual ICollection<UserMesa> UserMesas { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         public virtual ICollection<MensajeMuro> MensajeMuroes { get; set; }
+        public virtual ICollection<Carta> Cartas { get; set; }
+        public virtual ICollection<Producto> Productoes { get; set; }
     }
 }

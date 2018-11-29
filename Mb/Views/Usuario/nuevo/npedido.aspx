@@ -60,7 +60,7 @@
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->                        
                         <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview" DataKeyNames="precioUnitario"
+                                AllowPaging="True" AllowSorting="false" PageSize="5"   CssClass="gridview" DataKeyNames="precioUnitario"
                                 AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    

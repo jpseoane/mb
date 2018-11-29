@@ -46,7 +46,7 @@ namespace WebFormsConOAuthNemiro
                 IdentityHelper.RedirectToReturnUrl("Default.aspx", Response);
             }
             else {
-                var user = new ApplicationUser() { UserName = email, Email = email, perfil="Cliente" };
+                var user = new ApplicationUser() { UserName = email, Email = email, perfil="cliente" };
                 IdentityResult result = manager.Create(user, "Google");
                 if (result.Succeeded)
                 {                 
