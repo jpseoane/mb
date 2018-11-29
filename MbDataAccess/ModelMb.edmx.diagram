@@ -39,14 +39,15 @@
         <AssociationConnector Association="mbModel.FK_Producto_SubTipo" />
         <AssociationConnector Association="mbModel.FK_Producto_TipoProducto" />
         <AssociationConnector Association="mbModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="mbModel.Cuenta" Width="1.5" PointX="10.375" PointY="11" />
-        <EntityTypeShape EntityType="mbModel.Pedido" Width="1.5" PointX="12.625" PointY="6.375" />
+        <EntityTypeShape EntityType="mbModel.MensajeMuro" Width="1.5" PointX="5.25" PointY="25.75" />
+        <AssociationConnector Association="mbModel.FK_MensajeMuro_AspNetUsers" />
+        <EntityTypeShape EntityType="mbModel.Cuenta" Width="1.5" PointX="10.5" PointY="12" />
+        <AssociationConnector Association="mbModel.FK_Cuenta_UserMesa" />
+        <EntityTypeShape EntityType="mbModel.Pedido" Width="1.5" PointX="12.75" PointY="6.5" />
         <AssociationConnector Association="mbModel.FK_Pedido_Cuenta" />
         <AssociationConnector Association="mbModel.FK_Pedido_EstadoPedido1" />
         <AssociationConnector Association="mbModel.FK_Pedido_Producto" />
         <AssociationConnector Association="mbModel.FK_Pedido_UserMesa" />
-        <EntityTypeShape EntityType="mbModel.MensajeMuro" Width="1.5" PointX="5.25" PointY="25.75" />
-        <AssociationConnector Association="mbModel.FK_MensajeMuro_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

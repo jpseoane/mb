@@ -18,10 +18,10 @@ namespace MbDataAccess
         public int IdUserMesa { get; set; }
         public int IdProducto { get; set; }
         public int IdEstado { get; set; }
+        public Nullable<int> idCuenta { get; set; }
         public int cantidad { get; set; }
         public float precio { get; set; }
         public double subtotal { get; set; }
-        public Nullable<int> idCuenta { get; set; }
         public System.DateTime fecha { get; set; }
     
         public virtual Cuenta Cuenta { get; set; }

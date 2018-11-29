@@ -20,12 +20,13 @@ namespace MbDataAccess
         }
     
         public int id { get; set; }
-        public int idUserMesa { get; set; }
+        public Nullable<int> idUserMesa { get; set; }
         public int estadoCod { get; set; }
         public string estado_descri { get; set; }
         public System.DateTime fecha { get; set; }
-        public float total { get; set; }
+        public double total { get; set; }
     
+        public virtual UserMesa UserMesa { get; set; }
         public virtual ICollection<Pedido> Pedidoes { get; set; }
     }
 }
