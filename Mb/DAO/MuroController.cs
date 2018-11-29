@@ -103,6 +103,49 @@ namespace Mb.DAO
 
         }
 
+        //ID="SqlDataSource1" runat="server" SelectCommand="SELECT [titulo], [mensaje],mm.fecha fecha,apu.Email email, apu.UserName usuario, me.numero nummesa, mm.confoto confoto, mm.nombrefoto nombrefoto
+        //              FROM[MensajeMuro] mm INNER JOIN AspNetUsers apu ON mm.UserId = apu.Id INNER JOIN UserMesa um ON um.UserId = apu.Id INNER JOIN Mesa me ON um.IdMesa = me.Id"></asp:SqlDataSource>--%>
+
+        //public static List<MensajeMurosDetalle> GetAllConMasDetalle(bool reportado, EnumEstadoMensaje? enumEstadoMensaje)
+        //{
+        //    using (mbDBContext entities = new mbDBContext())
+        //    {
+
+        //        var MensajeMuros = from MensajeMuro mm in entities.MensajeMuroes                            
+        //                    join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
+        //                      join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+        //                           join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+        //                    select new MensajeMurosDetalle
+        //                    {
+        //                        id = p.id,
+        //                        idUserMesa = um.id,
+        //                        userName = apu.UserName,
+        //                        idProducto = pr.id,
+        //                        descriProducto = pr.descripcion,
+        //                        precioUnitario = pr.precioUnitario,
+        //                        cantidad = p.cantidad,
+        //                        subTotal = (float)p.subtotal,
+        //                        fecha = p.fecha,
+        //                        idEstado = ep.id,
+        //                        descriEstadoPedido = ep.descripcion
+        //                    };
+        //        var MurosDetalle = MensajeMuros.ToList();
+
+        //        if (enumEstadoMensaje != null)
+        //        {
+        //            MurosDetalle = (from mm in MurosDetalle
+        //                            where mm.estadoCod == (int)enumEstadoMensaje && mm.reportado == reportado
+        //                            select mm).ToList();
+        //        }
+        //        return MurosDetalle;
+        //    }
+
+        //}
+
+
+
+
+
         public static List<MensajeMurosDetalle> GetAllCondetalle()
         {
             using (mbDBContext entities = new mbDBContext())
@@ -161,10 +204,35 @@ namespace Mb.DAO
         }
 
 
-      
+
+        public static bool CambiarEstadoMensaje(int id,bool reportado, EnumEstadoMensaje enumEstadoMensaje)
+        {
+            exito = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.MensajeMuroes.FirstOrDefault(e => e.id == id);
+                    if (entity != null)
+                    {
+                        entity.estadoCod = (int) enumEstadoMensaje;
+                        entity.reportado = reportado;
+                        dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                        dBEntities.SaveChanges();
+                        exito = true;
+                    }
+                }
+            }
+            catch
+            {
+                exito = false;
+            }
+            return exito;
+        }
 
 
-public static bool PermitirMensaje(int id)
+
+        public static bool PermitirMensaje(int id)
         {
             exito = false;
             try

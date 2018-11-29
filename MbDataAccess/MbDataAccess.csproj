@@ -48,9 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ajuste.cs">
-      <DependentUpon>ModelMb.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
@@ -78,13 +75,7 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>ModelMb.tt</DependentUpon>
-    </Compile>
     <Compile Include="EstadoPedido.cs">
-      <DependentUpon>ModelMb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Member.cs">
       <DependentUpon>ModelMb.tt</DependentUpon>
     </Compile>
     <Compile Include="MensajeMuro.cs">

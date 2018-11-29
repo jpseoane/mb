@@ -22,6 +22,8 @@ namespace MbDataAccess
         public string estado_descri { get; set; }
         public bool reportado { get; set; }
         public System.DateTime fecha { get; set; }
+        public Nullable<bool> confoto { get; set; }
+        public string nombrefoto { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

@@ -29,7 +29,6 @@ namespace MbDataAccess
         }
     
         public DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public DbSet<Ajuste> Ajustes { get; set; }
         public DbSet<AspNetRole> AspNetRoles { get; set; }
         public DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -37,9 +36,7 @@ namespace MbDataAccess
         public DbSet<Carta> Cartas { get; set; }
         public DbSet<Carta_Producto> Carta_Producto { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<EstadoPedido> EstadoPedidoes { get; set; }
-        public DbSet<Member> Members { get; set; }
         public DbSet<Mesa> Mesas { get; set; }
         public DbSet<PerfilMesa> PerfilMesas { get; set; }
         public DbSet<Producto> Productoes { get; set; }

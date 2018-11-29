@@ -11,15 +11,13 @@ namespace Mb.DAO
             public static bool exito { get; set; }
             public static String mens { get; set; }
             public static bool resultado { get; set; }
-
             public static AspNetUser GetbyId(String id)
             {
                 using (mbDBContext entities = new mbDBContext())
                 {
                     return entities.AspNetUsers.FirstOrDefault(e => e.Id == id);
                 }
-            }
-        
+            }        
             public static IEnumerable<AspNetUser> GetTodos()
             {
                 using (mbDBContext entities = new mbDBContext())
@@ -56,8 +54,6 @@ namespace Mb.DAO
                 }
                 return exito;
             }
-        
-
             public static bool Borrar(String id)
             {
                 exito = false;

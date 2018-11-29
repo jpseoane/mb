@@ -15,13 +15,6 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Ajustes">
-          <Key>
-            <PropertyRef Name="idajuste" />
-          </Key>
-          <Property Name="idajuste" Type="int" Nullable="false" />
-          <Property Name="nombrebar" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -126,16 +119,6 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="total" Type="float" Nullable="false" />
         </EntityType>
-        <EntityType Name="Employees">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
-          <Property Name="Salary" Type="int" />
-        </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
             <PropertyRef Name="id" />
@@ -144,14 +127,6 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <Property Name="codigo" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Member">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RefreshToken" Type="varchar" MaxLength="200" />
-          <Property Name="GmailId" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="MensajeMuro">
           <Key>
@@ -165,6 +140,8 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <Property Name="estado_descri" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="reportado" Type="bit" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="confoto" Type="bit" />
+          <Property Name="nombrefoto" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Mesa">
           <Key>
@@ -552,7 +529,6 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="mbModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Ajustes" EntityType="Self.Ajustes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -561,9 +537,7 @@ advertencia 6002: La tabla o vista 'mb.dbo.Carta_Producto' no tiene definida nin
           <EntitySet Name="Carta" EntityType="Self.Carta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoPedido" EntityType="Self.EstadoPedido" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MensajeMuro" EntityType="Self.MensajeMuro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesa" EntityType="Self.Mesa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
@@ -705,7 +679,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="C__MigrationHistory" EntityType="mbModel.C__MigrationHistory" />
-          <EntitySet Name="Ajustes" EntityType="mbModel.Ajuste" />
           <EntitySet Name="AspNetRoles" EntityType="mbModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="mbModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="mbModel.AspNetUserLogin" />
@@ -713,9 +686,7 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <EntitySet Name="Cartas" EntityType="mbModel.Carta" />
           <EntitySet Name="Carta_Producto" EntityType="mbModel.Carta_Producto" />
           <EntitySet Name="Clientes" EntityType="mbModel.Cliente" />
-          <EntitySet Name="Employees" EntityType="mbModel.Employee" />
           <EntitySet Name="EstadoPedidoes" EntityType="mbModel.EstadoPedido" />
-          <EntitySet Name="Members" EntityType="mbModel.Member" />
           <EntitySet Name="Mesas" EntityType="mbModel.Mesa" />
           <EntitySet Name="PerfilMesas" EntityType="mbModel.PerfilMesa" />
           <EntitySet Name="Productoes" EntityType="mbModel.Producto" />
@@ -829,13 +800,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Ajuste">
-          <Key>
-            <PropertyRef Name="idajuste" />
-          </Key>
-          <Property Name="idajuste" Type="Int32" Nullable="false" />
-          <Property Name="nombrebar" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -930,16 +894,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="edad" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_Cliente_AspNetUsers1" FromRole="Cliente" ToRole="AspNetUser" />
         </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Int32" />
-        </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
             <PropertyRef Name="id" />
@@ -949,14 +903,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Pedidoes" Relationship="mbModel.FK_Pedido_EstadoPedido1" FromRole="EstadoPedido" ToRole="Pedido" />
-        </EntityType>
-        <EntityType Name="Member">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="RefreshToken" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="GmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Mesa">
           <Key>
@@ -1230,6 +1176,8 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <Property Name="reportado" Type="Boolean" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="MensajeMuro" ToRole="AspNetUser" />
+          <Property Name="confoto" Type="Boolean" />
+          <Property Name="nombrefoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_MensajeMuro_AspNetUsers">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -1374,14 +1322,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ajustes">
-            <EntityTypeMapping TypeName="mbModel.Ajuste">
-              <MappingFragment StoreEntitySet="Ajustes">
-                <ScalarProperty Name="nombrebar" ColumnName="nombrebar" />
-                <ScalarProperty Name="idajuste" ColumnName="idajuste" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="mbModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -1465,17 +1405,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="mbModel.Employee">
-              <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EstadoPedidoes">
             <EntityTypeMapping TypeName="mbModel.EstadoPedido">
               <MappingFragment StoreEntitySet="EstadoPedido">
@@ -1483,15 +1412,6 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Members">
-            <EntityTypeMapping TypeName="mbModel.Member">
-              <MappingFragment StoreEntitySet="Member">
-                <ScalarProperty Name="GmailId" ColumnName="GmailId" />
-                <ScalarProperty Name="RefreshToken" ColumnName="RefreshToken" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1593,6 +1513,8 @@ FROM [dbo].[Carta_Producto] AS [Carta_Producto]</DefiningQuery>
           <EntitySetMapping Name="MensajeMuroes">
             <EntityTypeMapping TypeName="mbModel.MensajeMuro">
               <MappingFragment StoreEntitySet="MensajeMuro">
+                <ScalarProperty Name="nombrefoto" ColumnName="nombrefoto" />
+                <ScalarProperty Name="confoto" ColumnName="confoto" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="reportado" ColumnName="reportado" />
                 <ScalarProperty Name="estado_descri" ColumnName="estado_descri" />

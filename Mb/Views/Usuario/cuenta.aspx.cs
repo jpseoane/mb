@@ -57,7 +57,9 @@ namespace Mb.Views.Usuario
 
         }
 
+        protected void btnPagar_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

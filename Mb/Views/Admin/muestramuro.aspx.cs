@@ -2,7 +2,11 @@
 using MbDataAccess;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,14 +25,37 @@ namespace Mb.Views.Admin
 
         private void CrearMuro()
         {
-            List<MensajeMurosDetalle> ListaDeMensajeMurosDetalles = MuroController.GetAllCondetalle(false, EnumEstadoMensaje.Aprobado);
-            foreach (MensajeMuro mensajeMuro in ListaDeMensajeMurosDetalles) {
-                Response.Write("<table> <tr> <td>");
-                Response.Write("Tiutlo: " + mensajeMuro.titulo + " </td> </tr> ");
-                Response.Write("<tr> <td>");
-                Response.Write("Mensaje: " + mensajeMuro.mensaje + " </td> </tr> ");
-                Response.Write("</table>");
+            this.Repeater1.DataSource = GetData();
+            this.Repeater1.DataBind();
+        }
+        private DataTable GetData()
+        {
+
+            string dbConnect = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+
+            using (SqlConnection con = new SqlConnection(dbConnect))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT [titulo], [mensaje],mm.fecha fecha,apu.Email email, apu.UserName usuario, me.numero " +
+                    "nummesa, mm.confoto confoto, mm.nombrefoto nombrefoto FROM[MensajeMuro] mm INNER JOIN AspNetUsers apu ON mm.UserId = " +
+                    "apu.Id INNER JOIN UserMesa um ON um.UserId = apu.Id INNER JOIN Mesa me ON um.IdMesa = me.Id" +
+                    " Where mm.reportado=0"))
+                    //Muestra mensajes aprobados Aprobado
+                {
+                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    {
+                        cmd.Connection = con;
+                        sda.SelectCommand = cmd;
+                        using (DataTable dt = new DataTable())
+                        {
+                            sda.Fill(dt);
+                            return dt;
+                        }
+                    }
+                }
             }
         }
+
+
+
     }
 }

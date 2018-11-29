@@ -65,11 +65,11 @@
                     <asp:TemplateField HeaderText="Asignar">
                             <HeaderTemplate>
                                     <asp:CheckBox ID="chkHabilita" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                    Checked='<%#Convert.ToBoolean(Eval("id"))%>' ToolTip="Deshabilitar comentarios" OnCheckedChanged="chkHabilitaTodas_CheckedChanged" />
+                                    Checked='<%#Convert.ToBoolean(Eval("reportado"))%>' ToolTip="Deshabilitar comentarios" OnCheckedChanged="chkHabilitaTodas_CheckedChanged" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                    Checked='<%#Convert.ToBoolean(Eval("id"))%>' ToolTip="Deshabilitar comentario" OnCheckedChanged="chkHabilitar_CheckedChanged" />
+                                <asp:CheckBox ID="chkHabilita" runat="server" AutoPostBack="true"  CausesValidation="false"    
+                                    Checked='<%#Convert.ToBoolean(Eval("reportado"))%>' ToolTip="Deshabilitar comentario" OnCheckedChanged="chkHabilitar_CheckedChanged" />
                                 </ItemTemplate>
                             <ItemStyle HorizontalAlign="Center"  Width="50px"/>
                             <HeaderStyle HorizontalAlign="Center"  Width="50px" />

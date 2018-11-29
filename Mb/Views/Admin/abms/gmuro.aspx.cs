@@ -29,13 +29,10 @@ namespace Mb.Views.Usuario
         protected void chkHabilitar_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkhabilitar = (CheckBox)sender;
+            
             GridViewRow gridViewRow = (GridViewRow)chkhabilitar.Parent.Parent;
             int idMesanje = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
-      
-
-            //Your update method            
-         //   MuroController.
-
+            MuroController.CambiarEstadoMensaje(idMesanje, chkhabilitar.Checked, MuroController.EnumEstadoMensaje.Desaprobado);
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)

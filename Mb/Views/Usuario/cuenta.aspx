@@ -37,7 +37,7 @@
            </div>   
            <div class="form-row" >
                 <div class="form-group col-lg-12" >        
-                    <asp:Button ID="btnPagar" runat="server"  Text="Pagar con MercadoPago" class="btn btn-primary" />
+                    <asp:Button ID="btnPagar" runat="server"  Text="Pedir Cuenta" class="btn btn-primary" OnClick="btnPagar_Click" />
                 </div>                
            </div>
            <div class="form-row" >             
