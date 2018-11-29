@@ -60,15 +60,11 @@
                 </div>
             </div>    
           </div>
- 
-    
     
         <div class="form-group col-lg-12" >        
             <asp:Button ID="btnCargar" runat="server"  Text="Cargar" class="btn btn-primary" OnClick="btnCargar_Click"  />                              
             <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-secondary" CausesValidation="false" OnClick="btnLimpiar_Click"  />
         </div>
-    
-    
         <div class="form-group col-lg-12" >        
                 <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>

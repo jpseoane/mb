@@ -58,7 +58,7 @@
 
         <div class="col-md-4">
             <h2>Social Logins</h2>
-            <asp:LinkButton ID="lnkGoogle2" runat="server" data-provider="google" Text="Google" onclick="RedirectToLogin_Click" />                
+            <asp:LinkButton ID="lnkGoogle2" runat="server" data-provider="google" Text="Google" onclick="RedirectToLogin_Click" CausesValidation="false" />                
             
         </div>
     </div>

@@ -27,10 +27,10 @@ namespace Mb.Views.Admin
         }
         protected void chkAsignarTodas_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox chkApproved = (CheckBox)sender;
-            GridViewRow gridViewRow = (GridViewRow)chkApproved.Parent.Parent;
-            int userMesaId = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
-            bool activo = chkApproved.Checked;
+            //CheckBox chkApproved = (CheckBox)sender;
+            //GridViewRow gridViewRow = (GridViewRow)chkApproved.Parent.Parent;
+            //int userMesaId = (int)gv.DataKeys[gridViewRow.RowIndex].Value;
+            //bool activo = chkApproved.Checked;
 
             
             //TODO: Falta terminar esto
