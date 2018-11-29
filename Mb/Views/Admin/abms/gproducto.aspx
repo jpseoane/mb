@@ -15,12 +15,6 @@
         </div>
     </div>
     <div class="form-row">
-          <%--  <div class="form-group col-lg-4 " >                
-                <label for="ddlCarta">Carta</label><br />
-                <asp:DropDownList ID="ddlCarta" CssClass="form-control"  runat="server"></asp:DropDownList>            
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlCarta" Text="*" 
-                    runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
-            </div>--%>
             <div class="form-group col-lg-4" >        
                 <label for="ddlTipo">Tipo</label><br />
                 <asp:DropDownList ID="ddlTipo" CssClass="form-control"  runat="server"></asp:DropDownList>            
@@ -58,29 +52,6 @@
             </div>
         </div>    
     </div>
-    <%--   <div class="form-row">
-            <div class="form-group col-lg-4" >       
-            <!-- Default checkbox -->
-            <div class="checkbox">
-      <label>
-       <input type="checkbox" value="">
-       <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-       Option one
-       </label>
-    </div>
-
-            
-
-            <!-- Disabled checkbox -->
-            <div class="checkbox disabled">
-      <label>
-       <input type="checkbox" value="" disabled>
-       <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-       Option three is disabled
-       </label>
-    </div>
-        </div>
-    </div>--%>
         <div class="form-group col-lg-12" >        
             <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" CausesValidation="false" OnClick="btnBuscar_Click" />                              
             <asp:Button ID="btnActualizar" runat="server"  Text="Actualizar" class="btn btn-secondary" OnClick="btnActualizar_Click" />

@@ -31,15 +31,6 @@ namespace Mb.Views.Usuario.nuevo {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// Control RangeValidator2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
-        
-        /// <summary>
         /// Control txtPublicacion.
         /// </summary>
         /// <remarks>
@@ -56,15 +47,6 @@ namespace Mb.Views.Usuario.nuevo {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
-        /// Control RangeValidator1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
         /// <summary>
         /// Control ValidationSummary1.
@@ -110,14 +92,5 @@ namespace Mb.Views.Usuario.nuevo {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMensaje;
-        
-        /// <summary>
-        /// Control tbComentarios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tbComentarios;
     }
 }

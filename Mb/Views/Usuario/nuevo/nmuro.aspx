@@ -12,16 +12,12 @@
         <asp:TextBox ID="txtTitulo" runat="server"  CssClass="form-control"  placeholder="Titulo" ></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtTitulo" Text="*" 
             runat="server" ForeColor="red" ></asp:RequiredFieldValidator>   
-        <asp:RangeValidator ID="RangeValidator2" ControlToValidate="txtTitulo" MinimumValue="0" MaximumValue="50"  runat="server" Text="*"
-            ErrorMessage="Mensaje titulo debe ser menor a 50 caracteres"></asp:RangeValidator>  
     </div>
     <div class="form-group col-lg-12 " >                
         <label for="txtPublicacion">Publicacion</label><br />
         <asp:TextBox ID="txtPublicacion" runat="server" TextMode="MultiLine" CssClass="form-control"  placeholder="Publicacion" ></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPublicacion" Text="*" 
             runat="server" ForeColor="red" ></asp:RequiredFieldValidator>         
-        <asp:RangeValidator ID="RangeValidator1" ControlToValidate="txtPublicacion" MinimumValue="0" MaximumValue="255"  runat="server" Text="*"
-            ErrorMessage="Mensaje publicacion debe ser menor a 255 caracteres"></asp:RangeValidator>  
     </div>
     </div>
     <div class="form-row" >
@@ -39,9 +35,11 @@
     </div>
     <div class="form-row" >
         <div class="form-group col-lg-12" >        
-            <asp:Table ID="tbComentarios" runat="server">
+            <div class="table-responsive">
+                <table class="table">
 
-            </asp:Table>
+                </table>
+            </div>
         </div>
     </div>
  </div>

@@ -58,7 +58,7 @@
                         <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
                     </div>
                     <div class="form-group col-lg-12 " >                
-                        <!-- GridView-->
+                        <!-- GridView-->                        
                         <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                                 AllowPaging="True" AllowSorting="True" PageSize="5"   CssClass="gridview" DataKeyNames="precioUnitario"
                                 AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
@@ -85,7 +85,7 @@
                                         <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>
                                     </asp:TemplateField>     
                                     </Columns>
-                        </asp:GridView>
+                        </asp:GridView>                        
                     </div>
               </div>
                <div class="form-row" >             
