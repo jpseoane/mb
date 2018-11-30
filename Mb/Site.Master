@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
+    <%--<title><%: Page.Title %> - Mi aplicación ASP.NET</title>--%>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -49,9 +49,22 @@
                 <div class="navbar-collapse collapse">
                     <ul id="ulAdmin" runat="server"  visible="false"  class="nav navbar-nav">
                         <%--Perfil Admin--%>                                                
-                        <li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>
-                        <li><a runat="server" href="~/Views/Admin/abms/gproducto.aspx">Producto</a></li>
-                        <li><a runat="server" href="~/Views/Admin/productocarta.aspx">ProdXCarta</a></li>                        
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestion<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a runat="server" href="~/Views/Admin/abms/gpedido.aspx">Pedidos</a></li>                                                                
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Admin/abms/gcuenta.aspx">Cuentas</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Admin/abms/gproducto.aspx">Productos</a></li>                                                                
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Admin/abms/gcarta.aspx">Cartas</a></li>                                                                
+                                <li role="separator" class="divider"></li>
+                                <li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Gestion Mesa</a></li>
+                            </ul>
+                        </li>
+                        <li><a runat="server" href="~/Views/Admin/productocarta.aspx">ProdXCarta</a></li> 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Muro<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -62,7 +75,6 @@
                                <li><a runat="server" href="~/Views/Usuario/nuevo/nmuro.aspx">Publicar</a></li>                                                                
                             </ul>
                         </li>
-                        <li><a runat="server" href="~/Views/Admin/abms/gmesa.aspx">Gestion Mesa</a></li>
                     </ul>
                     <ul id="ulUsuario" runat="server"  visible="false" class="nav navbar-nav">
                         <%--Perfil Usuario--%>

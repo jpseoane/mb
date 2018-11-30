@@ -57,40 +57,6 @@ namespace Mb.Views.Usuario
 
         }
 
-        private void CargaDetallePedido(int mesaNumero)
-        {
-            
-           
-        }
-
-        protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-        }
-
-        protected void btnPedirCuenta_Click(object sender, EventArgs e)
-        {
-            if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
-            {
-                //Pedir cuenta
-                //  Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));                
-                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
-                if (usuarioDeMesa != null)
-                {
-                    Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
-                    this.btnPedirCuenta.Enabled = false;
-                    Response.Redirect("cuenta.aspx");
-                }
-                else
-                {
-                    Mensaje("", false, "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
-                }
-            }
-            else
-            {
-                Mensaje("", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
-            }
-        }
 
         private void Mensaje(String movimiento, bool exito, String mensaje="")
         {
@@ -123,9 +89,33 @@ namespace Mb.Views.Usuario
             divPrueba.Visible = true;
         }
 
-        protected void btnRefrescar_Click(EventArgs e)
+        protected void Button1_Click(object sender, EventArgs e)
         {
+            if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
+            {
+                //Pedir cuenta
+                //  Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));                
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                if (usuarioDeMesa != null)
+                {
+                    Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
+                    //this.btnPedirCuenta.Enabled = false;
+                    Response.Redirect("cuenta.aspx");
+                }
+                else
+                {
+                    Mensaje("", false, "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
+                }
+            }
+            else
+            {
+                Mensaje("", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
+            }
 
         }
     }
+
+
+
+
 }

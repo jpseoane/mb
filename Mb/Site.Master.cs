@@ -83,12 +83,12 @@ namespace Mb
                     if (currentUser.perfil.ToLower().ToString() == "cliente")
                     {
                         
-                        UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(Context.User.Identity.GetUserId());
-                        if (usuarioDeMesa != null) {
-                            bool existe = DAO.CuentaController.ExisteCuentaActiva(usuarioDeMesa.mesaNumero);
-                            liPedido.Visible = !existe;
-                            liCuenta.Visible = existe;
-                        }   
+                        //UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(Context.User.Identity.GetUserId());
+                        //if (usuarioDeMesa != null) {
+                        //    bool existe = DAO.CuentaController.ExisteCuentaActiva(usuarioDeMesa.mesaNumero);
+                        //    liPedido.Visible = !existe;
+                        //    liCuenta.Visible = existe;
+                        //}   
                         ulAdmin.Visible = false;
                         ulUsuario.Visible = true;
                     }

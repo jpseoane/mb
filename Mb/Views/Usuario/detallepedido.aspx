@@ -47,9 +47,8 @@
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->
                         <div class="scrolling-table-container">
-                        <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowSorting="True"  CssClass="gridview" DataKeyNames="idEstado" 
-                                AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gv_RowCommand"  >
+                        <asp:GridView ID="gv" runat="server" HeaderStyle-HorizontalAlign="Center" 
+                                AllowSorting="false"  CssClass="gridview"   AutoGenerateColumns="False" ShowHeader="true"  >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
                                   <%--  <asp:BoundField DataField="userName" HeaderText="usuario" NullDisplayText="Sin usuario" SortExpression="userName" >
@@ -92,11 +91,9 @@
                     </div>
                    <div class="form-group col-lg-12" >        
                        <div class="text-right">
+                           <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
                            <asp:Label ID="lblTotal" runat="server" ></asp:Label>
                        </div>    
-                        <asp:Button ID="btnPedirCuenta" runat="server"  Text="Pedir la cuenta" class="btn btn-primary"  ToolTip="Ver el detalle de la cuenta"  />
-                        <asp:LinkButton  PostBackUrl="~/Views/Usuario/cuenta.aspx" runat="server" ID="lbDcuenta" CssClass="btn btn-toolbar" Visible="false"
-                                    CausesValidation="false" >Detalle de Cuenta</asp:LinkButton>
                    </div>
               </div>
                <div class="form-row" >             

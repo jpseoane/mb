@@ -274,7 +274,7 @@ namespace Mb.DAO
             return TodoOk;
         }
 
-        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Preparandose = 3, Por_Entregar = 4, Entregado = 5, PedidoDeCuenta = 6 };
+        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Entregado = 3, PedidoDeCuenta = 4, RecibidoYpagado = 5 };
 
         //Actualizar el estado de un pedido 
         public static bool UpdatePedidoEstado(int idPedido, EnumEstadoPedido enumEstado)

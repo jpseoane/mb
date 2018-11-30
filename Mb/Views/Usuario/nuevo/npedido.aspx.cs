@@ -98,30 +98,32 @@ namespace Mb.Views.Usuario.pedidos.nuevo
 
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName.ToString() == "agregar"){
-
-                // id codigo  descripcion fecha
-                // 1	E Encargado	2018-10-01 00:00:00.000
-                // 2	EP En preparacion	2018-10-01 00:00:00.000
-                // 3	PP Preparandose	2018-10-01 00:00:00.000
-                // 4	PE Para Entregar	2018-10-01 00:00:00.000
-                // 5	EN Entregado	2018-10-01 00:00:00.000
+            if (e.CommandName.ToString() == "agregar"){                       
                 int index = Convert.ToInt32(e.CommandArgument) - 1;
-                float precioUnitario2 = (float)gv.DataKeys[index].Value;
-                //nuevoPedido.precio = precioUnitario2;
-                //Cantidad
+                float precioUnitario2 = (float)gv.DataKeys[index].Value;                                
                 GridViewRow row = gv.Rows[index];
                 TextBox txtCantidad = row.FindControl("txtCantidad") as TextBox;
-                //nuevoPedido.cantidad = Convert.ToInt32(txtCantidad.Text);
                 //Usuario
-                PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2,null);
-
-
-
-
-
+                Mensaje("Nuevo pedido", PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2,null));
             }
         }
+
+
+        private void Mensaje(String movimiento, bool exito)
+        {
+            if (exito)
+            {
+                divPrueba.Attributes.Add("class", "alert alert-success");
+                divMensaje.InnerText = movimiento + " exitosa";
+            }
+            else
+            {
+                divPrueba.Attributes.Add("class", "alert alert-warning");
+                divMensaje.InnerText = "Eror en " + movimiento;
+            }
+            divPrueba.Visible = true;
+        }
+
     }
 
 }

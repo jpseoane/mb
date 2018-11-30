@@ -13,31 +13,22 @@ namespace Mb.Views.Admin.abms {
     public partial class gcuenta {
         
         /// <summary>
-        /// Control ddlTipo.
+        /// Control ddlMesa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMesa;
         
         /// <summary>
-        /// Control ddlSubTipo.
+        /// Control ddlEstadoDeCuenta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubTipo;
-        
-        /// <summary>
-        /// Control ddlCarta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCarta;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstadoDeCuenta;
         
         /// <summary>
         /// Control btnListar.

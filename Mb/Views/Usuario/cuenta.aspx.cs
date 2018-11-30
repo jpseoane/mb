@@ -30,6 +30,7 @@ namespace Mb.Views.Usuario
                         //Muestra el detalle de la cuenta
                         lblUsuario.Text = usuarioDeMesa.email;
                         this.lblFecha.Text = cuenta.fecha.ToString("dd/MM/yyyy");
+                        this.lblEstado.Text = cuenta.estado_descri;
                         this.lblTotalCuenta.Text = Convert.ToString(cuenta.total);
                         dvDetalleCuenta.Visible = true;
                         spNmesa.InnerText = Convert.ToString(usuarioDeMesa.mesaNumero);
@@ -57,9 +58,21 @@ namespace Mb.Views.Usuario
 
         }
 
-        protected void btnPagar_Click(object sender, EventArgs e)
-        {
 
+        private void Mensaje(String movimiento, bool exito)
+        {
+            if (exito)
+            {
+                divPrueba.Attributes.Add("class", "alert alert-success");
+                divMensaje.InnerText = movimiento + " exitosa";
+            }
+            else
+            {
+                divPrueba.Attributes.Add("class", "alert alert-warning");
+                divMensaje.InnerText = "Eror en " + movimiento;
+            }
+            divPrueba.Visible = true;
         }
+
     }
 }

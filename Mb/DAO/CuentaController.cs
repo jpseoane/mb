@@ -9,6 +9,8 @@ namespace Mb.DAO
 {
     public class CuentaController
     {
+
+        public enum EnumEstadoCuenta { Solicitada = 1, AceptayEnviarParaCobro = 2, PagadoyCerrado = 3 };
         public static bool exito { get; set; }
         public static String mens { get; set; }
         public static ErrorCuenta errorCuenta { get; set; }
@@ -52,7 +54,7 @@ namespace Mb.DAO
                 Cuenta cuenta = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
                               join me in entities.Mesas on um.IdMesa equals me.Id
-                              where me.numero == numeroMesa && cu.estadoCod != (int)EnumEstadoCuenta.Cerrada
+                              where me.numero == numeroMesa 
                                 select cu).FirstOrDefault();
 
                 return cuenta;
@@ -60,9 +62,52 @@ namespace Mb.DAO
         }
 
 
+        public class CuentaDetalle : Cuenta
+        {
+            //private int id { get; set; }
+            public int idUserMesa { get; set; }
+            public String userName { get; set; }
+            public String email { get; set; }
+            public int numeroMesa { get; set; }
+            
+            //public float Total { get; set; }
+            //public DateTime fecha { get; set; }
+            
 
 
-public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta)
+        }
+
+
+        //Traer todas las cuentas con detalle para el usuarioMesa
+        public static List<CuentaDetalle> GetAlldetalle()
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from Cuenta c in entities.Cuentas
+                            join um in entities.UserMesas on c.idUserMesa equals um.id //Join UserMesa
+                            join me in entities.Mesas  on um.IdMesa equals me.Id //Join Mesa
+                            join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
+                            
+                            select new CuentaDetalle
+                            {
+                                id = c.id,
+                                idUserMesa = um.id,
+                                userName = apu.UserName,
+                                email =apu.Email,
+                                numeroMesa = me.numero,                                
+                                total = c.total,
+                                fecha = c.fecha,
+                                estadoCod = c.estadoCod,
+                                estado_descri= c.estado_descri
+                            };
+                var CuentaDetalle = query.ToList();
+                return CuentaDetalle;
+            }
+        }
+
+
+        public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -82,7 +127,7 @@ public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEst
                 var Existe = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
                               join me in entities.Mesas on um.IdMesa equals me.Id
-                              where me.numero == numMesa && cu.estadoCod != (int)EnumEstadoCuenta.Cerrada
+                              where me.numero == numMesa && cu.estadoCod != (int)EnumEstadoCuenta.PagadoyCerrado
                               select cu).Any();
 
                 return Existe;
@@ -96,7 +141,7 @@ public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEst
             {
                 var Existe = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
-                              where um.UserId == userId && cu.estadoCod != (int) EnumEstadoCuenta.Cerrada
+                              where um.UserId == userId && cu.estadoCod != (int) EnumEstadoCuenta.PagadoyCerrado
                               select cu).Any();
 
                 return Existe;
@@ -244,7 +289,7 @@ public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEst
             return TodoOk;
         }
 
-        public enum EnumEstadoCuenta { Solicitada = 1, Cerrando = 2, Totalizada = 3, EnEsperaDelPago = 4, Pagada = 5, Cerrada = 6 };
+        
 
         //Actualizar el estado de un Cuenta 
         public static bool UpdateCuentastado(int idCuenta, EnumEstadoCuenta enumEstado)

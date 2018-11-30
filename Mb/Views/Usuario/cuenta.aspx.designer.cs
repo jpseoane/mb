@@ -58,13 +58,13 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.WebControls.Label lblUsuario;
         
         /// <summary>
-        /// Control lblFecha.
+        /// Control lblEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
+        protected global::System.Web.UI.WebControls.Label lblEstado;
         
         /// <summary>
         /// Control lblTotalCuenta.
@@ -76,13 +76,22 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.WebControls.Label lblTotalCuenta;
         
         /// <summary>
-        /// Control btnPagar.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPagar;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
+        
+        /// <summary>
+        /// Control btnPagarConMercadoPago.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPagarConMercadoPago;
         
         /// <summary>
         /// Control divPrueba.

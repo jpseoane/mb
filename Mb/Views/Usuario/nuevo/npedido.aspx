@@ -59,8 +59,8 @@
                     </div>
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->                        
-                        <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                                AllowPaging="True" AllowSorting="false" PageSize="5"   CssClass="gridview" DataKeyNames="precioUnitario"
+                        <asp:GridView ID="gv" runat="server" HeaderStyle-HorizontalAlign="Center" 
+                                AllowPaging="True" AllowSorting="false" PageSize="10"   CssClass="gridview" DataKeyNames="precioUnitario"
                                 AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gv_RowCommand" >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
@@ -90,9 +90,8 @@
               </div>
                <div class="form-row" >             
                    <div class="form-group col-lg-12" >        
-                        <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <div id="divMensaje" runat="server"></div>           
+                        <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >                          
+                            <div id="divMensaje" runat="server"></div>           
                         </div>
                     </div>
                 </div>

@@ -28,16 +28,18 @@
                         <strong><label for="lblUsuario">Uuario que solicita la cuenta: </label></strong>
                         <asp:Label ID="lblUsuario" CssClass="form-control" runat="server" Text="Usuario"></asp:Label><br />
                         <strong><label for="lblEstadoCuenta">Estado de la cuenta:</label></strong>
-                        <asp:Label ID="lblFecha" CssClass="form-control" runat="server" Text="Fecha"></asp:Label><br />
+                        <asp:Label ID="lblEstado" CssClass="form-control" runat="server" Text="Fecha"></asp:Label><br />
                         <strong><label for="lblTotal">Total</label></strong>
                         <asp:Label ID="lblTotalCuenta" CssClass="form-control" runat="server" Text="Total"></asp:Label><br />
+                        <strong><label for="lblFecha">Fecha y hora:</label></strong>
+                        <asp:Label ID="lblFecha" CssClass="form-control" runat="server" Text="Fecha y hora"></asp:Label><br />
                       </div>
                     </div>
                 </div>
            </div>   
            <div class="form-row" >
                 <div class="form-group col-lg-12" >        
-                    <asp:Button ID="btnPagar" runat="server"  Text="Pedir Cuenta" class="btn btn-primary" OnClick="btnPagar_Click" />
+                    <asp:Button ID="btnPagarConMercadoPago" runat="server"  Text="Pagar Con MercadoPago " class="btn btn-primary"   CssClass="hidden"/>
                 </div>                
            </div>
            <div class="form-row" >             

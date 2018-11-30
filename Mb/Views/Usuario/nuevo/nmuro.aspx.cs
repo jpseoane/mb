@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static Mb.DAO.UserMesaController;
 
 namespace Mb.Views.Usuario.nuevo
 {
@@ -14,7 +15,21 @@ namespace Mb.Views.Usuario.nuevo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                //Busca si ya estas logueado en una mesa
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                if (usuarioDeMesa != null)
+                {
+                    dvMensajeCambio.Visible = false;
+                    dvCargaMensaje.Visible = true;
+                }
+                else
+                {
+                    dvMensajeCambio.Visible = true;
+                    dvCargaMensaje.Visible = false;
+                };
+            }
         }
 
         protected void btnCargar_Click(object sender, EventArgs e)
