@@ -115,7 +115,7 @@ namespace Mb.DAO
                             join asu in entities.AspNetUsers on um.UserId equals asu.Id
                             join ms in entities.Mesas on um.IdMesa equals ms.Id
                             join pm in entities.PerfilMesas on um.idPerfilMesa equals pm.id
-                            where asu.Id == userId
+                            where asu.Id == userId && um.habilitado!=false
                             select new UsuarioMesaDetalle
                             {
                                 id = um.id,
@@ -185,7 +185,7 @@ namespace Mb.DAO
             return exito;
 
         }
-
+        //Usuario activo en la mesa o no
         public static bool UpdateActivo(int id, bool activo)
         {
             exito = false;
@@ -202,6 +202,35 @@ namespace Mb.DAO
                         exito = true;
                     }
                 }
+            }
+            catch
+            {
+                exito = false;
+            }
+            return exito;
+        }
+
+
+
+        //habilitado lo uso para quitar los usuarios de la mesa habilitado en la mesa o no
+        public static bool CerrarUsuariosDeMesa(Mesa mesa)
+        {
+            exito = false;
+            try
+            {
+                IList<UserMesa> listUserMesas  = GetUserMesaByNumeroMesa(mesa.numero);
+                foreach (UserMesa userMesa in listUserMesas) {
+                    using (mbDBContext dBEntities = new mbDBContext())
+                    {
+                        if (userMesa != null)
+                        {
+                            userMesa.habilitado = false;
+                            dBEntities.Entry(userMesa).State = System.Data.Entity.EntityState.Modified;
+                            dBEntities.SaveChanges();
+                            exito = true;
+                        }
+                    }
+                }                
             }
             catch
             {

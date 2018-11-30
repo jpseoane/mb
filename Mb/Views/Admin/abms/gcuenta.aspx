@@ -37,7 +37,7 @@
        <div class="form-row">
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="false" PageSize="15"  CssClass="gridview" DataKeyNames="id"
+                    AllowPaging="True" AllowSorting="false" PageSize="15"  CssClass="gridview" DataKeyNames="numeroMesa"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" OnRowDataBound="gv_RowDataBound" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -72,7 +72,7 @@
                                     <asp:Button  ID="btnCerrar" runat="server"  CommandName="cerrar"  Text="Cerrar"  Visible="false" Commandargument='<%# Eval("id")%>'
                                         CausesValidation="false" ToolTip="Cerrar mesa" />
 
-                                    <asp:Button  ID="btnEnviarAcobrar" runat="server"  CommandName="cobrar" Text="Cobrar"  Visible="false"  Commandargument='<%# Eval("id")%>'
+                                    <asp:Button  ID="btnEnviarAcobrar" runat="server"  CommandName="EnviarAcobrar" Text="Cobrar"  Visible="false"  Commandargument='<%# Eval("id")%>'
                                         CausesValidation="false" ToolTip="Envio a cobrar" />
                                     
                                     

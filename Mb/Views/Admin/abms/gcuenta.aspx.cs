@@ -25,17 +25,22 @@ namespace Mb.Views.Admin.abms
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName.ToString() == "cerrar")
-            {
-                int index = Convert.ToInt32(e.CommandArgument) - 1;
-                float precioUnitario2 = (float)gv.DataKeys[index].Value;
-                GridViewRow row = gv.Rows[index];
-                TextBox txtCantidad = row.FindControl("txtCantidad") as TextBox;
+            {   
+                Button btn = (Button)e.CommandSource;
+                GridViewRow gvr = (GridViewRow)btn.NamingContainer;
+                int numeromesa = (int)gv.DataKeys[gvr.RowIndex].Value;
+
+                //Cerrar Cuenta
+                CuentaController.CerrarCuenta(Convert.ToInt32(e.CommandArgument),numeromesa);
+
+                
                 //Usuario
              //   Mensaje("Nuevo pedido", PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2, null));
             }
             else if (e.CommandName.ToString() == "EnviarAcobrar")
             {
-
+             
+                CuentaController.UpdateCuentastado(Convert.ToInt32(e.CommandArgument), CuentaController.EnumEstadoCuenta.AceptayEnviarParaCobro);
             }
         }
 
@@ -49,13 +54,13 @@ namespace Mb.Views.Admin.abms
                     //btnEnviarAcobrar btnCerrar
                     Button btnEnviar = e.Row.FindControl("btnEnviarAcobrar") as Button;
                     btnEnviar.Visible = true;
-                    //btnEnviar.OnClientClick = "hola";
+                    btnEnviar.OnClientClick = "hola";
 
                 }
                 else {
                     Button btnCerrar = e.Row.FindControl("btnCerrar") as Button;
                     btnCerrar.Visible = true;
-                    //btnEnviar.OnClientClick = "hola";
+                    btnCerrar.OnClientClick = "hola";
 
                 }
 

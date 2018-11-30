@@ -61,11 +61,11 @@ namespace Mb.Views.Usuario.pedidos
             if (mesa != null)
             {
                 //Busco los usuarios del numero de mesa habilitados
-                List<UserMesa> Lista = UserMesaController.GetUserMesaByNumeroMesa(Convert.ToInt32(this.ddlNumeroMesa.SelectedValue));
+                List<UserMesa> ListaUserMesa = UserMesaController.GetUserMesaByNumeroMesa(Convert.ToInt32(this.ddlNumeroMesa.SelectedValue));
                 //Si hay al menos hay un usuario                
-                if (Lista.Count > 0)
+                if (ListaUserMesa.Count > 0)
                 {
-                    //Lo cargo como perfil INVITADO (2) desactivado (false) y deshabilitado (false)
+                    //Lo cargo como perfil INVITADO (2) desactivado (false) y habilitado (true)
                     UserMesaController.agregar(User.Identity.GetUserId(), mesa.Id, 2, false, true);
                     Mensaje("Excelente! Te registraste en la mesa numero: " + this.ddlNumeroMesa.SelectedValue + ". Ya podes empezar a utilizar MiBar!. " +
                     "Recorda que para poder realizar pedidos vos para la mesa debe autorizarte el Admin! (El primero que se registro en la mesa!)", true);
@@ -95,7 +95,7 @@ namespace Mb.Views.Usuario.pedidos
             if (exito)
             {
                 aMensaje.InnerText = "Continuar";
-                aMensaje.HRef = "nuevo/npedido.aspx";
+                aMensaje.HRef = "npedido.aspx";
                 divPrueba.Attributes.Add("class", "alert alert-success");
                 divMensaje.InnerText = mensaje;
             }

@@ -318,6 +318,53 @@ namespace Mb.DAO
         }
 
 
+        //Cerrar la cuenta, pedidos y mesa 
+        public static bool CerrarCuenta(int idCuenta, int numeroMesa)
+        {
+            exito = false;
+            try
+            {
+                //Cierro todos los pedidos (id estado pedido 5, Recibido y pagado) que tengan el idcuenta pasado
+                if (PedidoController.UpdatePedidosDeMesaEstado(numeroMesa, PedidoController.EnumEstadoPedido.RecibidoYpagado))
+                {
+                    //Actualizo el estado de la cuenta
+                    if (UpdateCuentastado(idCuenta, EnumEstadoCuenta.PagadoyCerrado)) {
+                        //Libero la mesa (Actualizo el estado de todos los usuarios mesa a activo false
+                        Mesa mesa = MesaController.GetbyNumeroMesa(numeroMesa);
+                        if (UserMesaController.CerrarUsuariosDeMesa(mesa)) {
+
+                            //Finalizo con exito
+                            exito = true;
+                        }
+                        else
+                        {
+                            //No pudo actualizarse el estado de los usuarios en la mesa
+                            exito = false;
+                        }
+
+                    }
+                    else
+                    {
+                        //No pudo actualizarse el estado de la cuenta
+                        exito = false;
+                    }
+                    
+                }
+                else
+                {
+                    //No pudo actualizarse los pedidos de la mesa
+                    exito = false;
+                }
+            }
+            catch
+            {
+                //No pudo actualizarse
+                exito = false;
+            }
+            return exito;
+        }
+
+
 
 
 

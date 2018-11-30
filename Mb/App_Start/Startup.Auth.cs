@@ -8,6 +8,8 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Mb.Models;
+using Nemiro.OAuth;
+using Nemiro.OAuth.Clients;
 
 namespace Mb
 {
@@ -45,20 +47,27 @@ namespace Mb
 
             // Usar una cookie para almacenar temporalmente información sobre un usuario que inicia sesión con un proveedor de inicio de sesión de un tercero
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            
+
 
             //Seteado con la de MiBar
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
-                ClientSecret = "X0oSClq7YfDBBB_kQ3WcMDQn1"
+                ClientSecret = "GsxR_vq5myxnq_QqUbVIXT7F"
             });
 
 
-            app.UseFacebookAuthentication(
-               appId: "X0oSClq7YfDBBB_kQ3WcMDQn1",
-               appSecret: "X0oSClq7YfDBBB_kQ3WcMDQn1");
+            //OAuthManager.RegisterClient
+            // (
+            //   new GoogleClient
+            //   (
+            //     "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
+            //     "GsxR_vq5myxnq_QqUbVIXT7F"
+            //   )
+            // );
 
+
+            // ODUumSpFqWmtDWzap3V4zVV0
 
 
             // Habilita a la aplicación para almacenar temporalmente la información del usuario cuando estén comprobando el segundo factor en el proceso de autenticación de dos factores.
