@@ -44,6 +44,7 @@
                     <asp:ListItem Value="D">Dueño</asp:ListItem>
                     <asp:ListItem Value="E">Empleado</asp:ListItem>
                     <asp:ListItem Value="M">Mozo</asp:ListItem>
+                    <asp:ListItem Value="cliente">Cliente</asp:ListItem>
                 </asp:DropDownList>
                 <br />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlPerfil" InitialValue="S"

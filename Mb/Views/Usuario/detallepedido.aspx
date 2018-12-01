@@ -36,8 +36,9 @@
                           <strong><label for="lblPerfil">Perfil:</label></strong>
                           <asp:Label ID="lblPerfil" runat="server" Text="Tu Perfil"></asp:Label><br />
                           <strong><label for="lblActivo">Activo</label></strong>
-                          <input type="checkbox" runat="server" id="chkActiva" disabled/>
-                  
+                          <input type="checkbox" runat="server" id="chkActiva" disabled/> <br />
+                          <strong><label for="lblTuSubtotal">Tu subtotal hasta el momento:</label></strong><br />     
+                          <asp:Label ID="lblSubTotalUsuario" runat="server" ></asp:Label>
                       </div>
                     </div>
                 </div>
@@ -45,16 +46,17 @@
             
                <div class="form-row" >                    
                     <div class="form-group col-lg-12 " >                
-                        <!-- GridView-->
-                        <div class="scrolling-table-container">
+                     <%--   <!-- GridView-->
+                        <div class="scrolling-table-container">--%>
+                            <asp:CheckBox ID="chkVerMisPedidos" runat="server" AutoPostBack="True" ForeColor="#3366CC" OnCheckedChanged="chkVerMisPedidos_CheckedChanged" Text="Ver solo mis pedidos" />
                         <asp:GridView ID="gv" runat="server" HeaderStyle-HorizontalAlign="Center" 
-                                AllowSorting="false"  CssClass="gridview"   AutoGenerateColumns="False" ShowHeader="true"  >
+                                AllowSorting="false"  CssClass="gridview"   AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gv_RowCommand"  >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
-                                  <%--  <asp:BoundField DataField="userName" HeaderText="usuario" NullDisplayText="Sin usuario" SortExpression="userName" >
+                                   <asp:BoundField DataField="userName" HeaderText="Usuario" NullDisplayText="Sin usuario" SortExpression="userName" >
                                         <ItemStyle HorizontalAlign="Center"  Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
-                                    </asp:BoundField> --%>                         
-                                    <asp:BoundField DataField="fecha" HeaderText="fecha" NullDisplayText="Sin fecha" SortExpression="fecha" >
+                                    </asp:BoundField> 
+                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="Sin fecha" SortExpression="fecha" >
                                         <ItemStyle HorizontalAlign="Center"  Font-Size="Small" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
                                     
@@ -78,8 +80,8 @@
                                     </asp:BoundField>                          
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
-                                            <asp:ImageButton runat="server" ID="imgbtnCancelar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
-                                                commandname="cancelar" commandargument='<%# Eval("idProducto")%>' Height="24px" Width="24px" 
+                                            <asp:ImageButton runat="server" ID="imgbtnCancelar" causesvalidation="false"  ImageUrl="~/Content/img/del.png"
+                                                commandname="cancelar" commandargument='<%# Eval("id")%>' Height="24px" Width="24px" 
                                                 ToolTip="Se podra cancelar el pedido solo si no empezo a prepararse" />                                           
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>
@@ -87,12 +89,16 @@
                                     </Columns>
            
                         </asp:GridView>
-                        </div>
+                       <%-- </div>--%>
                     </div>
                    <div class="form-group col-lg-12" >        
                        <div class="text-right">
-                           <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
-                           <asp:Label ID="lblTotal" runat="server" ></asp:Label>
+                           
+                           <asp:Label ID="lblTotal" runat="server" ></asp:Label> <br />
+                          <strong> <asp:Label ID="lblTuSubtotal" runat="server" ></asp:Label></strong>
+                       </div>    
+                       <div class="text-right">
+                            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Pedir la cuenta" />
                        </div>    
                    </div>
               </div>

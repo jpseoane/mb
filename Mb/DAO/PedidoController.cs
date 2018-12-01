@@ -95,7 +95,7 @@ namespace Mb.DAO
 
 
         //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos
-        public static float ObtnerSubtotalXMesaXEstado(int numMesa)
+        public static float ObtnerSubtotalXMesa(int numMesa)
         {
 
             using (mbDBContext entities = new mbDBContext())
@@ -107,6 +107,25 @@ namespace Mb.DAO
                                   select p.cantidad * p.precio
                                   );
                                   
+
+                return Subtotal.Sum();
+            }
+        }
+
+
+
+        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos por el usuario de la mesa
+        public static float ObtnerSubtotalXUsarioDeMesa(int idUsuMesa)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var Subtotal = (from p in entities.Pedidoes
+                                join um in entities.UserMesas on p.IdUserMesa equals um.id
+                                where um.id == idUsuMesa
+                                select p.cantidad * p.precio
+                                  );
+
 
                 return Subtotal.Sum();
             }
@@ -130,35 +149,66 @@ namespace Mb.DAO
             }
         }
 
-
+     
 
 
         public class PedidosDetalle : Pedido
         {
-            private int id { get; set; }            
-            public int? idUserMesa { get; set; }
+
+            public int numeroMesa { get; set; }
+            public String email { get; set; }
             public String userName { get; set; }
-            public int? idProducto { get; set; }            
             public String descriProducto { get; set; }
             public float precioUnitario { get; set; }
-            public int? cantidad { get; set; }
-            public float subTotal { get; set; }
-            public DateTime fecha { get; set; }
-            public int? idEstado { get; set; }
             public String descriEstadoPedido { get; set; }
-
 
         }
 
 
+        //Pedidos X Mesa Con cierto Estado
+        public static List<PedidosDetalle> GetConDetalleXMesaXestado(int numMesa, EnumEstadoPedido enumEstado)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from Pedido p in entities.Pedidoes
+                            join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+                            join me in entities.Mesas on um.IdMesa equals me.Id //Join Mesa
+                            join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
+                            join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
+                            join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
+                            where me.numero == numMesa && p.IdEstado == (int)enumEstado //Filtros
+                            select new PedidosDetalle
+                            {
+                                id = p.id,
+                                IdUserMesa = um.id,
+                                numeroMesa=me.numero,
+                                email = apu.Email,
+                                userName = apu.UserName,
+                                IdProducto = pr.id,
+                                descriProducto = pr.descripcion,
+                                precioUnitario = pr.precioUnitario,
+                                cantidad = p.cantidad,
+                                subtotal = (float)p.subtotal,
+                                fecha = p.fecha,
+                                IdEstado = ep.id,
+                                descriEstadoPedido = ep.descripcion
+                            };
+                var PedidosDetalle = query.ToList();
+                
+                return PedidosDetalle;
+            }
+
+        }
+
         //Traer el datalle del pedido para el usuarioMesa
-        public static List<PedidosDetalle> GetCondetalle(int idUserMesa)
+        public static List<PedidosDetalle> GetAllCondetalleXUsuario(int idUserMesa)
         {
 
             using (mbDBContext entities = new mbDBContext())
             {
                 var query = from Pedido p in entities.Pedidoes
                             join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+                            join me in entities.Mesas on um.IdMesa equals me.Id //Join Mesa
                             join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
                             join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
                             join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
@@ -166,15 +216,17 @@ namespace Mb.DAO
                             select new PedidosDetalle
                             {
                                 id = p.id,
-                                idUserMesa=um.id,
+                                IdUserMesa=um.id,
+                                numeroMesa = me.numero,
+                                email = apu.Email,
                                 userName =apu.UserName,
-                                idProducto=pr.id,
+                                IdProducto=pr.id,
                                 descriProducto=pr.descripcion,
                                 precioUnitario=pr.precioUnitario,
                                 cantidad =p.cantidad,
-                                subTotal =(float) p.subtotal,
+                                subtotal =(float) p.subtotal,
                                 fecha =p.fecha,
-                                idEstado =ep.id,
+                                IdEstado =ep.id,
                                 descriEstadoPedido=ep.descripcion
                             };
                 var PedidosDetalle = query.ToList();
@@ -184,7 +236,41 @@ namespace Mb.DAO
         }
 
 
-   
+        //Traer el datalle del pedido para toda la mesa
+        public static List<PedidosDetalle> GetAllCondetallPporMesa(int numeroMesa)
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = from Pedido p in entities.Pedidoes
+                            join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
+                            join me in entities.Mesas on um.IdMesa equals me.Id //Join Mesa
+                            join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
+                            join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
+                            join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
+                            where me.numero ==numeroMesa
+                            select new PedidosDetalle
+                            {
+                                id = p.id,
+                                IdUserMesa = um.id,
+                                numeroMesa=me.numero,
+                                email = apu.Email,
+                                userName = apu.UserName,
+                                IdProducto = pr.id,
+                                descriProducto = pr.descripcion,
+                                precioUnitario = pr.precioUnitario,
+                                cantidad = p.cantidad,
+                                subtotal = (float)p.subtotal,
+                                fecha = p.fecha,
+                                IdEstado = ep.id,
+                                descriEstadoPedido = ep.descripcion
+                            };
+                var PedidosDetalle = query.ToList();
+                //var ProducosDescri = query.Where(p => p.idUserMesa == idUserMesa).ToList();
+                return PedidosDetalle;
+            }
+        }
+
 
 
         public static bool agregar(UserMesa userMesa, Producto  producto, int idEstadoProducto,
@@ -260,6 +346,30 @@ namespace Mb.DAO
                 {
                     var entity = dBEntities.Pedidoes.FirstOrDefault(e => e.id == id);
                     if (entity != null)
+                    {
+                        dBEntities.Pedidoes.Remove(entity);
+                        dBEntities.SaveChanges();
+                        TodoOk = true;
+                    }
+                }
+            }
+            catch
+            {
+                TodoOk = false;
+            }
+            return TodoOk;
+        }
+
+        //Cancelar elimina el pedido realizado solo si este se encuentra en estado "Encargado"
+        public static bool Cancelar(int id)
+        {
+            bool TodoOk = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {
+                    var entity = dBEntities.Pedidoes.FirstOrDefault(e => e.id == id);
+                    if (entity != null  && entity.IdEstado == (int)EnumEstadoPedido.Encargado)
                     {
                         dBEntities.Pedidoes.Remove(entity);
                         dBEntities.SaveChanges();

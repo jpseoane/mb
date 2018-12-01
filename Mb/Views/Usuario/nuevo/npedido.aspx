@@ -11,7 +11,7 @@
            <div class="form-row"   id="dvMensajeCambio" runat="server"  visible="false" >
                <div class="col-md-12 col-lg-12">
                     <div class="alert alert-info alert-dismissible " role="alert">
-                       <h3>No tenes asignada una mesa</h3>
+                       <h3 runat="server" id="h3">No tenes asignada una mesa</h3>
                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                        <asp:Label  id="lblMensaje" runat="server" Text=""></asp:Label>
                         <a href="asignamesa.aspx" class="alert-link">Ir a Mesa!</a>                

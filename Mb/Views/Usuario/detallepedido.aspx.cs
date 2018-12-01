@@ -20,6 +20,8 @@ namespace Mb.Views.Usuario
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
                     ViewState["numeroMesa"] = usuarioDeMesa.mesaNumero;
+                    ViewState["tuMail"] = usuarioDeMesa.email;
+
                     dvMensajeCambio.Visible = false;
                     dvDetallePedido.Visible = true;
                     try
@@ -28,12 +30,8 @@ namespace Mb.Views.Usuario
                         lblMail.Text = usuarioDeMesa.email;
                         lblPerfil.Text = usuarioDeMesa.perfilEnMesa;
                         chkActiva.Checked = usuarioDeMesa.activo;
-                        gv.DataSource = PedidoController.GetCondetalle(usuarioDeMesa.id);
-                        gv.DataBind();
-                        if (gv.Rows.Count > 0) {                            
-                            this.lblTotal.Text ="Subtotal: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesaXEstado(usuarioDeMesa.mesaNumero, PedidoController.EnumEstadoPedido.Encargado));
-                        }
-
+                        CargaGrilla();
+                        CalcularSubtotal();
                     }
                     catch (Exception ex){
                         lblMensaje.Text = ex.Message;
@@ -57,34 +55,27 @@ namespace Mb.Views.Usuario
 
         }
 
+        private void CalcularSubtotal()
+        {
+            if (gv.Rows.Count > 0)
+            {
+                this.lblTuSubtotal.Text = "Subtotal " + ViewState["tuMail"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
+                this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
+                this.lblTotal.Text = "Subtotal Mesa: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesa(Convert.ToInt32(ViewState["numeroMesa"])));
+            }
+        }
 
-        private void Mensaje(String movimiento, bool exito, String mensaje="")
+        private void Mensaje(bool exito, String mensajeExitoso="", String mensajeError = "")
         {
             if (exito)
             {
                 divPrueba.Attributes.Add("class", "alert alert-success");
-                
-                if (mensaje != "")
-                {
-                    divMensaje.InnerText = mensaje;
-                }
-                else
-                {
-                    divMensaje.InnerText = movimiento + " exitosa";
-                }
+                    divMensaje.InnerText = mensajeExitoso;
             }
             else
             {
                 divPrueba.Attributes.Add("class", "alert alert-warning");
-                if (mensaje != "")
-                {
-                    divMensaje.InnerText = mensaje;
-                }
-                else
-                {
-                    divMensaje.InnerText = "Eror en " + movimiento;
-                }
-                
+               divMensaje.InnerText = mensajeError;
             }
             divPrueba.Visible = true;
         }
@@ -104,14 +95,52 @@ namespace Mb.Views.Usuario
                 }
                 else
                 {
-                    Mensaje("", false, "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
+                    Mensaje(false,"", "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
                 }
             }
             else
             {
-                Mensaje("", false, "No se puede solicitar la cuenta con pedidos pendientes de entrega");
+                Mensaje(false,"", "No se puede solicitar la cuenta con pedidos pendientes de entrega");
             }
 
+        }
+
+        protected void chkVerMisPedidos_CheckedChanged(object sender, EventArgs e)
+        {
+            CargaGrilla();
+        }
+
+        protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
+        {   
+            switch (e.CommandName)
+            {
+                case "cancelar":
+                    if (PedidoController.Cancelar(Convert.ToInt32(e.CommandArgument))) {
+                        Mensaje(true, "El pedido fue cancelado");
+                    } else
+                    {
+                        Mensaje(false, "El pedido No puede ser cancelado si esta preparandose o fue encargado");
+                    }  
+                    break;
+            }
+            CargaGrilla();
+            CalcularSubtotal();
+        }
+
+        private void CargaGrilla()
+        {
+            if (this.chkVerMisPedidos.Checked)
+            {
+                gv.DataSource = PedidoController.GetAllCondetalleXUsuario(Convert.ToInt32(ViewState["idUserMesa"]));
+                gv.DataBind();
+                
+            }
+            else
+            {
+                gv.DataSource = PedidoController.GetAllCondetallPporMesa(Convert.ToInt32(ViewState["numeroMesa"]));
+                gv.DataBind();
+                
+            }
         }
     }
 

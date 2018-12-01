@@ -28,8 +28,8 @@ namespace Mb.Views.Usuario.pedidos.nuevo
                 else if (usuarioDeMesa != null && usuarioDeMesa.activo == false) {
                     dvMensajeCambio.Visible = true;
                     dvCargaProducto.Visible = false;
-                    lblMensaje.Text = "Tu usuario esta asignado a la mesa pero necesitas que el ADMIN te autorize para poder comprar!";
-                    
+                    h3.InnerText="El administrador de la mesa debe autorizarte!";
+                    lblMensaje.Text = "Tu usuario esta asignado a la mesa pero necesitas que el ADMIN te autorize para poder comprar! Consulta aca quien es el admin";
                 }
                 else
                 {
@@ -98,10 +98,14 @@ namespace Mb.Views.Usuario.pedidos.nuevo
 
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName.ToString() == "agregar"){                       
-                int index = Convert.ToInt32(e.CommandArgument) - 1;
-                float precioUnitario2 = (float)gv.DataKeys[index].Value;                                
-                GridViewRow row = gv.Rows[index];
+            if (e.CommandName.ToString() == "agregar"){
+                
+                ImageButton btnCantidad = (ImageButton)e.CommandSource;
+                GridViewRow gvr = (GridViewRow)btnCantidad.NamingContainer;
+                float precioUnitario2 = (float)gv.DataKeys[gvr.RowIndex].Value;
+
+                
+                GridViewRow row = gv.Rows[gvr.RowIndex];
                 TextBox txtCantidad = row.FindControl("txtCantidad") as TextBox;
                 //Usuario
                 Mensaje("Nuevo pedido", PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2,null));

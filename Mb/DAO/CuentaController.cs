@@ -246,7 +246,7 @@ namespace Mb.DAO
                 Cuenta.idUserMesa = usuarioMesaDetalle.id;
                 Cuenta.estadoCod = (int) EnumEstadoCuenta.Solicitada;
                 Cuenta.estado_descri = EnumEstadoCuenta.Solicitada.ToString();
-                Cuenta.total = PedidoController.ObtnerSubtotalXMesaXEstado(usuarioMesaDetalle.mesaNumero);                
+                Cuenta.total = PedidoController.ObtnerSubtotalXMesa(usuarioMesaDetalle.mesaNumero);                
                 Cuenta.fecha = DateTime.Now;
                 using (mbDBContext CuentaDBEntities = new mbDBContext())
                 {

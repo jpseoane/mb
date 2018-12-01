@@ -3,33 +3,40 @@
 
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
      <div class="jumbotron">
-        <h1>Asignacion de productos a Carta</h1>
-        <p class="lead">Administracion de productos x carta</p>
+        <h1>Gestion de los pedidos</h1>
+        <p class="lead">Administracion de los pedidos del bar. Actualice los estados de los pedidos por mesa</p>
     </div>
     <div class="Container" >
        <div class="form-row">
                  <div class="form-group col-lg-4 " >                
-                        <label for="ddlTipo">Tipo</label> 
-                        <asp:DropDownList ID="ddlTipo" runat="server" CssClass="form-control"
+                        <label for="ddlMesa">Mesa</label> 
+                        <asp:DropDownList ID="ddlMesa" runat="server" CssClass="form-control"
                             DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" ></asp:DropDownList>                                
                  </div>           
                  <div class="form-group col-lg-4 " >                
-                        <label for="ddlSubTipo">SubTipo</label> 
-                        <asp:DropDownList ID="ddlSubTipo" runat="server" CssClass="form-control"
-                            DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" ></asp:DropDownList>                                
-                 </div>           
-                 <div class="form-group col-lg-4 " >                
-                        <label for="ddlCarta">Asignar a esta Carta</label> 
-                        <asp:DropDownList ID="ddlCarta" runat="server" CssClass="form-control"
-                            DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" ></asp:DropDownList>                                
+                        <label for="ddlEstadoPedido">Estado Pedido</label> 
+                        <asp:DropDownList ID="ddlEstadoPedido" runat="server" CssClass="form-control"
+                            DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" >
+                                <asp:ListItem Value="S">Seleccionar</asp:ListItem>
+                                <asp:ListItem Value="1">Encargado</asp:ListItem>
+                                <asp:ListItem Value="2">En preparación</asp:ListItem>
+                                <asp:ListItem Value="3">Entregado</asp:ListItem>
+                                <asp:ListItem Value="4">Padido de Cuenta</asp:ListItem>
+                                <asp:ListItem Value="5">Recibido y pagado</asp:ListItem>
+                        </asp:DropDownList>                                
                  </div>           
        </div>
        <div class="form-row">
            <div class="form-group col-lg-12" >        
-               <asp:Button ID="btnListar" runat="server"  Text="Listar" class="btn btn-primary" OnClick="btnListar_Click" />
-               <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" OnClick="btnLimpiar_Click" />
+               <asp:Button ID="btnListar" runat="server"  Text="Listar" class="btn btn-primary" />
+               <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
            </div>
        </div>            
+        <div class="form-row">
+           <div class="form-group col-lg-12" >        
+               <asp:Button ID="btnActualizarEstado" runat="server"  Text="Actualizar Estado de los pedidos" class="btn btn-primary" OnClick="btnActualizarEstado_Click" />
+            </div>
+        </div>
        <div class="form-row">
            <div class="form-group col-lg-12" >        
             <div id="div1" runat="server" class="alert alert-warning alert-dismissable" visible="false">
@@ -43,7 +50,7 @@
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                     AllowPaging="True" AllowSorting="True" PageSize="5"  CssClass="gridview" DataKeyNames="id"
-                    ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
+                    ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowDataBound="gv_RowDataBound" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
                     <EditRowStyle BackColor="#999999" Height="50px" />
@@ -57,35 +64,34 @@
                     <SortedDescendingCellStyle BackColor="#FFFDF8" />
                     <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                     <Columns>
-                    <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
+                    <asp:BoundField DataField="numeroMesa" HeaderText="N° Mesa" NullDisplayText="numeroMesa" SortExpression="numeroMesa" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                              
-                    <asp:BoundField DataField="tipoDescri" HeaderText="Tipo Prod." NullDisplayText="Tipo de producto" SortExpression="tipoDescri" >
+                    <asp:BoundField DataField="email" HeaderText="usuario" NullDisplayText="email" SortExpression="email" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
-                    <asp:BoundField DataField="subTipoDescri" HeaderText="SubTipo Prod." NullDisplayText="SubTipo de producto" SortExpression="subTipoDescri" >
+                     <asp:BoundField DataField="id" HeaderText="N° Pedido" NullDisplayText="numPedido" SortExpression="id" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="descriProducto" HeaderText="Descripcion Pedido" NullDisplayText="descriPedido" SortExpression="descriProducto" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="Estado Pedido" NullDisplayText="estadoPedido" SortExpression="descriEstadoPedido" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio" SortExpression="precioUnitario" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>
-                    <asp:BoundField DataField="activo" HeaderText="Activo" NullDisplayText="activo" SortExpression="activo" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                                              
-                        <asp:BoundField DataField="descriCarta" HeaderText="Carta" NullDisplayText="Sin Carta" SortExpression="descriCarta" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
-                    </asp:BoundField>                          
-                        <asp:TemplateField HeaderText="Asignar">
-                                <HeaderTemplate>
-                                        <asp:CheckBox ID="chkAsignarATodas" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                        Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a todos los productos a la carta" OnCheckedChanged="chkAsignarTodas_CheckedChanged" />
-                                </HeaderTemplate>
+                    </asp:BoundField>
+                        <asp:TemplateField HeaderText="Acciones">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                        Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a Carta" OnCheckedChanged="chkAsignar_CheckedChanged" />
+                                    <asp:Button  ID="btnCerrar" runat="server"  CommandName="preparandose"  Text="Preparandose"  Visible="false" Commandargument='<%# Eval("id")%>'
+                                        CausesValidation="false" ToolTip="Cerrar mesa" />
+
+                                    <asp:Button  ID="btnEnviarAcobrar" runat="server"  CommandName="entregado" Text="Entregado"  Visible="false"  Commandargument='<%# Eval("id")%>'
+                                        CausesValidation="false" ToolTip="Envio a cobrar" />
                                   </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center"  Width="50px"/>
                                 <HeaderStyle HorizontalAlign="Center"  Width="50px" />
@@ -95,4 +101,5 @@
               </div>
        </div>
     </div>
+     </div>
 </asp:Content>
