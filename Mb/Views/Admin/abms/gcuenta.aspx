@@ -81,8 +81,8 @@
                                     
                                     
                                   </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center"  Width="50px"/>
-                                <HeaderStyle HorizontalAlign="Center"  Width="50px" />
+                                <ItemStyle HorizontalAlign="Center" />
+                                <HeaderStyle HorizontalAlign="Center"/>
                          </asp:TemplateField>
                         </Columns>
                 </asp:GridView>

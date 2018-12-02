@@ -20,8 +20,8 @@ namespace Mb.Views.Usuario
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;
                     ViewState["numeroMesa"] = usuarioDeMesa.mesaNumero;
-                    ViewState["tuMail"] = usuarioDeMesa.email;
-
+                    ViewState["tumail"] = usuarioDeMesa.email;
+                    ViewState["username"] = User.Identity.GetUserName();
                     dvMensajeCambio.Visible = false;
                     dvDetallePedido.Visible = true;
                     try
@@ -91,7 +91,7 @@ namespace Mb.Views.Usuario
             }
             else
             {
-                Mensaje(false,"", "No se puede solicitar la cuenta con pedidos pendientes de entrega");
+                Mensaje(false,"", "No se puede solicitar la cuenta con pedidos pendientes de entrega (Encargados o En preparación)");
             }
 
         }
@@ -106,12 +106,27 @@ namespace Mb.Views.Usuario
             switch (e.CommandName)
             {
                 case "cancelar":
-                    if (PedidoController.Cancelar(Convert.ToInt32(e.CommandArgument))) {
-                        Mensaje(true, "El pedido fue cancelado");
-                    } else
+                    ImageButton btn = (ImageButton)e.CommandSource;
+                    GridViewRow gvr = (GridViewRow)btn.NamingContainer;
+                    String username = (string)gv.DataKeys[gvr.RowIndex].Value;                    
+                    if (ViewState["username"].ToString().ToLower() == username.ToLower().ToString())
                     {
-                        Mensaje(false, "El pedido No puede ser cancelado si esta preparandose o fue encargado");
-                    }  
+                        if (PedidoController.Cancelar(Convert.ToInt32(e.CommandArgument)))
+                        {
+                            Mensaje(true, "El pedido fue cancelado");
+                        }
+                        else
+                        {
+                            Mensaje(false, "", "El pedido No puede ser cancelado si esta preparandose o fue encargado");
+                        }
+
+                    }
+                    else
+                    {
+                        Mensaje(false,"", "El pedido solo puede ser cancelado por el usuario que lo solicito.");
+                    }
+
+                    
                     break;
             }
             CargaGrilla();
@@ -138,11 +153,11 @@ namespace Mb.Views.Usuario
         private void CalcularSubtotal()
         {
             if (gv.Rows.Count > 0)
-            {
-                this.lblTuSubtotal.Text = "Subtotal " + ViewState["tuMail"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
-                this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
+            {                
                 this.lblTotal.Text = "Subtotal Mesa: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesa(Convert.ToInt32(ViewState["numeroMesa"])));
             }
+            this.lblTuSubtotal.Text = "Subtotal " + ViewState["username"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
+            this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text +  "Este es el mail " +  ViewState["tumail"];
         }
     }
 

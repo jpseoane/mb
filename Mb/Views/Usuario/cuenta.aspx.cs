@@ -23,7 +23,7 @@ namespace Mb.Views.Usuario
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;                  
                     dvMensajeCambio.Visible = false;
-                    Cuenta cuenta = CuentaController.GetXNumeroMesa(usuarioDeMesa.mesaNumero);
+                    Cuenta cuenta = CuentaController.GetActualporNumeroMesa(usuarioDeMesa.mesaNumero);
 
                     if (cuenta != null)
                     {

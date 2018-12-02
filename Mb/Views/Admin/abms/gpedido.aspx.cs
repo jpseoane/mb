@@ -22,6 +22,7 @@ namespace Mb.Views.Admin.abms
                 this.ddlMesa.DataBind();
                 ListItem item= new ListItem("Todas","S");
                 this.ddlMesa.Items.Insert(0, item);
+                ViewState["SortDirection"] = "desc";
 
             }
         }
@@ -34,24 +35,84 @@ namespace Mb.Views.Admin.abms
 
             var Pedidos = PedidoController.GetConDetalleXMesaXestado(numMesa, idEstado);
 
-            //Pedidos.OrderByDescending(s => s.fecha).ToList();
+            
 
-            List<PedidosDetalle> list = Pedidos.ToList();
-            DataTable dt = ConvertController.ToDataTable<PedidosDetalle>(list);
-
-
-            if (dt != null)
+            if (ViewState["SortDirection"].ToString() == "desc")
             {
-                Session["TablaPedidos"] = dt;
-                gv.DataSource = dt;
-                gv.DataBind();
+                gv.DataSource = Pedidos.OrderByDescending(s => s.fecha).ToList();
             }
+            else
+            {
+                gv.DataSource = Pedidos.OrderBy(s => s.fecha).ToList();
+                ViewState["SortDirection"] = "asc";
+            }
+
+            gv.DataBind();
+
+
+            //ViewState["pedidos"] = Pedidos;
+            //List<PedidosDetalle> list = Pedidos.ToList();
+            //DataTable dt = ConvertController.ToDataTable<PedidosDetalle>(list);
+
+
+            //if (dt != null)
+            //{
+            //    ViewState["SortExpression"] ="fecha";
+            //    ViewState["SortDirection"] = "desc";
+            //    Session["TablaPedidos"] = dt;
+            //    dt.DefaultView.Sort = ViewState["SortExpression"] + " " + ViewState["SortDirection"];
+            //    //gv.DataSource = dt;
+                
+            //}
+
+        }
+        private void ObetnerrGrilla(String CampoOrden, String TipoOrden)
+        {
+            DataTable dt = Session["TablaPedidos"] as DataTable;
+
+            dt.DefaultView.Sort = CampoOrden + " " + TipoOrden;
+            gv.DataSource = dt;
+            gv.DataBind();
 
         }
 
-    
 
+        protected void gv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv.PageIndex = e.NewPageIndex;
+            //  ObetnerrGrilla(ViewState["SortExpression"].ToString(), ViewState["SortDirection"].ToString());
+            CargarGrilla();
+        }
 
+        protected void gv_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            //var Pedidos = ViewState["pedidos"];
+
+            //switch (e.SortExpression) {
+
+            //    case "fecha":
+
+            //        gv.DataSource = Pedidos.OrderByDescending(s => s.fecha).ToList();
+            //        gv.DataBind();
+            //        break;
+            //}
+
+            //------------------------------------------------
+
+            if (ViewState["SortDirection"].ToString() == "desc")
+            {
+                ViewState["SortDirection"] = "asc";
+            }
+            else
+            {
+                ViewState["SortDirection"] = "desc";
+            }; 
+
+             
+            //ViewState["SortExpression"] = e.SortExpression;
+            CargarGrilla();
+            //ObetnerrGrilla(ViewState["SortExpression"].ToString(), ViewState["SortDirection"].ToString());
+        }
 
 
         protected void gv_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -60,13 +121,13 @@ namespace Mb.Views.Admin.abms
             {
                 Button btnPreparandose = e.Row.FindControl("btnPreparandose") as Button;
                 Button btnEntregado = e.Row.FindControl("btnEntregado") as Button;
-                if (e.Row.Cells[5].Text == "Encargado")
+                if (e.Row.Cells[6].Text == "Encargado")
                 {
                     //btnEnviarAcobrar btnCerrar
                     btnPreparandose.Visible = true;
                     btnEntregado.Visible = false;
                 }
-                else if (e.Row.Cells[5].Text == "Preparacion")
+                else if (e.Row.Cells[6].Text == "Preparacion")
                 {
                     btnPreparandose.Visible = false;
                     btnEntregado.Visible = true;
@@ -94,54 +155,37 @@ namespace Mb.Views.Admin.abms
             ddlEstadoPedido.ClearSelection();
         }
 
-        protected void gv_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gv.PageIndex = e.NewPageIndex;
-            CargarGrilla();
-        }
-
-        protected void gv_Sorting(object sender, GridViewSortEventArgs e)
-        {   
-            DataTable dt = Session["TablaPedidos"] as DataTable;
-
-            if (dt != null)
-            {   
-                dt.DefaultView.Sort = e.SortExpression + " " + GetSortDirection(e.SortExpression);
-                gv.DataSource = Session["TablaPedidos"];
-                gv.DataBind();
-            }
 
 
-        }
+        //private string GetSortDirection(string column)
+        //{   
+        //    string sortDirection = "ASC";
+        //    string sortExpression = ViewState["SortExpression"] as string;
 
+        //    if (sortExpression != null)
+        //    {
+        //        if (sortExpression == column)
+        //        {
+        //            string lastDirection = ViewState["SortDirection"] as string;
+        //            if ((lastDirection != null) && (lastDirection == "ASC"))
+        //            {
+        //                sortDirection = "DESC";
+        //            }
+        //        }
+        //    }
+        //    ViewState["SortDirection"] = sortDirection;
+        //    ViewState["SortExpression"] = column;
 
-        private string GetSortDirection(string column)
-        {   
-            string sortDirection = "ASC";
-            string sortExpression = ViewState["SortExpression"] as string;
-
-            if (sortExpression != null)
-            {
-                if (sortExpression == column)
-                {
-                    string lastDirection = ViewState["SortDirection"] as string;
-                    if ((lastDirection != null) && (lastDirection == "ASC"))
-                    {
-                        sortDirection = "DESC";
-                    }
-                }
-            }
-            ViewState["SortDirection"] = sortDirection;
-            ViewState["SortExpression"] = column;
-
-            return sortDirection;
-        }
+        //    return sortDirection;
+        //}
 
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            EnumEstadoPedido enumEstadoPedido =  e.CommandName.ToString() == "preparandose" ? EnumEstadoPedido.Preparacion : EnumEstadoPedido.Entregado;
-            PedidoController.UpdatePedidoEstado(Convert.ToInt32(e.CommandArgument), enumEstadoPedido);
-            CargarGrilla();
+            if (e.CommandName== "preparandose" || e.CommandName== "entregado"){ 
+                    EnumEstadoPedido enumEstadoPedido =  e.CommandName.ToString() == "preparandose" ? EnumEstadoPedido.Preparacion : EnumEstadoPedido.Entregado;
+                    PedidoController.UpdatePedidoEstado(Convert.ToInt32(e.CommandArgument), enumEstadoPedido);
+                    CargarGrilla();
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Mb.DAO
     public class CuentaController
     {
 
-        public enum EnumEstadoCuenta { Solicitada = 1, AceptayEnviarParaCobro = 2, PagadoyCerrado = 3 };
+        public enum EnumEstadoCuenta { Solicitada = 1, EnEsperaDelPago = 2, PagadoyCerrado = 3 };
         public static bool exito { get; set; }
         public static String mens { get; set; }
         public static ErrorCuenta errorCuenta { get; set; }
@@ -32,35 +32,66 @@ namespace Mb.DAO
         }
 
 
-        //Obtener cuenta X IdUserMesa
-        public static Cuenta GetXUsuMesa(int idUserMesa)
-        {
-            using (mbDBContext entities = new mbDBContext())
-            {
-                Cuenta cuenta = (from p in entities.Cuentas                                  
-                                  where p.idUserMesa == idUserMesa
-                                  select p).FirstOrDefault();
 
-                return cuenta;
-            }
-        }
+        //Obtener cuenta actual por numero de mesa en cualquier estado
+        public static Cuenta GetActualporNumeroMesa(int numeroMesa)
 
-
-        //Obtener cuenta X IdUserMesa
-        public static Cuenta GetXNumeroMesa(int numeroMesa)
         {
             using (mbDBContext entities = new mbDBContext())
             {
                 Cuenta cuenta = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
                               join me in entities.Mesas on um.IdMesa equals me.Id
-                              where me.numero == numeroMesa 
-                                select cu).FirstOrDefault();
+                              where me.numero == numeroMesa && cu.esactual == true
+                                 select cu).FirstOrDefault();
+
+
+        
+                return cuenta;
+            }
+        }
+
+        //Obtener cuenta actual por numero de mesa en cualquier estado
+        public static Cuenta GetActualporusuario(int idUSerMesa)
+
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                Cuenta cuenta = (from cu in entities.Cuentas
+                                 join um in entities.UserMesas on cu.idUserMesa equals um.id
+                                 join me in entities.Mesas on um.IdMesa equals me.Id
+                                 where um.id == idUSerMesa && cu.esactual==true
+                                 select cu).FirstOrDefault();
 
                 return cuenta;
             }
         }
 
+
+
+        //Obtener todas las cuenta X numero de mesa y si quiero solo la actual
+        public static IEnumerable<Cuenta> GetXNumeroMesa(int numeroMesa, bool? actual)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var cuenta = (from cu in entities.Cuentas
+                              join um in entities.UserMesas on cu.idUserMesa equals um.id
+                              join me in entities.Mesas on um.IdMesa equals me.Id
+                              where me.numero == numeroMesa  
+                             select cu).ToList();
+
+
+                if (actual != null)
+                {
+                    cuenta = (from mm in cuenta
+                              where mm.esactual == actual
+                                      select mm).ToList();
+                }
+                return cuenta.ToList();
+            }
+        }
+
+        
 
         public class CuentaDetalle : Cuenta
         {
@@ -78,8 +109,8 @@ namespace Mb.DAO
         }
 
 
-        //Traer todas las cuentas con detalle para el usuarioMesa
-        public static List<CuentaDetalle> GetAlldetalle()
+        //Traer todas las cuentas con detalle para el usuarioMesa y si quiero la actual
+        public static List<CuentaDetalle> GetAlldetalle(bool? actual)
         {
 
             using (mbDBContext entities = new mbDBContext())
@@ -88,7 +119,6 @@ namespace Mb.DAO
                             join um in entities.UserMesas on c.idUserMesa equals um.id //Join UserMesa
                             join me in entities.Mesas  on um.IdMesa equals me.Id //Join Mesa
                             join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
-                            
                             select new CuentaDetalle
                             {
                                 id = c.id,
@@ -102,23 +132,40 @@ namespace Mb.DAO
                                 estado_descri= c.estado_descri
                             };
                 var CuentaDetalle = query.ToList();
-                return CuentaDetalle;
+
+                if (actual != null)
+                {
+                    CuentaDetalle = (from mm in CuentaDetalle
+                                     where mm.esactual == actual
+                              select mm).ToList();
+                }
+
+                return CuentaDetalle.ToList();
+                
             }
         }
 
 
-        public static Cuenta GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta)
+        public static IEnumerable<Cuenta> GetXUsuMesaXEstado(int idUserMesa, EnumEstadoCuenta enumEstadoCuenta, bool? actual)
         {
             using (mbDBContext entities = new mbDBContext())
             {
-                Cuenta cuenta = (from p in entities.Cuentas
-                                 where p.idUserMesa == idUserMesa && p.estadoCod==(int) enumEstadoCuenta
-                                 select p).FirstOrDefault();
+               var  cuenta = (from cu in entities.Cuentas
+                                 where cu.idUserMesa == idUserMesa && cu.estadoCod==(int) enumEstadoCuenta
+                                 select cu).ToList();
 
-                return cuenta;
+
+                if (actual != null)
+                {
+                    cuenta = (from mm in cuenta
+                              where mm.esactual == actual
+                              select mm).ToList();
+                }
+                return cuenta.ToList();
             }
         }
 
+        //Busca si existe una cuenta con cualquier estado pero que sea actual=true para la mesa
         public static bool ExisteCuentaActiva(int numMesa)
         {
 
@@ -127,13 +174,14 @@ namespace Mb.DAO
                 var Existe = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
                               join me in entities.Mesas on um.IdMesa equals me.Id
-                              where me.numero == numMesa && cu.estadoCod != (int)EnumEstadoCuenta.PagadoyCerrado
+                              where me.numero == numMesa && cu.esactual==true
                               select cu).Any();
 
                 return Existe;
             }
         }
 
+        //Busca si existe una cuenta con cualquier estado pero que sea actual=true Para el userid
         public static bool ExisteCuentaActiva(String userId)
         {
 
@@ -141,100 +189,14 @@ namespace Mb.DAO
             {
                 var Existe = (from cu in entities.Cuentas
                               join um in entities.UserMesas on cu.idUserMesa equals um.id
-                              where um.UserId == userId && cu.estadoCod != (int) EnumEstadoCuenta.PagadoyCerrado
+                              where um.UserId == userId && cu.esactual == true
                               select cu).Any();
 
                 return Existe;
             }
         }
 
-        ////Cuentas X usuario
-        //public static IEnumerable<Cuenta> GetTodos(AspNetUser aspNetUser)
-        //{
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var CuentaTipo = (from p in entities.Cuentas
-        //                          join um in entities.UserMesas on p.IdUserMesa equals um.id
-        //                          where um.UserId == aspNetUser.Id
-        //                          select p).ToList();
-
-        //        return entities.Cuentas.ToList();
-        //    }
-        //}
-
-
-
-
-        ////Cuentas X Mesa Con cierto Estado
-        //public static IEnumerable<Cuenta> GetXMesaXestado(int numMesa, EnumEstadoCuenta enumEstado)
-        //{
-
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var CuentaTipo = (from p in entities.Cuentas
-        //                          join um in entities.UserMesas on p.IdUserMesa equals um.id
-        //                          join me in entities.Mesas on um.IdMesa equals me.Id
-        //                          where me.numero == numMesa && p.IdEstado == (int)enumEstado
-        //                          select p).ToList();
-
-        //        return entities.Cuentas.ToList();
-        //    }
-        //}
-
-        //public static bool ExistenCuentasPendientes(int numMesa)
-        //{
-
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var Existe = (from p in entities.Cuentas
-        //                      join um in entities.UserMesas on p.IdUserMesa equals um.id
-        //                      join me in entities.Mesas on um.IdMesa equals me.Id
-        //                      where me.numero == numMesa && p.IdEstado != (int)EnumEstadoCuenta.Entregado
-        //                      select p).Any();
-
-        //        return Existe;
-        //    }
-        //}
-
-
-        ////Obtener el subtotal de la mesa con culaquier estado que esten los Cuentas
-        //public static float ObtnerSubtotalXMesaXEstado(int numMesa)
-        //{
-
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var Subtotal = (from p in entities.Cuentas
-        //                        join um in entities.UserMesas on p.IdUserMesa equals um.id
-        //                        join me in entities.Mesas on um.IdMesa equals me.Id
-        //                        where me.numero == numMesa
-        //                        select p.cantidad * p.precio
-        //                          );
-
-
-        //        return Subtotal.Sum();
-        //    }
-        //}
-
-        ////Obtener el subtotal de la mesa para el estado+++
-        //public static float ObtnerSubtotalXMesaXEstado(int numMesa, EnumEstadoCuenta enumEstado)
-        //{
-
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-        //        var Subtotal = (from p in entities.Cuentas
-        //                        join um in entities.UserMesas on p.IdUserMesa equals um.id
-        //                        join me in entities.Mesas on um.IdMesa equals me.Id
-        //                        where me.numero == numMesa && p.IdEstado == (int)enumEstado
-        //                        select p.cantidad * p.precio
-        //                          );
-
-
-        //        return Subtotal.Sum();
-        //    }
-        //}
-
-
-
+     
 
 
         public static Cuenta CrearyObtnerCuenta(UsuarioMesaDetalle usuarioMesaDetalle)
@@ -246,7 +208,8 @@ namespace Mb.DAO
                 Cuenta.idUserMesa = usuarioMesaDetalle.id;
                 Cuenta.estadoCod = (int) EnumEstadoCuenta.Solicitada;
                 Cuenta.estado_descri = EnumEstadoCuenta.Solicitada.ToString();
-                Cuenta.total = PedidoController.ObtnerSubtotalXMesa(usuarioMesaDetalle.mesaNumero);                
+                Cuenta.total = PedidoController.ObtnerSubtotalXMesa(usuarioMesaDetalle.mesaNumero);
+                Cuenta.esactual = true;
                 Cuenta.fecha = DateTime.Now;
                 using (mbDBContext CuentaDBEntities = new mbDBContext())
                 {
@@ -260,7 +223,7 @@ namespace Mb.DAO
                 errorCuenta = new ErrorCuenta(1, "Error al carga Cuenta por parametros");
             }
 
-            return GetXUsuMesaXEstado(usuarioMesaDetalle.id, EnumEstadoCuenta.Solicitada);
+            return  GetActualporusuario(usuarioMesaDetalle.id);
 
         }
 
@@ -302,9 +265,33 @@ namespace Mb.DAO
                     var entity = dBEntities.Cuentas.Where(x => x.id == idCuenta).FirstOrDefault();
                     if (entity != null)
                     {
-                        entity.estadoCod = (int) enumEstado;
+                        entity.estadoCod = (int) enumEstado;                        
                         entity.estado_descri = (String) enumEstado.ToString();
                         dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                        dBEntities.SaveChanges();
+                        exito = true;
+                    }
+                }
+            }
+            catch
+            {
+                exito = false;
+            }
+            return exito;
+        }
+
+
+        //Actualizar cuenta
+        public static bool Update(Cuenta cuenta)
+        {
+            exito = false;
+            try
+            {
+                using (mbDBContext dBEntities = new mbDBContext())
+                {   
+                    if (cuenta != null)
+                    {   
+                        dBEntities.Entry(cuenta).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
                         exito = true;
                     }
@@ -328,11 +315,15 @@ namespace Mb.DAO
                 if (PedidoController.UpdatePedidosDeMesaEstado(numeroMesa, PedidoController.EnumEstadoPedido.RecibidoYpagado))
                 {
                     //Actualizo el estado de la cuenta
-                    if (UpdateCuentastado(idCuenta, EnumEstadoCuenta.PagadoyCerrado)) {
+                    Cuenta cuenta = GetActualporNumeroMesa(numeroMesa);
+                    cuenta.estadoCod = (int) EnumEstadoCuenta.PagadoyCerrado;
+                    cuenta.estado_descri = EnumEstadoCuenta.PagadoyCerrado.ToString();
+                    cuenta.esactual = false;
+                    //Corro update
+                    if (Update(cuenta)){
                         //Libero la mesa (Actualizo el estado de todos los usuarios mesa a activo false
                         Mesa mesa = MesaController.GetbyNumeroMesa(numeroMesa);
                         if (UserMesaController.CerrarUsuariosDeMesa(mesa)) {
-
                             //Finalizo con exito
                             exito = true;
                         }
@@ -341,14 +332,12 @@ namespace Mb.DAO
                             //No pudo actualizarse el estado de los usuarios en la mesa
                             exito = false;
                         }
-
                     }
                     else
                     {
                         //No pudo actualizarse el estado de la cuenta
                         exito = false;
-                    }
-                    
+                    }                    
                 }
                 else
                 {

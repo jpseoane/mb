@@ -16,8 +16,8 @@ namespace MbDataAccess
     {
         public UserMesa()
         {
-            this.Cuentas = new HashSet<Cuenta>();
             this.Pedidoes = new HashSet<Pedido>();
+            this.Cuentas = new HashSet<Cuenta>();
         }
     
         public int id { get; set; }
@@ -31,7 +31,7 @@ namespace MbDataAccess
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Mesa Mesa { get; set; }
         public virtual PerfilMesa PerfilMesa { get; set; }
-        public virtual ICollection<Cuenta> Cuentas { get; set; }
         public virtual ICollection<Pedido> Pedidoes { get; set; }
+        public virtual ICollection<Cuenta> Cuentas { get; set; }
     }
 }

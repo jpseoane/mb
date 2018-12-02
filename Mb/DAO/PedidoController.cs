@@ -78,6 +78,7 @@ namespace Mb.DAO
             }
         }
 
+        //Busca si tengo algun pedido que este En preparacion o Encargado
         public static bool ExistenPedidosPendientes(int numMesa)
         {
 
@@ -86,7 +87,7 @@ namespace Mb.DAO
                 var Existe = (from p in entities.Pedidoes
                                   join um in entities.UserMesas on p.IdUserMesa equals um.id
                                   join me in entities.Mesas on um.IdMesa equals me.Id
-                                  where me.numero == numMesa && p.IdEstado != (int) EnumEstadoPedido.Entregado
+                                  where me.numero == numMesa && (p.IdEstado == (int) EnumEstadoPedido.Encargado || p.IdEstado == (int)EnumEstadoPedido.Preparacion)
                                   select p).Any();
 
                 return Existe;
@@ -126,10 +127,28 @@ namespace Mb.DAO
                                 select p.cantidad * p.precio
                                   );
 
-
-                return Subtotal.Sum();
+                if (Subtotal.Count() == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Subtotal.Sum();
+                }
             }
         }
+
+        //db.Leads.Where(l => l.Date.Day == date.Day
+        //    && l.Date.Month == date.Month
+        //    && l.Date.Year == date.Year
+        //    && l.Property.Type == ProtectedPropertyType.Password
+        //    && l.Property.PropertyId == PropertyId)
+        // .Select(l => l.Amount)
+        // .DefaultIfEmpty(0)
+        // .Sum();
+
+
+
 
         //Obtener el subtotal de la mesa para el estado
         public static float ObtnerSubtotalXMesaXEstado(int numMesa, EnumEstadoPedido enumEstado)

@@ -24,6 +24,7 @@ namespace MbDataAccess
         public int estadoCod { get; set; }
         public string estado_descri { get; set; }
         public System.DateTime fecha { get; set; }
+        public bool esactual { get; set; }
         public double total { get; set; }
     
         public virtual UserMesa UserMesa { get; set; }

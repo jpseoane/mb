@@ -49,7 +49,7 @@
                      <%--   <!-- GridView-->
                         <div class="scrolling-table-container">--%>
                             <asp:CheckBox ID="chkVerMisPedidos" runat="server" AutoPostBack="True" ForeColor="#3366CC" OnCheckedChanged="chkVerMisPedidos_CheckedChanged" Text="Ver solo mis pedidos" />
-                        <asp:GridView ID="gv" runat="server" HeaderStyle-HorizontalAlign="Center" 
+                        <asp:GridView ID="gv" runat="server" HeaderStyle-HorizontalAlign="Center"  DataKeyNames="username"
                                 AllowSorting="false"  CssClass="gridview"   AutoGenerateColumns="False" ShowHeader="true" OnRowCommand="gv_RowCommand"  >
                                 <EmptyDataRowStyle HorizontalAlign="Center" />
                                 <Columns>                                    
@@ -105,11 +105,23 @@
                <div class="form-row" >             
                    <div class="form-group col-lg-12" >        
                         <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <div id="divMensaje" runat="server"></div>           
+                            <button type="button" name="boton" class="close" data-dismiss="alert" >&times;</button>
+                            <div id="divMensaje" runat="server"></div>           
                         </div>
-                    </div>
-                </div>
+                   </div>
+             </div>
+           <script type="text/javascript">
+               $('input[name=boton]')
+                    .click(
+                         function ()
+                         {
+                             $(this).hide();
+                         }
+                    );
+           </script>
+           
+           
+
        </div>  <!-- divCargaDePedido-->
  </div><!-- Container-->
 </asp:Content>

@@ -17,7 +17,7 @@ namespace Mb.Views.Admin.abms
 
             if (!Page.IsPostBack) {
 
-                gv.DataSource = CuentaController.GetAlldetalle();
+                gv.DataSource = CuentaController.GetAlldetalle(null);
                 gv.DataBind();
             }
         }
@@ -48,7 +48,7 @@ namespace Mb.Views.Admin.abms
             else if (e.CommandName.ToString() == "EnviarAcobrar")
             {
 
-                if (CuentaController.UpdateCuentastado(Convert.ToInt32(e.CommandArgument), CuentaController.EnumEstadoCuenta.AceptayEnviarParaCobro))
+                if (CuentaController.UpdateCuentastado(Convert.ToInt32(e.CommandArgument), CuentaController.EnumEstadoCuenta.EnEsperaDelPago))
                 {
                     Mensaje(true, "Se paso la cuenta al estado para enviar a cobrar. Luego de confirmar la recepcion del cobro cierre la mesa para poder liberar los lugares", "");
                 }
@@ -68,7 +68,7 @@ namespace Mb.Views.Admin.abms
                 {   
                     btnEnviar.Visible = true;
                 }
-                else if (e.Row.Cells[2].Text == "EnviarAcobrar")
+                else if (e.Row.Cells[2].Text == "EnEsperaDelPago")
                 {
                     btnCerrar.Visible = true;
                 }

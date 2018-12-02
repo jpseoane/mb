@@ -64,38 +64,38 @@
                     <SortedDescendingCellStyle BackColor="#FFFDF8" />
                     <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                     <Columns>
-                    <asp:TemplateField HeaderText="Acciones">
-                    <ItemTemplate>
-                            <asp:Button  ID="btnPreparandose" runat="server"  CommandName="preparandose"  Text="Preparacion"  Visible="false" Commandargument='<%# Eval("id")%>'
-                                CausesValidation="false" ToolTip="Pasar este pedido al estado de 'Preparandose'" />
-
-                            <asp:Button  ID="btnEntregado" runat="server"  CommandName="entregado" Text="Entregado"  Visible="false"  Commandargument='<%# Eval("id")%>'
-                                CausesValidation="false" ToolTip="Pasar este pedido al estado de 'Entregado'" />
-                            </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center"  Width="50px"/>
-                        <HeaderStyle HorizontalAlign="Center"  Width="50px" />
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="numeroMesa" HeaderText="N° Mesa" NullDisplayText="N°  Mesa" SortExpression="numeroMesa" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
-                    </asp:BoundField>                              
-                    <asp:BoundField DataField="email" HeaderText="usuario" NullDisplayText="Email" SortExpression="email" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
-                    </asp:BoundField>                          
-                     <asp:BoundField DataField="id" HeaderText="N° Pedido" NullDisplayText="N° Pedido" SortExpression="id" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
-                    </asp:BoundField>                          
-                    <asp:BoundField DataField="descriProducto" HeaderText="Descripcion Pedido" NullDisplayText="descriPedido" SortExpression="descriProducto" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
-                    </asp:BoundField>                          
-                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="Estado Pedido" NullDisplayText="estadoPedido" SortExpression="descriEstadoPedido" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
-                    </asp:BoundField>                          
-                    <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio" SortExpression="precioUnitario" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
-                    </asp:BoundField>
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
                     </asp:BoundField>
+                    <asp:TemplateField HeaderText="Acciones">
+                        <ItemTemplate>
+                                <asp:Button  ID="btnPreparandose" runat="server"  CommandName="preparandose"  Text="Preparacion" Visible="false" Commandargument='<%# Eval("id")%>'
+                                    CausesValidation="false" ToolTip="Pasar este pedido al estado de 'Preparandose'" />
+
+                                <asp:Button  ID="btnEntregado" runat="server"  CommandName="entregado" Text="Entregado"  Visible="false"  Commandargument='<%# Eval("id")%>'
+                                    CausesValidation="false" ToolTip="Pasar este pedido al estado de 'Entregado'" />
+                        </ItemTemplate>
+                        <ItemStyle HorizontalAlign="Center"  />
+                        <HeaderStyle HorizontalAlign="Center"  />
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="numeroMesa" HeaderText="N° Mesa" NullDisplayText="N°  Mesa" >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                    </asp:BoundField>                              
+                    <asp:BoundField DataField="email" HeaderText="usuario" NullDisplayText="Email"  >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                    </asp:BoundField>                          
+                     <asp:BoundField DataField="id" HeaderText="N° Pedido" NullDisplayText="N° Pedido"  >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="descriProducto" HeaderText="Descripcion Pedido" NullDisplayText="descriPedido"  >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="Estado Pedido" NullDisplayText="estadoPedido"  >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                    </asp:BoundField>                          
+                    <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio"  >
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
+                    </asp:BoundField>                    
                   </Columns>
                 </asp:GridView>
               </div> 

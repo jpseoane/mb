@@ -43,12 +43,12 @@ namespace MbDataAccess
         public DbSet<TipoProducto> TipoProductoes { get; set; }
         public DbSet<UserMesa> UserMesas { get; set; }
         public DbSet<MensajeMuro> MensajeMuroes { get; set; }
-        public DbSet<Cuenta> Cuentas { get; set; }
         public DbSet<Pedido> Pedidoes { get; set; }
         public DbSet<Ajuste> Ajustes { get; set; }
         public DbSet<Carta> Cartas { get; set; }
         public DbSet<Carta_Producto> Carta_Producto { get; set; }
         public DbSet<Producto> Productoes { get; set; }
+        public DbSet<Cuenta> Cuentas { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
