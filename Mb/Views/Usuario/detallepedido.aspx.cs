@@ -76,12 +76,10 @@ namespace Mb.Views.Usuario
             if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
             {
                 //Pedir cuenta
-                //  Cuenta cuenta = CuentaController.CrearyObtnerCuenta(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(ViewState["numeroMesa"]));                
                 UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null)
                 {
                     Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
-                    //this.btnPedirCuenta.Enabled = false;
                     Response.Redirect("cuenta.aspx");
                 }
                 else
@@ -157,7 +155,7 @@ namespace Mb.Views.Usuario
                 this.lblTotal.Text = "Subtotal Mesa: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesa(Convert.ToInt32(ViewState["numeroMesa"])));
             }
             this.lblTuSubtotal.Text = "Subtotal " + ViewState["username"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
-            this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text +  "Este es el mail " +  ViewState["tumail"];
+            this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
         }
     }
 

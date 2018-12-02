@@ -19,27 +19,15 @@ namespace Mb
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            // IdCliente Oauth =  188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com
-            // Client Secret   =  X0oSClq7YfDBBB_kQ3WcMDQn
-
-            // IdCliente Mibar =  188020733885-bdb8ombkpbceqp3d1ar23a7f95qa99o8.apps.googleusercontent.com
-            // Client Secret   = NYFcv_bkcgPg_wY1Z104A_i1
-
-            //   OAuthManager.RegisterClient
-            //(      
-            //   "google",
-            //   "188020733885-bdb8ombkpbceqp3d1ar23a7f95qa99o8.apps.googleusercontent.com",
-            //   "NYFcv_bkcgPg_wY1Z104A_i1"
-            //);
-
+                     
+        
 
             //Oauth
                 OAuthManager.RegisterClient
              (
                 "google",
                 "188020733885-mbtmrvhv4nqjf24ip0j04vun2q91sh5o.apps.googleusercontent.com",
-                "X0oSClq7YfDBBB_kQ3WcMDQn"
+                "GsxR_vq5myxnq_QqUbVIXT7F"
              );
 
 
