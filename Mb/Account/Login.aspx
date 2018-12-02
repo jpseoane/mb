@@ -62,19 +62,6 @@
         <div class="col-md-4">
             <h2>Social Logins</h2>
             <asp:LinkButton ID="lnkGoogle2" runat="server" data-provider="google" Text="Google" onclick="RedirectToLogin_Click" CausesValidation="false" />                
-
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-            <a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
-            
         </div>
     </div>
 </asp:Content>

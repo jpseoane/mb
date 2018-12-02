@@ -27,10 +27,14 @@
        </div>            
        <div class="form-row">
            <div class="form-group col-lg-12" >        
-            <div id="div1" runat="server" class="alert alert-warning alert-dismissable" visible="false">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <div id="div2" runat="server">
-            </div>           
+            <div class="form-row" >             
+                   <div class="form-group col-lg-12" >        
+                        <div id="divPrueba" runat="server" class="alert alert-warning alert-dismissable" visible="false" >
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <div id="divMensaje" runat="server"></div>           
+                        </div>
+                    </div>
+                </div>   
             </div>
       </div>
        <!-- GridView-->

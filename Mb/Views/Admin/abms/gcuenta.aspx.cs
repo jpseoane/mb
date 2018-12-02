@@ -25,22 +25,36 @@ namespace Mb.Views.Admin.abms
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName.ToString() == "cerrar")
-            {   
+            {
+                //Cerrar Cuenta
                 Button btn = (Button)e.CommandSource;
                 GridViewRow gvr = (GridViewRow)btn.NamingContainer;
                 int numeromesa = (int)gv.DataKeys[gvr.RowIndex].Value;
 
-                //Cerrar Cuenta
-                CuentaController.CerrarCuenta(Convert.ToInt32(e.CommandArgument),numeromesa);
+                Button btnCantidad = (Button)e.CommandSource;
+                GridViewRow gvr2 = (GridViewRow)btnCantidad.NamingContainer;
+                int numerodemesa2 =(int) gv.DataKeys[gvr2.RowIndex].Value;
 
-                
-                //Usuario
-             //   Mensaje("Nuevo pedido", PedidoController.agregar(Convert.ToInt32(ViewState["idUserMesa"]), Convert.ToInt32(e.CommandArgument.ToString()), 1, Convert.ToInt32(txtCantidad.Text), precioUnitario2, null));
+                if (CuentaController.CerrarCuenta(Convert.ToInt32(e.CommandArgument), numeromesa))
+                { 
+                    Mensaje(true, "La cuenta ha sido cerrada como tambien los pedidos de la mesa y se ha liberado la mesa", "");
+                }
+                else
+                {
+                    Mensaje(false, "", "Ocurrio uno o mas errores al intentar cerrar la mesa");
+                }
+
             }
             else if (e.CommandName.ToString() == "EnviarAcobrar")
             {
-             
-                CuentaController.UpdateCuentastado(Convert.ToInt32(e.CommandArgument), CuentaController.EnumEstadoCuenta.AceptayEnviarParaCobro);
+
+                if (CuentaController.UpdateCuentastado(Convert.ToInt32(e.CommandArgument), CuentaController.EnumEstadoCuenta.AceptayEnviarParaCobro))
+                {
+                    Mensaje(true, "Se paso la cuenta al estado para enviar a cobrar. Luego de confirmar la recepcion del cobro cierre la mesa para poder liberar los lugares", "");
+                }
+                else {
+                    Mensaje(false, "", "Ocurrio uno o mas errores al intentar cambiar el estado de la mesa al estado Enviar a cobrar");
+                }
             }
         }
 
@@ -48,33 +62,41 @@ namespace Mb.Views.Admin.abms
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+                Button btnEnviar = e.Row.FindControl("btnEnviarAcobrar") as Button;
+                Button btnCerrar = e.Row.FindControl("btnCerrar") as Button;
                 if (e.Row.Cells[2].Text == "Solicitada")
-                {
-                    //btnEnviarAcobrar btnCerrar
-                    Button btnEnviar = e.Row.FindControl("btnEnviarAcobrar") as Button;
+                {   
                     btnEnviar.Visible = true;
-                    btnEnviar.OnClientClick = "hola";
-
+                }
+                else if (e.Row.Cells[2].Text == "EnviarAcobrar")
+                {
+                    btnCerrar.Visible = true;
                 }
                 else {
-                    Button btnCerrar = e.Row.FindControl("btnCerrar") as Button;
-                    btnCerrar.Visible = true;
-                    btnCerrar.OnClientClick = "hola";
-
+                    btnCerrar.Visible = false;
+                    btnEnviar.Visible = false;
                 }
 
             }
         }
 
-        protected void hola(object sender) {
-            int hola;
-
-            hola = 0;
 
 
-
+        private void Mensaje(bool exito, String mensajeExitoso = "", String mensajeError = "")
+        {
+            if (exito)
+            {
+                divPrueba.Attributes.Add("class", "alert alert-success");
+                divMensaje.InnerText = mensajeExitoso;
+            }
+            else
+            {
+                divPrueba.Attributes.Add("class", "alert alert-warning");
+                divMensaje.InnerText = mensajeError;
+            }
+            divPrueba.Visible = true;
         }
+
 
         protected void btnListar_Click(object sender, EventArgs e)
         {

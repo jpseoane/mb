@@ -55,15 +55,6 @@ namespace Mb.Views.Usuario
 
         }
 
-        private void CalcularSubtotal()
-        {
-            if (gv.Rows.Count > 0)
-            {
-                this.lblTuSubtotal.Text = "Subtotal " + ViewState["tuMail"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
-                this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
-                this.lblTotal.Text = "Subtotal Mesa: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesa(Convert.ToInt32(ViewState["numeroMesa"])));
-            }
-        }
 
         private void Mensaje(bool exito, String mensajeExitoso="", String mensajeError = "")
         {
@@ -140,6 +131,17 @@ namespace Mb.Views.Usuario
                 gv.DataSource = PedidoController.GetAllCondetallPporMesa(Convert.ToInt32(ViewState["numeroMesa"]));
                 gv.DataBind();
                 
+            }
+        }
+
+
+        private void CalcularSubtotal()
+        {
+            if (gv.Rows.Count > 0)
+            {
+                this.lblTuSubtotal.Text = "Subtotal " + ViewState["tuMail"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
+                this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
+                this.lblTotal.Text = "Subtotal Mesa: $" + Convert.ToString(PedidoController.ObtnerSubtotalXMesa(Convert.ToInt32(ViewState["numeroMesa"])));
             }
         }
     }

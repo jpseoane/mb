@@ -94,7 +94,7 @@ namespace Mb.DAO
         }
 
 
-        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos
+        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos menos los recibidos y pagados ya qye son anteriores
         public static float ObtnerSubtotalXMesa(int numMesa)
         {
 
@@ -103,8 +103,8 @@ namespace Mb.DAO
                 var Subtotal = (from p in entities.Pedidoes
                                   join um in entities.UserMesas on p.IdUserMesa equals um.id
                                   join me in entities.Mesas on um.IdMesa equals me.Id
-                                  where me.numero == numMesa
-                                  select p.cantidad * p.precio
+                                  where me.numero == numMesa && p.IdEstado != (int)EnumEstadoPedido.RecibidoYpagado
+                                select p.cantidad * p.precio
                                   );
                                   
 
@@ -114,7 +114,7 @@ namespace Mb.DAO
 
 
 
-        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos por el usuario de la mesa
+        //Obtener el subtotal de la mesa con culaquier estado que esten los pedidos por el usuario de la mesa  menos los recibidos y pagados ya qye son anteriores
         public static float ObtnerSubtotalXUsarioDeMesa(int idUsuMesa)
         {
 
@@ -122,7 +122,7 @@ namespace Mb.DAO
             {
                 var Subtotal = (from p in entities.Pedidoes
                                 join um in entities.UserMesas on p.IdUserMesa equals um.id
-                                where um.id == idUsuMesa
+                                where um.id == idUsuMesa && p.IdEstado != (int)EnumEstadoPedido.RecibidoYpagado
                                 select p.cantidad * p.precio
                                   );
 
@@ -149,10 +149,31 @@ namespace Mb.DAO
             }
         }
 
-     
+     //switch (ddlEstadoPedido.SelectedValue)
+     //               {
+     //                   case "1":
+     //                       enumEstado = PedidoController.EnumEstadoPedido.Encargado;
+     //                       break;
+     //                   case "2":
+     //                       enumEstado = PedidoController.EnumEstadoPedido.Preparacion;
+     //                       break;
+     //                   case "3":
+     //                       enumEstado = PedidoController.EnumEstadoPedido.Entregado;
+     //                       break;
+     //                   case "4":
+     //                       enumEstado = PedidoController.EnumEstadoPedido.PedidoDeCuenta;
+     //                       break;
+     //                   case "5":
+     //                       enumEstado = PedidoController.EnumEstadoPedido.RecibidoYpagado;
+     //                       break;
+     //                   default:
+     //                       enumEstado = PedidoController.EnumEstadoPedido.Encargado;
+     //                       break;
+                           
+     //               }
 
 
-        public class PedidosDetalle : Pedido
+    public class PedidosDetalle : Pedido
         {
 
             public int numeroMesa { get; set; }
@@ -166,7 +187,7 @@ namespace Mb.DAO
 
 
         //Pedidos X Mesa Con cierto Estado
-        public static List<PedidosDetalle> GetConDetalleXMesaXestado(int numMesa, EnumEstadoPedido enumEstado)
+        public static List<PedidosDetalle> GetConDetalleXMesaXestado(int numMesa, int idEstado)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -175,8 +196,7 @@ namespace Mb.DAO
                             join me in entities.Mesas on um.IdMesa equals me.Id //Join Mesa
                             join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
                             join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
-                            join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
-                            where me.numero == numMesa && p.IdEstado == (int)enumEstado //Filtros
+                            join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto                
                             select new PedidosDetalle
                             {
                                 id = p.id,
@@ -194,13 +214,35 @@ namespace Mb.DAO
                                 descriEstadoPedido = ep.descripcion
                             };
                 var PedidosDetalle = query.ToList();
-                
+
+                if (numMesa != 0) {
+                    PedidosDetalle = (from mm in query
+                                    where mm.numeroMesa == numMesa
+                                    select mm).ToList();
+                }
+
+                if (idEstado != 0)
+                {
+                    PedidosDetalle = (from mm in query
+                                      where mm.IdEstado == idEstado
+                                      select mm).ToList();
+                }
+                //where me.numero == numMesa && p.IdEstado == (int)enumEstado //Filtros
+
+
                 return PedidosDetalle;
             }
 
         }
 
-        //Traer el datalle del pedido para el usuarioMesa
+
+
+
+
+
+
+
+        //Traer el datalle del pedido para el usuarioMesa actual, no trae pedidos ya cerrados
         public static List<PedidosDetalle> GetAllCondetalleXUsuario(int idUserMesa)
         {
 
@@ -212,7 +254,7 @@ namespace Mb.DAO
                             join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
                             join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
                             join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
-                            where p.IdUserMesa==idUserMesa
+                            where p.IdUserMesa==idUserMesa && p.IdEstado != (int) EnumEstadoPedido.RecibidoYpagado
                             select new PedidosDetalle
                             {
                                 id = p.id,
@@ -236,7 +278,7 @@ namespace Mb.DAO
         }
 
 
-        //Traer el datalle del pedido para toda la mesa
+        //Traer el datalle del pedido para toda la mesa, actual no trae pedidos ya cerrados anteriores
         public static List<PedidosDetalle> GetAllCondetallPporMesa(int numeroMesa)
         {
 
@@ -248,7 +290,7 @@ namespace Mb.DAO
                             join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
                             join pr in entities.Productoes on p.IdProducto equals pr.id //Join Producto
                             join ep in entities.EstadoPedidoes on p.IdEstado equals ep.id //Join EstadoProducto
-                            where me.numero ==numeroMesa
+                            where me.numero ==numeroMesa && p.IdEstado != (int)EnumEstadoPedido.RecibidoYpagado
                             select new PedidosDetalle
                             {
                                 id = p.id,

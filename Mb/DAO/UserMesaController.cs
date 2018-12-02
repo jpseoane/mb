@@ -225,6 +225,7 @@ namespace Mb.DAO
                         if (userMesa != null)
                         {
                             userMesa.habilitado = false;
+                            userMesa.activo = false;
                             dBEntities.Entry(userMesa).State = System.Data.Entity.EntityState.Modified;
                             dBEntities.SaveChanges();
                             exito = true;

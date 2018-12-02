@@ -57,6 +57,19 @@ namespace Mb
             });
 
 
+
+            //Seteado con la de MiBar  Creada el 01-12-2018
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "188020733885-dsoe0kbheph63v7r210taje1mlh6mnve.apps.googleusercontent.com",
+            //    ClientSecret = "ps-uHA4vnfpv1hQo6cNvToFu"
+            //});
+
+
+
+
+
+
             //OAuthManager.RegisterClient
             // (
             //   new GoogleClient
@@ -65,6 +78,8 @@ namespace Mb
             //     "GsxR_vq5myxnq_QqUbVIXT7F"
             //   )
             // );
+
+
 
 
             // ODUumSpFqWmtDWzap3V4zVV0
