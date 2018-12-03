@@ -108,5 +108,11 @@ namespace Mb.Views.Admin.abms
             //this.ddlCarta.DataSource = CartaController.Get();
             //this.ddlCarta.DataBind();
         }
+
+        protected void gv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv.PageIndex = e.NewPageIndex;
+            CargaGrilla();
+        }
     }
 }

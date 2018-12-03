@@ -156,7 +156,7 @@ namespace Mb.DAO
         }
         
 
-        public static List<ProductosDetalle> GetCondetalleConCarta(int idCarta, int? idTipo, int? idSubTipo)
+        public static List<ProductosDetalle> GetCondetalleConCarta(int idCarta, int idTipo, int idSubTipo, double? precio,String descri= "")
         {
 
             using (mbDBContext entities = new mbDBContext())
@@ -170,6 +170,8 @@ namespace Mb.DAO
                             select new ProductosDetalle
                             {
                                 id = p.id,
+                                IdTipo = p.IdTipo,
+                                idSubTipo= p.idSubTipo,
                                 idCarta = cp.idCarta,
                                 descriCarta = ca.descripcion,
                                 descripcion = p.descripcion,
@@ -183,22 +185,43 @@ namespace Mb.DAO
 
                var ProducosDescri = query.ToList();
 
-                //if (idTipo != null)
-                //{
-                //    query = (from p in query
-                //             where p.IdTipo == idTipo
-                //             select p).ToList();
-                //}
+                if (idCarta != 0)
+                {
+                    ProducosDescri = (from p in ProducosDescri
+                                      where p.idCarta == idCarta
+                                      select p).ToList();
+                }
 
-                //if (idSubTipo != null)
-                //{
-                //    query = (from p in query
-                //             where p.idSubTipo == idSubTipo
-                //             select p).ToList();
-                //}
+                if (idTipo != 0)
+                {
+                    ProducosDescri = (from p in ProducosDescri
+                             where p.IdTipo == idTipo
+                             select p).ToList();
+                }
+
+                if (idSubTipo != 0)
+                {
+                    ProducosDescri = (from p in ProducosDescri
+                             where p.idSubTipo == idSubTipo
+                             select p).ToList();
+                }
+
+                if (descri != "")
+                {
+                    ProducosDescri = (from p in ProducosDescri
+                                      where p.descripcion.ToLower().StartsWith(descri.ToLower())
+                                      select p).ToList();
+                }
+
+                if (precio != null)
+                {
+                    ProducosDescri = (from p in ProducosDescri
+                                      where p.precioUnitario > precio
+                                      select p).ToList();
+                }
 
 
-                
+
                 return ProducosDescri;
             }
 

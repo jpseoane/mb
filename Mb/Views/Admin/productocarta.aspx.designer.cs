@@ -58,22 +58,22 @@ namespace Mb.Views.Admin {
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
         
         /// <summary>
-        /// Control div1.
+        /// Control divPrueba.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPrueba;
         
         /// <summary>
-        /// Control div2.
+        /// Control divMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMensaje;
         
         /// <summary>
         /// Control gv.

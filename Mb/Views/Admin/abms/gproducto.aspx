@@ -68,7 +68,7 @@
         <div class="form-group col-lg-12" >        
             <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                 AllowPaging="True" AllowSorting="False" PageSize="15"    CssClass="gridview"
-                ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
+                ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" OnPageIndexChanging="gv_PageIndexChanging" >
                 <RowStyle Height="50px" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
                 <EditRowStyle BackColor="#999999" Height="50px" />

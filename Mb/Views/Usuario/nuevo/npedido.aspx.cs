@@ -1,10 +1,6 @@
 ﻿using Mb.DAO;
-using MbDataAccess;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using static Mb.DAO.UserMesaController;
@@ -45,6 +41,9 @@ namespace Mb.Views.Usuario.pedidos.nuevo
         private void Inicializarcombos()
         {
             ListItem selecc = new ListItem("Seleccionar", "0");
+
+            ListItem item = new ListItem("Todos", "S");
+
             this.ddlCarta.DataTextField = ("descripcion");
             this.ddlCarta.DataValueField = ("Id");
             this.ddlCarta.DataSource = CartaController.GetAllByActiva(true);            
@@ -58,16 +57,18 @@ namespace Mb.Views.Usuario.pedidos.nuevo
             this.ddlTipo.DataSource = TipoProductoController.Get();
             this.ddlTipo.DataBind();
 
-            this.ddlTipo.Items.Insert(0, "Todos");
-            this.ddlTipo.SelectedIndex = 0;
+
+            this.ddlTipo.Items.Insert(0, item);
+            
 
             this.ddlSubTipo.DataTextField = ("descripcion_subtipo");
             this.ddlSubTipo.DataValueField = ("id");
             this.ddlSubTipo.DataSource = SubTipoProductoController.Get();
             this.ddlSubTipo.DataBind();
 
-            this.ddlSubTipo.Items.Insert(0, "Todos");
-            this.ddlSubTipo.SelectedIndex = 0;
+            this.ddlSubTipo.Items.Insert(0, item);
+
+            
         }
 
       
@@ -79,21 +80,16 @@ namespace Mb.Views.Usuario.pedidos.nuevo
         }
 
         private void CargaGrilla()
-        {
-            int? idTipo = null;
-            int? idSubTipo = null;
+        {   
 
-            if (this.ddlSubTipo.SelectedIndex.ToString() != "0") {
-                idSubTipo = Convert.ToInt32(ddlSubTipo.SelectedValue.ToString());
-            }
-
-            if (this.ddlTipo.SelectedIndex.ToString() != "0")
-            {
-                idTipo = Convert.ToInt32(ddlTipo.SelectedValue.ToString());
-            }
-
-            gv.DataSource = ProductoController.GetConFiltro(Convert.ToInt32(ddlCarta.SelectedValue), idTipo, idSubTipo);
+            int idCarta = ddlCarta.SelectedValue != "S" ? Convert.ToInt32(ddlCarta.SelectedValue) : 0;
+            int idTipo = ddlTipo.SelectedValue != "S" ? Convert.ToInt32(ddlTipo.SelectedValue) : 0;
+            int idSubTipo = this.ddlSubTipo.SelectedValue != "S" ? Convert.ToInt32(ddlSubTipo.SelectedValue) : 0;
+            double? precio=null;
+            precio = txtPrecio.Text != "" ? Convert.ToDouble(txtPrecio.Text):precio;             
+            gv.DataSource = ProductoController.GetCondetalleConCarta(idCarta, idTipo, idSubTipo,precio, txtDescri.Text);
             gv.DataBind();
+            this.divPrueba.Visible = false;
         }
 
         protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -128,6 +124,18 @@ namespace Mb.Views.Usuario.pedidos.nuevo
             divPrueba.Visible = true;
         }
 
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.txtPrecio.Text = "";
+            this.txtDescri.Text = "";
+            this.ddlCarta.ClearSelection();
+            this.ddlSubTipo.ClearSelection();
+            this.ddlTipo.ClearSelection();
+            gv.DataSource = null;
+            gv.DataBind();
+            this.divPrueba.Visible = false;
+
+        }
     }
 
 }

@@ -55,7 +55,7 @@
                <div class="form-row" >
                     <div class="form-group col-lg-12" >        
                         <asp:Button ID="btnBuscar" runat="server"  Text="Buscar" class="btn btn-primary" OnClick="btnBuscar_Click"  />
-                        <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" />
+                        <asp:Button ID="btnLimpiar" runat="server"  Text="Limpiar" class="btn btn-warning" formnovalidate="" CausesValidation="false" OnClick="btnLimpiar_Click" />
                     </div>
                     <div class="form-group col-lg-12 " >                
                         <!-- GridView-->                        
