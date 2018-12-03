@@ -17,13 +17,27 @@ namespace Mb.DAO
                 return entities.Cartas.FirstOrDefault(e => e.id == id);
             }
         }
-        public static IEnumerable<Carta> Get()
+
+        //Trae todas 
+        public static IEnumerable<Carta> GetAll()
         {
             using (mbDBContext entities = new mbDBContext())
             {
-                return entities.Cartas.ToList();
+                return entities.Cartas.ToList(); 
             }
         }
+
+
+        //Trae todas o solo las activas
+        public static IEnumerable<Carta> GetAllByActiva(bool activa)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                return entities.Cartas.Where(x => x.activa == activa).ToList();
+            }
+        }
+
+
         public static bool agregar(Carta carta)
         {
             bool cargaOk = false;
@@ -108,6 +122,8 @@ namespace Mb.DAO
                         entity.UserId = carta.UserId;
                         entity.descripcion = carta.descripcion;
                         entity.fecha = carta.fecha;
+                        entity.activa = carta.activa;
+                        dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
                     }
                 }
@@ -130,12 +146,14 @@ namespace Mb.DAO
                     var entity = dBEntities.Cartas.FirstOrDefault(e => e.id == id);
                     if (entity != null)
                     {
-                        //entity.idproducto = idProducto;
+                        
                         entity.UserId = UserId;
                         entity.descripcion = descri;
                         entity.fecha = DateTime.Now;
+                        entity.activa = activa;
+                        dBEntities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                         dBEntities.SaveChanges();
-                        //         mens = "Carta actualizada con éxito";
+                        
                         exito = true;
                     }
                 }

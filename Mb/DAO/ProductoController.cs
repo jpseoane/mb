@@ -85,7 +85,7 @@ namespace Mb.DAO
             using (mbDBContext entities = new mbDBContext())
             {
                 var query = (from p in entities.Productoes
-                            join cp in entities.Carta_Producto on p.id equals cp.idProducto
+                             join cp in entities.Carta_Producto on p.id equals cp.idProducto
                             where cp.idCarta == idCarta
                             select p).ToList();
 
@@ -108,6 +108,36 @@ namespace Mb.DAO
             }
         }
 
+        //Filtrar por Tipo y Subtipo
+        public static IEnumerable<Producto> GetProductos(int? idCarta, int? idTipo, int? idSubtipo)
+        {
+            using (mbDBContext entities = new mbDBContext())
+            {
+                var query = (from p in entities.Productoes
+                             join cp in entities.Carta_Producto on p.id equals cp.idProducto
+                             where cp.idCarta == idCarta
+                             select p).ToList();
+
+                if (idTipo != null)
+                {
+                    query = (from p in query
+                             where p.IdTipo == idTipo
+                             select p).ToList();
+                }
+
+                if (idSubtipo != null)
+                {
+                    query = (from p in query
+                             where p.idSubTipo == idSubtipo
+                             select p).ToList();
+                }
+
+                //var productos = query.ToList();
+                return query;
+            }
+        }
+
+
 
 
 
@@ -126,15 +156,64 @@ namespace Mb.DAO
         }
         
 
-        public static List<ProductosDetalle> GetCondetalleConCarta(int idCarta, int idTipo, int idSubTipo)
+        public static List<ProductosDetalle> GetCondetalleConCarta(int idCarta, int? idTipo, int? idSubTipo)
         {
 
             using (mbDBContext entities = new mbDBContext())
             {
 
                 var query = from p in entities.Productoes
-                            from tp in entities.TipoProductoes.Where(x => x.Id == p.id)
-                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
+                            from tp in entities.TipoProductoes.Where(x => x.Id ==  p.IdTipo)
+                            from stp in entities.SubTipoes.Where(z => z.id == p.idSubTipo)
+                            from cp in entities.Carta_Producto.Where(h => h.idProducto == p.id).DefaultIfEmpty()
+                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
+                            select new ProductosDetalle
+                            {
+                                id = p.id,
+                                idCarta = cp.idCarta,
+                                descriCarta = ca.descripcion,
+                                descripcion = p.descripcion,
+                                precioUnitario = p.precioUnitario,
+                                activo = p.activo,
+                                tipoDescri = tp.descripcion,
+                                subTipoDescri = stp.descripcion_subtipo,
+                                fecha = p.fecha_carga
+
+                            };
+
+               var ProducosDescri = query.ToList();
+
+                //if (idTipo != null)
+                //{
+                //    query = (from p in query
+                //             where p.IdTipo == idTipo
+                //             select p).ToList();
+                //}
+
+                //if (idSubTipo != null)
+                //{
+                //    query = (from p in query
+                //             where p.idSubTipo == idSubTipo
+                //             select p).ToList();
+                //}
+
+
+                
+                return ProducosDescri;
+            }
+
+        }
+
+
+        public static List<ProductosDetalle> GetCondetalleConCarta()
+        {
+
+            using (mbDBContext entities = new mbDBContext())
+            {
+
+                var query = from p in entities.Productoes
+                            from tp in entities.TipoProductoes.Where(x => x.Id == p.IdTipo)
+                            from stp in entities.SubTipoes.Where(z => z.id == p.idSubTipo)
                             from cp in entities.Carta_Producto.Where(h => h.idProducto == p.id).DefaultIfEmpty()
                             from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
                             select new ProductosDetalle
@@ -154,8 +233,8 @@ namespace Mb.DAO
                 var ProducosDescri = query.ToList();
                 return ProducosDescri;
             }
-
         }
+
 
 
         public static List<ProductosDetalle> GetCondetalleSinCarta()
@@ -185,36 +264,6 @@ namespace Mb.DAO
 
         }
 
-
-        public static List<ProductosDetalle> GetCondetalleConCarta()
-        {
-
-            using (mbDBContext entities = new mbDBContext())
-            {
-
-                var query = from p in entities.Productoes
-                            from tp in entities.TipoProductoes.Where(x => x.Id == p.id)
-                            from stp in entities.SubTipoes.Where(z => z.id == p.id)
-                            from cp in entities.Carta_Producto.Where(h => h.idProducto == p.id).DefaultIfEmpty()
-                            from ca in entities.Cartas.Where(k => k.id == cp.idCarta).DefaultIfEmpty()
-                            select new ProductosDetalle
-                            {
-                                id = p.id,
-                                idCarta = cp.idCarta,
-                                descriCarta=ca.descripcion,
-                                descripcion = p.descripcion,
-                                precioUnitario = p.precioUnitario,
-                                activo = p.activo,
-                                tipoDescri = tp.descripcion,
-                                subTipoDescri = stp.descripcion_subtipo,
-                                fecha = p.fecha_carga
-
-                            };
-
-                var ProducosDescri = query.ToList();
-                return ProducosDescri;
-            }
-        }
 
     
 

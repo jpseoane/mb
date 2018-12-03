@@ -34,7 +34,7 @@
        </div>            
         <div class="form-row">
            <div class="form-group col-lg-12" >        
-               <asp:Button ID="btnActualizarEstado" runat="server"  Text="Actualizar Estado de los pedidos" class="btn btn-primary" OnClick="btnActualizarEstado_Click" />
+               <asp:Button ID="btnActualizarEstado" runat="server"  Text="Actualizar Estado de los pedidos" class="btn btn-primary" OnClick="btnActualizarEstado_Click" Visible="False" />
             </div>
         </div>
        <div class="form-row">
@@ -50,7 +50,8 @@
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
                     AllowPaging="True" AllowSorting="True"  CssClass="gridview" DataKeyNames="id"
-                    ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowDataBound="gv_RowDataBound" OnPageIndexChanging="gv_PageIndexChanging" OnSorting="gv_Sorting" OnRowCommand="gv_RowCommand" >
+                    ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" 
+                    OnRowDataBound="gv_RowDataBound" OnPageIndexChanging="gv_PageIndexChanging" OnSorting="gv_Sorting" OnRowCommand="gv_RowCommand" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
                     <EditRowStyle BackColor="#999999" Height="50px" />
@@ -79,22 +80,22 @@
                         <HeaderStyle HorizontalAlign="Center"  />
                     </asp:TemplateField>
                     <asp:BoundField DataField="numeroMesa" HeaderText="N° Mesa" NullDisplayText="N°  Mesa" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"   />
                     </asp:BoundField>                              
                     <asp:BoundField DataField="email" HeaderText="usuario" NullDisplayText="Email"  >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"   />
                     </asp:BoundField>                          
                      <asp:BoundField DataField="id" HeaderText="N° Pedido" NullDisplayText="N° Pedido"  >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="descriProducto" HeaderText="Descripcion Pedido" NullDisplayText="descriPedido"  >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"  />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="descriEstadoPedido" HeaderText="Estado Pedido" NullDisplayText="estadoPedido"  >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"   />
                     </asp:BoundField>                          
                     <asp:BoundField DataField="precioUnitario" HeaderText="Precio" NullDisplayText="Precio"  >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True" />
+                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                     </asp:BoundField>                    
                   </Columns>
                 </asp:GridView>

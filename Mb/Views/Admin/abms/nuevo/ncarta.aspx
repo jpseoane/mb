@@ -14,14 +14,15 @@
             </div>
        </div>
        <div class="form-row" >
-           <div class="form-group col-lg-12 " >                
+           <div class="form-group col-lg-6" >                
                 <label for="txtNombreCarta">Nombre de Carta</label><br />
-                <asp:TextBox ID="txtNombreCarta" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
+                <asp:TextBox ID="txtNombreCarta" CssClass="form-control" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNombreCarta" Text="*" 
                     runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
                <br />
-                <asp:CheckBox Text="Activa  " TextAlign="Left" ID="chkActiva" runat="server" Checked="True" />
+               <asp:CheckBox Text="Activa" TextAlign="Left" ID="chkActiva" runat="server" Checked="True" />
             </div>
+           
        </div>
        <div class="form-row">
            <div class="form-group col-lg-12" >        

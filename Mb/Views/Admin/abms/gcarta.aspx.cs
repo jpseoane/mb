@@ -29,7 +29,8 @@ namespace Mb.Views.Admin.abms
                     if (carta != null)
                     {
                         this.txtNombreCarta.Text = carta.descripcion;
-                        this.chkActiva.Checked = carta.activa;
+                        this.ddlEstadoDeCarta.SelectedValue =Convert.ToString(Convert.ToInt32(carta.activa));
+                    //    this.chkActiva.Checked = carta.activa;
                         ViewState["id"] = e.CommandArgument;                     
                     }
                     break;
@@ -47,14 +48,34 @@ namespace Mb.Views.Admin.abms
         }
 
         private void CargaGrilla(){
-            gv.DataSource = CartaController.Get();
+            
+            if (ddlEstadoDeCarta.SelectedValue.ToString() == "S") {
+                gv.DataSource = CartaController.GetAll();
+            }
+            else
+            {
+                bool activa=false;
+                if (ddlEstadoDeCarta.SelectedValue.ToString() == "1")
+                { activa = true;}
+                
+                gv.DataSource = CartaController.GetAllByActiva(activa);
+            }
+            
             gv.DataBind();
             divPrueba.Visible = false;
         }
 
         protected void btnActualizar_Click(object sender, EventArgs e)
-        {  
-            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text,  chkActiva.Checked, User.Identity.GetUserId()));         
+        {
+            bool activa = false;
+            if (ddlEstadoDeCarta.SelectedValue.ToString() == "1")
+            { activa = true; }
+
+            Mensaje("Actualizacion", CartaController.update(Convert.ToInt32(ViewState["id"]), txtNombreCarta.Text, activa, User.Identity.GetUserId()));
+            this.txtNombreCarta.Text = "";
+            ddlEstadoDeCarta.ClearSelection();
+            //chkActiva.Checked = true;
+            CargaGrilla();
         }
 
 

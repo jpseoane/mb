@@ -13,6 +13,8 @@ namespace Mb.DAO
         public static String mens { get; set; }
         public static ErrorPedido errorPedido { get; set; }
 
+        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Entregado = 3, PedidoDeCuenta = 4, RecibidoYpagado = 5 };
+
         public static Pedido Get(int id)
         {
             using (mbDBContext entities = new mbDBContext())
@@ -445,7 +447,7 @@ namespace Mb.DAO
             return TodoOk;
         }
 
-        public enum EnumEstadoPedido { Encargado = 1, Preparacion = 2, Entregado = 3, PedidoDeCuenta = 4, RecibidoYpagado = 5 };
+       
 
         //Actualizar el estado de un pedido 
         public static bool UpdatePedidoEstado(int idPedido, EnumEstadoPedido enumEstado)

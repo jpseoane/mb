@@ -12,13 +12,19 @@ namespace Mb.Views.Admin.abms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //public enum EnumEstadoCuenta { Solicitada = 1, AceptayEnviarParaCobro = 2, PagadoyCerrado = 3 };
-
             if (!Page.IsPostBack) {
 
-                gv.DataSource = CuentaController.GetAlldetalle(null);
-                gv.DataBind();
+                //Si no te habilita para loguearte                    
+                this.ddlMesa.DataTextField = ("numero");
+                this.ddlMesa.DataValueField = ("id");
+                this.ddlMesa.DataSource = MesaController.GetDisponibles();
+                this.ddlMesa.DataBind();
+                ListItem item = new ListItem("Todas", "S");
+                this.ddlMesa.Items.Insert(0, item);
+                CargarGrilla();
+
+
+
             }
         }
 
@@ -98,14 +104,31 @@ namespace Mb.Views.Admin.abms
         }
 
 
+
+        
+
         protected void btnListar_Click(object sender, EventArgs e)
         {
+            CargarGrilla();
+          
 
+        }
+
+        private void CargarGrilla()
+        {
+            int numMesa = ddlMesa.SelectedValue != "S" ? Convert.ToInt32(ddlMesa.SelectedValue) : 0;
+            int idEstado = this.ddlEstadoDeCuenta.SelectedValue != "S" ? Convert.ToInt32(ddlEstadoDeCuenta.SelectedValue) : 0;
+
+
+            gv.DataSource = CuentaController.GetAlldetalle(null, numMesa, idEstado);
+            gv.DataBind();
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-
+            this.ddlEstadoDeCuenta.ClearSelection();
+            this.ddlMesa.ClearSelection();
+            CargarGrilla();
         }
     }
     

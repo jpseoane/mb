@@ -15,14 +15,21 @@
         </div>
     </div>
     <div class="form-row" >
-        <div class="form-group col-lg-12 " >                
+        <div class="form-group col-lg-6 " >                
             <label for="txtNombreCarta">Nombre de Carta</label><br />
-            <asp:TextBox ID="txtNombreCarta" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNombreCarta" Text="*" 
-                runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
-            <br />
-            <asp:CheckBox Text="Activa  " TextAlign="Left" ID="chkActiva" runat="server" Checked="True" />
+            <asp:TextBox ID="txtNombreCarta" CssClass="form-control" runat="server" Width="180px" placeholder="Nombre"></asp:TextBox>
         </div>
+        <div class="form-group col-lg-6 " >                
+            <label for="ddlEstadoDeCarta">Estado De Carta</label> 
+            <asp:DropDownList ID="ddlEstadoDeCarta" runat="server" CssClass="form-control"
+                DataTextField="descripcion" DataValueField="ID"  >
+                    <asp:ListItem Value="S">Todas</asp:ListItem>
+                    <asp:ListItem Value="1">Activa</asp:ListItem>
+                    <asp:ListItem Value="0">Deshabilitada</asp:ListItem>
+            </asp:DropDownList>                                
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlEstadoDeCarta" Text="Elige un estado!" ErrorMessage="Eliga un estado!" InitialValue="Todas" 
+               runat="server" ForeColor="red" ></asp:RequiredFieldValidator>
+         </div>           
     </div>
     <div class="form-row">
         <div class="form-group col-lg-12" >        
@@ -40,9 +47,10 @@
     </div>     
     <!-- GridView-->
     <div class="form-row">
-        <div class="form-group col-lg-6" >        
-            <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                AllowPaging="True" AllowSorting="false" PageSize="5"  
+        <div class="form-group col-lg-12" >        
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center"  Width="100%"
+                AllowPaging="false" AllowSorting="false" PageSize="10"  
                 ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="gv_RowCommand" >
                 <RowStyle Height="50px" />
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -58,13 +66,13 @@
                 <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 <Columns>
                     <asp:BoundField DataField="descripcion" HeaderText="Descripcion" NullDisplayText="descripcion" SortExpression="descripcion" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="activa" HeaderText="Activa" NullDisplayText="activa" SortExpression="activa" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:BoundField DataField="fecha" HeaderText="Fecha" NullDisplayText="fecha" SortExpression="fecha" >
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
+                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
@@ -75,7 +83,7 @@
                                 CommandName="eliminar" CommandArgument='<%#Eval("id")%>'
                                 ImageUrl="~/Content/img/del.png" ToolTip="Eliminar Carta" Height="24px" Width="24px"  />
                         </ItemTemplate>
-                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="False" Font-Size="Smaller"  BorderStyle="None"  BorderWidth="5px"/>
+                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" Wrap="False" Font-Size="Smaller"  BorderStyle="None"  BorderWidth="5px"/>
                         <HeaderStyle Width="50px" />
                     </asp:TemplateField>     
                     </Columns>

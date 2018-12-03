@@ -11,12 +11,17 @@
                  <div class="form-group col-lg-4 " >                
                         <label for="ddlMesa">Mesa N°</label> 
                         <asp:DropDownList ID="ddlMesa" runat="server" CssClass="form-control"
-                            DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" ></asp:DropDownList>                                
+                            DataTextField="descripcion" DataValueField="ID"  ></asp:DropDownList>                                
                  </div>           
                  <div class="form-group col-lg-4 " >                
                         <label for="ddlEstadoDeCuenta">Estado De Cuenta</label> 
                         <asp:DropDownList ID="ddlEstadoDeCuenta" runat="server" CssClass="form-control"
-                            DataTextField="descripcion" DataValueField="ID" AutoPostBack="true" ></asp:DropDownList>                                
+                            DataTextField="descripcion" DataValueField="ID"  >
+                                <asp:ListItem Value="S">Todos</asp:ListItem>
+                                <asp:ListItem Value="1">Solicitada</asp:ListItem>
+                                <asp:ListItem Value="2">Aceptar y Enviar Para Cobro</asp:ListItem>
+                                <asp:ListItem Value="3">Pagado y Cerrado</asp:ListItem>
+                        </asp:DropDownList>                                
                  </div>           
        </div>
        <div class="form-row">
@@ -89,5 +94,4 @@
               </div>
        </div>
     </div>
-     </div>
 </asp:Content>

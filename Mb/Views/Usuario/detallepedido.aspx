@@ -75,7 +75,7 @@
                                         <ItemStyle HorizontalAlign="Center"  Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>  --%>                        
                                     
-                                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="descriEstadoPedido" NullDisplayText="Sin descriEstadoPedido" SortExpression="descriEstadoPedido" >
+                                    <asp:BoundField DataField="descriEstadoPedido" HeaderText="Estado" NullDisplayText="Sin descriEstadoPedido" SortExpression="descriEstadoPedido" >
                                         <ItemStyle HorizontalAlign="Center" Font-Size="Medium" VerticalAlign="Middle" Wrap="True"  />
                                     </asp:BoundField>                          
                                     <asp:TemplateField HeaderText="Acciones">
@@ -98,7 +98,7 @@
                           <strong> <asp:Label ID="lblTuSubtotal" runat="server" ></asp:Label></strong>
                        </div>    
                        <div class="text-right">
-                            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Pedir la cuenta" />
+                            <asp:Button ID="btnCerrarCuenta" runat="server" CssClass="btn btn-primary"  Text="Cerrar cuenta" />
                        </div>    
                    </div>
               </div>
@@ -110,15 +110,7 @@
                         </div>
                    </div>
              </div>
-           <script type="text/javascript">
-               $('input[name=boton]')
-                    .click(
-                         function ()
-                         {
-                             $(this).hide();
-                         }
-                    );
-           </script>
+     
            
            
 

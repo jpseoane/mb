@@ -23,6 +23,7 @@ namespace Mb.Views.Admin.abms
                 ListItem item= new ListItem("Todas","S");
                 this.ddlMesa.Items.Insert(0, item);
                 ViewState["SortDirection"] = "desc";
+                CargarGrilla();
 
             }
         }

@@ -70,7 +70,7 @@ namespace Mb.Views.Admin
             this.ddlSubTipo.DataBind();
             this.ddlCarta.DataTextField = ("descripcion");
             this.ddlCarta.DataValueField = ("Id");
-            this.ddlCarta.DataSource = CartaController.Get();
+            this.ddlCarta.DataSource = CartaController.GetAllByActiva(true);
             this.ddlCarta.DataBind();
         }
 

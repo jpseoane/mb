@@ -47,7 +47,7 @@ namespace Mb.Views.Usuario.pedidos.nuevo
             ListItem selecc = new ListItem("Seleccionar", "0");
             this.ddlCarta.DataTextField = ("descripcion");
             this.ddlCarta.DataValueField = ("Id");
-            this.ddlCarta.DataSource = CartaController.Get();            
+            this.ddlCarta.DataSource = CartaController.GetAllByActiva(true);            
             this.ddlCarta.DataBind();
             this.ddlCarta.Items.Insert(0,selecc);
             this.ddlCarta.SelectedIndex = 0;
