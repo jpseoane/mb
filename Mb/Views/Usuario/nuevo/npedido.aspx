@@ -79,7 +79,7 @@
                                     <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate>
                                             <asp:ImageButton runat="server" ID="imgbtnAgregar" causesvalidation="false"  ImageUrl="~/Content/img/mas48.png"
-                                                commandname="agregar" commandargument='<%# Eval("id")%>' Height="48px" Width="48px" 
+                                                commandname="agregar" commandargument='<%# Eval("id")%>' Height="32px" Width="32px" 
                                                 ToolTip="Agregar a mi carrito" />                                           
                                         </ItemTemplate>
                                         <ItemStyle HorizontalAlign="Center" Height="25px" Width="25px"/>

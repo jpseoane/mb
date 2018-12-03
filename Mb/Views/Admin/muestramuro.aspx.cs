@@ -35,11 +35,11 @@ namespace Mb.Views.Admin
 
             using (SqlConnection con = new SqlConnection(dbConnect))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT [titulo], [mensaje],mm.fecha fecha,apu.Email email, apu.UserName usuario, me.numero " +
-                    "nummesa, mm.confoto confoto, mm.nombrefoto nombrefoto FROM[MensajeMuro] mm INNER JOIN AspNetUsers apu ON mm.UserId = " +
-                    "apu.Id INNER JOIN UserMesa um ON um.UserId = apu.Id INNER JOIN Mesa me ON um.IdMesa = me.Id" +
-                    " Where mm.reportado=0"))
-                    //Muestra mensajes aprobados Aprobado
+                using (SqlCommand cmd = new SqlCommand("SELECT Distinct(mm.id), [titulo], [mensaje], mm.fecha fecha,apu.Email email, apu.UserName usuario, me.numero " +
+                    " nummesa,ISNULL(mm.confoto,'') confoto, ISNULL(mm.nombrefoto,'') nombrefoto FROM [MensajeMuro] mm INNER JOIN AspNetUsers apu ON mm.UserId = " +
+                    " apu.Id INNER JOIN UserMesa um ON um.UserId = apu.Id INNER JOIN Mesa me ON um.IdMesa = me.Id" +
+                    " Where mm.reportado=0 Order by fecha desc"))
+                    //Muestra mensajes aprobados Aprobado Si reportado esta en True no lo muestra
                 {
                     using (SqlDataAdapter sda = new SqlDataAdapter())
                     {

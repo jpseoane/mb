@@ -41,7 +41,7 @@
        <div class="form-row">
             <div class="form-group col-lg-12" >        
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="false" PageSize="5"  CssClass="gridview" DataKeyNames="id"
+                    AllowPaging="True" AllowSorting="false" PageSize="15"  CssClass="gridview" DataKeyNames="id"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -78,16 +78,12 @@
                         <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Wrap="True"  Width="150px"/>
                     </asp:BoundField>                          
                         <asp:TemplateField HeaderText="Asignar">
-                                <HeaderTemplate>
-                                        <asp:CheckBox ID="chkAsignarATodas" runat="server" AutoPostBack="true"  CausesValidation="false"    
-                                        Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a todos los productos a la carta" OnCheckedChanged="chkAsignarTodas_CheckedChanged" />
-                                </HeaderTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"    
                                         Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a Carta" OnCheckedChanged="chkAsignar_CheckedChanged" />
                                   </ItemTemplate>
-                                <ItemStyle HorizontalAlign="Center"  Width="50px"/>
-                                <HeaderStyle HorizontalAlign="Center"  Width="50px" />
+                                <ItemStyle HorizontalAlign="Center"  />
+                                <HeaderStyle HorizontalAlign="Center" />
                          </asp:TemplateField>
                         </Columns>
                 </asp:GridView>
