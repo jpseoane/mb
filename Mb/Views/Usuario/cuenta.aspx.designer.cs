@@ -49,13 +49,13 @@ namespace Mb.Views.Usuario {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl spNmesa;
         
         /// <summary>
-        /// Control lblUsuario.
+        /// Control lblUsuarioSolicito.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuario;
+        protected global::System.Web.UI.WebControls.Label lblUsuarioSolicito;
         
         /// <summary>
         /// Control lblEstado.
@@ -74,6 +74,15 @@ namespace Mb.Views.Usuario {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalCuenta;
+        
+        /// <summary>
+        /// Control lblTotalUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalUsuario;
         
         /// <summary>
         /// Control lblFecha.

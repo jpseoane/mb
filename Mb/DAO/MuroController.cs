@@ -90,59 +90,9 @@ namespace Mb.DAO
 
 
         public class MensajeMurosDetalle : MensajeMuro
-        {
-            public int id { get; set; }
-            public String UserId { get; set; }
+        {   
             public String Email { get; set; }
-            public String titulo { get; set; }
-            public String mensaje { get; set; }
-            public int estadoCod { get; set; }
-            public String estado_descri { get; set; }
-            public bool reportado { get; set; }
-            public DateTime fecha { get; set; }
-
         }
-
-        //ID="SqlDataSource1" runat="server" SelectCommand="SELECT [titulo], [mensaje],mm.fecha fecha,apu.Email email, apu.UserName usuario, me.numero nummesa, mm.confoto confoto, mm.nombrefoto nombrefoto
-        //              FROM[MensajeMuro] mm INNER JOIN AspNetUsers apu ON mm.UserId = apu.Id INNER JOIN UserMesa um ON um.UserId = apu.Id INNER JOIN Mesa me ON um.IdMesa = me.Id"></asp:SqlDataSource>--%>
-
-        //public static List<MensajeMurosDetalle> GetAllConMasDetalle(bool reportado, EnumEstadoMensaje? enumEstadoMensaje)
-        //{
-        //    using (mbDBContext entities = new mbDBContext())
-        //    {
-
-        //        var MensajeMuros = from MensajeMuro mm in entities.MensajeMuroes                            
-        //                    join apu in entities.AspNetUsers on um.UserId equals apu.Id //Join AspnetUser
-        //                      join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
-        //                           join um in entities.UserMesas on p.IdUserMesa equals um.id //Join UserMesa
-        //                    select new MensajeMurosDetalle
-        //                    {
-        //                        id = p.id,
-        //                        idUserMesa = um.id,
-        //                        userName = apu.UserName,
-        //                        idProducto = pr.id,
-        //                        descriProducto = pr.descripcion,
-        //                        precioUnitario = pr.precioUnitario,
-        //                        cantidad = p.cantidad,
-        //                        subTotal = (float)p.subtotal,
-        //                        fecha = p.fecha,
-        //                        idEstado = ep.id,
-        //                        descriEstadoPedido = ep.descripcion
-        //                    };
-        //        var MurosDetalle = MensajeMuros.ToList();
-
-        //        if (enumEstadoMensaje != null)
-        //        {
-        //            MurosDetalle = (from mm in MurosDetalle
-        //                            where mm.estadoCod == (int)enumEstadoMensaje && mm.reportado == reportado
-        //                            select mm).ToList();
-        //        }
-        //        return MurosDetalle;
-        //    }
-
-        //}
-
-
 
 
 
@@ -155,7 +105,7 @@ namespace Mb.DAO
                             select new MensajeMurosDetalle
                             {
                                 id = mm.id,
-                                UserId = mm.UserId,
+                                UserId = mm.UserId,                                
                                 Email = apu.Email,
                                 titulo = mm.titulo,
                                 mensaje = mm.mensaje,
@@ -163,6 +113,8 @@ namespace Mb.DAO
                                 estado_descri = mm.estado_descri,
                                 reportado = mm.reportado,
                                 fecha = mm.fecha,
+                                confoto = mm.confoto,
+                                nombrefoto=mm.nombrefoto
                             };
                 var MensajeMuros = query.ToList();            
 
@@ -189,6 +141,8 @@ namespace Mb.DAO
                                 estado_descri = mm.estado_descri,
                                 reportado = mm.reportado,
                                 fecha = mm.fecha,
+                                confoto = mm.confoto,
+                                nombrefoto = mm.nombrefoto
                             };
                 var MensajeMuros = query.ToList();
 
@@ -303,7 +257,7 @@ namespace Mb.DAO
             return exito;
         }
 
-        public static bool agregar(String UserId, String titulo, String mensaje)
+        public static bool agregar(String UserId, String titulo, String mensaje, bool confoto, String nombrefoto="" )
         {
             exito = false;
             try
@@ -314,7 +268,9 @@ namespace Mb.DAO
                 mensajeMuro.mensaje = mensaje;
                 mensajeMuro.estadoCod = (int) EnumEstadoMensaje.Cargado;
                 mensajeMuro.estado_descri = EnumEstadoMensaje.Cargado.ToString();
-                mensajeMuro.reportado = false;                
+                mensajeMuro.reportado = false;
+                mensajeMuro.confoto = confoto;
+                mensajeMuro.nombrefoto = nombrefoto;
                 mensajeMuro.fecha = DateTime.Now;
                 using (mbDBContext MensajeDBEntities = new mbDBContext())
                 {

@@ -109,6 +109,7 @@ namespace Mb.DAO
         }
 
 
+
         //Traer todas las cuentas con detalle para el usuarioMesa y si quiero la actual
         public static List<CuentaDetalle> GetAlldetalle(bool? actual, int numeroMesa,int estadoCuenta)
         {
@@ -129,15 +130,16 @@ namespace Mb.DAO
                                 total = c.total,
                                 fecha = c.fecha,
                                 estadoCod = c.estadoCod,
-                                estado_descri= c.estado_descri
+                                estado_descri= c.estado_descri,
+                                esactual=c.esactual                               
                             };
                 var CuentaDetalle = query.ToList();
 
                 if (actual != null )
                 {
-                    CuentaDetalle = (from mm in CuentaDetalle
-                                     where mm.esactual == actual
-                              select mm).ToList();
+                    CuentaDetalle = (from c in CuentaDetalle
+                                     where c.esactual == actual
+                              select c).ToList();
                 }
 
                 if (numeroMesa != 0)

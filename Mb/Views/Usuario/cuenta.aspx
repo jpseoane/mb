@@ -25,12 +25,17 @@
                         <h3 class="panel-title">Detalle de la cuenta solicitada para la mesa N° <strong><b><span runat="server" id="spNmesa"></span></b></strong></h3>
                       </div>
                       <div class="panel-body">
-                        <strong><label for="lblUsuario">Uuario que solicita la cuenta: </label></strong>
-                        <asp:Label ID="lblUsuario" CssClass="form-control" runat="server" Text="Usuario"></asp:Label><br />
+                        <strong><label for="lblUsuarioSolicito">Uuario que solicita la cuenta: </label></strong>
+                        <asp:Label ID="lblUsuarioSolicito" CssClass="form-control" runat="server" Text="Usuario"></asp:Label><br />
                         <strong><label for="lblEstadoCuenta">Estado de la cuenta:</label></strong>
                         <asp:Label ID="lblEstado" CssClass="form-control" runat="server" Text="Fecha"></asp:Label><br />
-                        <strong><label for="lblTotal">Total</label></strong>
-                        <asp:Label ID="lblTotalCuenta" CssClass="form-control" runat="server" Text="Total"></asp:Label><br />
+                        <strong><label for="lblTotal">Total </label></strong>
+                        <asp:Label ID="lblTotalCuenta" CssClass="form-control" runat="server" Text="Total"
+                          ToolTip="Esta es la suma total de todos los pedidos de la mesa"                                                         
+                            ></asp:Label><br />
+                          <strong><label for="lblTotalUsuario" >Tu subtotal</label></strong>
+                        <asp:Label ID="lblTotalUsuario" CssClass="form-control" runat="server" Text="Tu Subtotal" 
+                            ToolTip="Esta es la suma de todos los pedidos que fueron realizados exclusivamente por vos"></asp:Label><br />
                         <strong><label for="lblFecha">Fecha y hora:</label></strong>
                         <asp:Label ID="lblFecha" CssClass="form-control" runat="server" Text="Fecha y hora"></asp:Label><br />
                       </div>

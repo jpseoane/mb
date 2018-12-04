@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static Mb.DAO.CuentaController;
 using static Mb.DAO.UserMesaController;
 
 namespace Mb.Views.Usuario
@@ -23,15 +24,16 @@ namespace Mb.Views.Usuario
                 {
                     ViewState["idUserMesa"] = usuarioDeMesa.id;                  
                     dvMensajeCambio.Visible = false;
-                    Cuenta cuenta = CuentaController.GetActualporNumeroMesa(usuarioDeMesa.mesaNumero);
+                    CuentaDetalle cuenta = CuentaController.GetAlldetalle(true,usuarioDeMesa.mesaNumero,0).SingleOrDefault();
 
                     if (cuenta != null)
                     {
                         //Muestra el detalle de la cuenta
-                        lblUsuario.Text = usuarioDeMesa.email;
+                        this.lblUsuarioSolicito.Text = cuenta.email.ToString();
                         this.lblFecha.Text = cuenta.fecha.ToString("dd/MM/yyyy");
                         this.lblEstado.Text = cuenta.estado_descri;
                         this.lblTotalCuenta.Text = Convert.ToString(cuenta.total);
+                        this.lblTotalUsuario.Text = Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));                        
                         dvDetalleCuenta.Visible = true;
                         spNmesa.InnerText = Convert.ToString(usuarioDeMesa.mesaNumero);
                     }

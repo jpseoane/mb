@@ -17,6 +17,7 @@ namespace Mb.Views.Usuario.nuevo
         {
             if (!Page.IsPostBack)
             {
+                Session["nombrefoto"] = "";
                 //Busca si ya estas logueado en una mesa
                 UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
                 if (usuarioDeMesa != null)
@@ -32,9 +33,35 @@ namespace Mb.Views.Usuario.nuevo
             }
         }
 
+        protected void UploadComplete(object sender, AjaxControlToolkit.AjaxFileUploadEventArgs e)
+        {
+            try
+            {
+                string path = Server.MapPath("../../../Content/imgSub/") + e.FileName.ToString();
+                Session["nombrefoto"] = e.FileName.ToString();
+                AjaxFileUpload1.SaveAs(path);
+            }
+            catch
+            {
+                Session["nombrefoto"] = "";
+                Mensaje("publicacion de la foto", false);
+                btnCargar.Enabled = false;
+            }
+
+            
+        }
+
         protected void btnCargar_Click(object sender, EventArgs e)
         {
-           Mensaje("Publicacion", MuroController.agregar(User.Identity.GetUserId(), txtTitulo.Text, txtPublicacion.Text));
+            if (Session["nombrefoto"].ToString() != "")
+            {
+                Mensaje("Publicacion", MuroController.agregar(User.Identity.GetUserId(), txtTitulo.Text, txtPublicacion.Text, true, Session["nombrefoto"].ToString()));
+            }
+            else {
+
+                Mensaje("Publicacion", MuroController.agregar(User.Identity.GetUserId(), txtTitulo.Text, txtPublicacion.Text, false));
+            }
+           
         }
 
 

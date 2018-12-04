@@ -1056,7 +1056,7 @@
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AspNetUser" Relationship="mbModel.FK_MensajeMuro_AspNetUsers" FromRole="MensajeMuro" ToRole="AspNetUser" />
           <Property Name="confoto" Type="Boolean" />
-          <Property Name="nombrefoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nombrefoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="true" />
         </EntityType>
         <Association Name="FK_MensajeMuro_AspNetUsers">
           <End Type="mbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />

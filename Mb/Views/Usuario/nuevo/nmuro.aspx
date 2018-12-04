@@ -1,11 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="nmuro.aspx.cs" Inherits="Mb.Views.Usuario.nuevo.nmuro" MasterPageFile="~/Site.Master" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>Muro</h1>
         <p class="lead">Comparti lo que quieras con las demas personas del Bar!</p>
     </div>
- <div class="form-horizontal" >
+<div class="container">
+    <div class="form-horizontal" >
         <!-- dvMensajeCambio-->
         <div class="form-row"   id="dvMensajeCambio" runat="server"  visible="false" >
             <div class="col-md-12 col-lg-12">
@@ -31,7 +34,12 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPublicacion" Text="*" 
                     runat="server" ForeColor="red" ></asp:RequiredFieldValidator>         
             </div>
+             <div class="form-group col-lg-12 " >                
+                <label for="fupImagen">Imagen</label><br />
+                <ajaxToolkit:AjaxFileUpload ID="AjaxFileUpload1" runat="server" OnUploadComplete="UploadComplete" ThrobberID="loader" />
+                <asp:Image ID="loader" runat="server" ImageUrl ="~/loading.gif" Style="display:None"/>
             </div>
+       </div>
             <div class="form-row" >
                 <div class="form-group col-lg-12" >  
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" Font-Size="Small" />
@@ -47,4 +55,6 @@
             </div>
       </div>
  </div>
+
+</div>
 </asp:Content>
