@@ -26,7 +26,7 @@
                                 <br />
                                 <br />
                                 <br />
-                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'  /></center>
+                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'   /></center>
                              
                                 <blockquote>
                                   <p> <%# Eval("mensaje") %></p>
