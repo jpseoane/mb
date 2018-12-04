@@ -7,21 +7,17 @@
     </div>
     <div class="Container" >
        <div class="form-row">
-                 <div class="form-group col-lg-4 " >                
+                 <div class="form-group col-lg-6 " >                
                         <label for="ddlTipo">Tipo</label> 
                         <asp:DropDownList ID="ddlTipo" runat="server" CssClass="form-control"
                             DataTextField="descripcion" DataValueField="ID" ></asp:DropDownList>                                
                  </div>           
-                 <div class="form-group col-lg-4 " >                
+                 <div class="form-group col-lg-6 " >                
                         <label for="ddlSubTipo">SubTipo</label> 
                         <asp:DropDownList ID="ddlSubTipo" runat="server" CssClass="form-control"
                             DataTextField="descripcion" DataValueField="ID" ></asp:DropDownList>                                
                  </div>           
-                 <div class="form-group col-lg-4 " >                
-                        <label for="ddlCarta">Asignar a esta Carta</label> 
-                        <asp:DropDownList ID="ddlCarta" runat="server" CssClass="form-control"
-                            DataTextField="descripcion" DataValueField="ID" ></asp:DropDownList>     
-                 </div>           
+                 
        </div>
        <div class="form-row">
            <div class="form-group col-lg-12" >        
@@ -39,8 +35,13 @@
        <!-- GridView-->
        <div class="form-row">
             <div class="form-group col-lg-12" >  
+                <div class="form-group col-lg-4 pull-right " >                
+                        <label for="ddlCarta">Asignar a esta Carta</label> 
+                        <asp:DropDownList ID="ddlCarta" runat="server" CssClass="form-control"
+                            DataTextField="descripcion" DataValueField="ID" ></asp:DropDownList>     
+                 </div>           
                 <asp:GridView ID="gv" runat="server" CellPadding="4" HeaderStyle-HorizontalAlign="Center" 
-                    AllowPaging="True" AllowSorting="True" PageSize="15"  CssClass="gridview" DataKeyNames="id"
+                    AllowPaging="True" AllowSorting="True" PageSize="15"  CssClass="gridview" DataKeyNames="id,idCarta_Producto"
                     ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnPageIndexChanging="gv_PageIndexChanging" OnSorting="gv_Sorting" >
                     <RowStyle Height="50px" />
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" Height="50px" />
@@ -78,7 +79,7 @@
                     </asp:BoundField>                          
                         <asp:TemplateField HeaderText="Asignar" SortExpression="idCarta">
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"    
+                                    <asp:CheckBox ID="chkAsignar" runat="server" AutoPostBack="true"  CausesValidation="false"     
                                         Checked='<%#Convert.ToBoolean(Eval("idCarta"))%>' ToolTip="Asignar a Carta" OnCheckedChanged="chkAsignar_CheckedChanged" />
                                   </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center"  />

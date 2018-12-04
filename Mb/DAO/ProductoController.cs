@@ -143,12 +143,10 @@ namespace Mb.DAO
 
         public class ProductosDetalle : Producto
         {
-            private int id { get; set; }
+            
+            public int? idCarta_Producto { get; set; }
             public int? idCarta { get; set; }
             public String descriCarta { get; set; }
-            private String descripcion { get; set; }
-            private float precioUnitario { get; set; }
-            private bool activo { get; set; }
             public String tipoDescri { get; set; }
             public String subTipoDescri { get; set; }
             public DateTime fecha { get; set; }
@@ -170,6 +168,7 @@ namespace Mb.DAO
                             select new ProductosDetalle
                             {
                                 id = p.id,
+                                idCarta_Producto = cp.id,
                                 IdTipo = p.IdTipo,
                                 idSubTipo= p.idSubTipo,
                                 idCarta = cp.idCarta,
