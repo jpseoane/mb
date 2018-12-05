@@ -13,15 +13,6 @@ namespace Mb.Views.Usuario {
     public partial class gmuro {
         
         /// <summary>
-        /// Control ddlEstado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
-        
-        /// <summary>
         /// Control chkReportado.
         /// </summary>
         /// <remarks>

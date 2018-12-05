@@ -14,16 +14,51 @@ namespace Mb.Views.Usuario
         {
             if (!Page.IsPostBack)
             {
-                gv.DataSource=MuroController.GetAllCondetalle();
-                gv.DataBind();
+                ViewState["SortDirection"] = "desc";
+                CargarGrilla();
+              
             }
         }
 
-
-        protected void chkHabilitaTodas_CheckedChanged(object sender, EventArgs e)
+        private void CargarGrilla()
         {
-         
+
+            //MuroController.EnumEstadoMensaje enumEstadoMensaje;
+            //switch (Convert.ToInt32(this.ddlEstado.SelectedValue))
+            //{
+
+            //    case 1:
+            //        enumEstadoMensaje = MuroController.EnumEstadoMensaje.Cargado;
+            //        break;
+            //    case 2:
+            //        enumEstadoMensaje = MuroController.EnumEstadoMensaje.Aprobado;
+            //        break;
+            //    case 3:
+            //        enumEstadoMensaje = MuroController.EnumEstadoMensaje.Desaprobado;
+            //        break;
+            //    case 4:
+            //        enumEstadoMensaje = MuroController.EnumEstadoMensaje.EnEspera;
+            //        break;
+            //    default:
+            //        enumEstadoMensaje = MuroController.EnumEstadoMensaje.Cargado;
+            //        break;
+            //}
+
+          
+            if (ViewState["SortDirection"].ToString() == "desc")
+            {
+                gv.DataSource = MuroController.GetAllCondetalle(this.chkReportado.Checked).OrderByDescending(s => s.fecha).ToList();
+            }
+            else
+            {
+                gv.DataSource = MuroController.GetAllCondetalle(this.chkReportado.Checked).OrderBy(s => s.fecha).ToList();
+                ViewState["SortDirection"] = "asc";
+            }
+            gv.DataBind();
+
         }
+
+      
 
 
         protected void chkHabilitar_CheckedChanged(object sender, EventArgs e)
@@ -37,30 +72,28 @@ namespace Mb.Views.Usuario
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            MuroController.EnumEstadoMensaje enumEstadoMensaje;
-            switch (Convert.ToInt32(this.ddlEstado.SelectedValue))
-            {
-                
-                case 1:
-                enumEstadoMensaje = MuroController.EnumEstadoMensaje.Cargado;
-                break;
-                case 2:
-                enumEstadoMensaje = MuroController.EnumEstadoMensaje.Aprobado;
-                break;
-                case 3:
-                enumEstadoMensaje = MuroController.EnumEstadoMensaje.Desaprobado;
-                break;
-                case 4:
-                enumEstadoMensaje = MuroController.EnumEstadoMensaje.EnEspera;
-                break;
-                default:
-                enumEstadoMensaje = MuroController.EnumEstadoMensaje.Cargado;
-                break;
-            }
-            
-            gv.DataSource = MuroController.GetAllCondetalle(this.chkReportado.Checked, enumEstadoMensaje);
-            gv.DataBind();
+            CargarGrilla();
 
+        }
+
+        protected void gv_Sorting(object sender, GridViewSortEventArgs e)
+        {
+
+            if (ViewState["SortDirection"].ToString() == "desc")
+            {
+                ViewState["SortDirection"] = "asc";
+            }
+            else
+            {
+                ViewState["SortDirection"] = "desc";
+            };
+            CargarGrilla();
+        }
+
+        protected void gv_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv.PageIndex = e.NewPageIndex;
+            CargarGrilla();
         }
     }
 }

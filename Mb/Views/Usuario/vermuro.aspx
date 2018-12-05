@@ -26,8 +26,10 @@
                                 <br />
                                 <br />
                                 <br />
-                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'   /></center>
-                             
+                                 <center>
+                                     <asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  
+                                         Visible='<%# Eval("confoto") %>'  Width="90%" Height="90%"  />
+                                 </center>
                                 <blockquote>
                                   <p> <%# Eval("mensaje") %></p>
                                   <footer>Dice: <cite title="Source Title"> <%# Eval("email") %></cite></footer>
@@ -53,7 +55,10 @@
                                 <br />
                                 <br />
                                 <br />
-                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'  /></center>
+                                  <center>
+                                     <asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  
+                                         Visible='<%# Eval("confoto") %>'  Width="90%" Height="90%"  />
+                                 </center>
                              
                                 <blockquote>
                                   <p> <%# Eval("mensaje") %></p>

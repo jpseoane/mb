@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="muestramuro.aspx.cs" Inherits="Mb.Views.Admin.muestramuro" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <meta http-equiv="refresh" content="5" />
+  <%--  <meta http-equiv="refresh" content="5" />--%>
     <div class="jumbotron">
         <h1>Muro</h1>
         <p class="lead">Mira lo que comparten las mesas en este momento!!!</p>
@@ -24,8 +24,12 @@
                                 <br />
                                 <br />
                                 <br />
-                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'  /></center>
-                             
+                                                        
+                                 <center>
+                                     <asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  
+                                         Visible='<%# Eval("confoto") %>'  Width="90%" Height="90%"  />
+                                 </center>
+                            
                                 <blockquote>
                                   <p> <%# Eval("mensaje") %></p>
                                   <footer>Dice: <cite title="Source Title"> <%# Eval("email") %></cite></footer>
@@ -51,7 +55,10 @@
                                 <br />
                                 <br />
                                 <br />
-                                 <center><asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  Visible='<%# Eval("confoto") %>'  /></center>
+                                  <center>
+                                     <asp:Image runat="server" ImageUrl='<%#"~/Content/imgSub/"+Eval("nombrefoto") %>'  alt="ImagenMesa"  
+                                         Visible='<%# Eval("confoto") %>'  Width="90%" Height="90%"  />
+                                 </center>
                              
                                 <blockquote>
                                   <p> <%# Eval("mensaje") %></p>

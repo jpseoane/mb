@@ -124,7 +124,7 @@ namespace Mb.DAO
         }
 
 
-        public static List<MensajeMurosDetalle> GetAllCondetalle(bool reportado, EnumEstadoMensaje? enumEstadoMensaje)
+        public static List<MensajeMurosDetalle> GetAllCondetalle(bool? reportado)
         {
             using (mbDBContext entities = new mbDBContext())
             {
@@ -146,10 +146,17 @@ namespace Mb.DAO
                             };
                 var MensajeMuros = query.ToList();
 
-                if (enumEstadoMensaje != null)
+                //if (enumEstadoMensaje != null)
+                //{
+                //    MensajeMuros = (from mm in MensajeMuros
+                //                    where mm.estadoCod == (int)enumEstadoMensaje 
+                //                    select mm).ToList();
+                //}
+
+                if (reportado!=null)
                 {
-                    MensajeMuros = (from mm in query
-                                    where mm.estadoCod == (int)enumEstadoMensaje && mm.reportado == reportado
+                    MensajeMuros = (from mm in MensajeMuros
+                                    where mm.reportado == reportado
                                     select mm).ToList();
                 }
                 return MensajeMuros;
