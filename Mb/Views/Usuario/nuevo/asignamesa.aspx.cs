@@ -58,7 +58,7 @@ namespace Mb.Views.Usuario.pedidos
         }
         protected void lnbReservar_Click(object sender, EventArgs e)
         {
-            Mesa mesa = MesaController.GetbyNumeroMesa(Convert.ToInt32(this.ddlNumeroMesa.SelectedValue));
+            Mesa mesa = MesaController.GetbyId(Convert.ToInt32(this.ddlNumeroMesa.SelectedValue));
             if (mesa != null)
             {
                 //Busco los usuarios del numero de mesa habilitados
