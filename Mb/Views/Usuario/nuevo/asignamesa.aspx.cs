@@ -62,13 +62,13 @@ namespace Mb.Views.Usuario.pedidos
             if (mesa != null)
             {
                 //Busco los usuarios del numero de mesa habilitados
-                List<UserMesa> ListaUserMesa = UserMesaController.GetUserMesaByNumeroMesa(Convert.ToInt32(this.ddlNumeroMesa.SelectedValue));
+                List<UserMesa> ListaUserMesa = UserMesaController.GetUserMesaByNumeroMesa(Convert.ToInt32(mesa.numero));
                 //Si hay al menos hay un usuario                
                 if (ListaUserMesa.Count > 0)
                 {
                     //Lo cargo como perfil INVITADO (2) desactivado (false) y habilitado (true)
                     UserMesaController.agregar(User.Identity.GetUserId(), mesa.Id, 2, false, true);
-                    Mensaje("Excelente! Te registraste en la mesa numero: " + this.ddlNumeroMesa.SelectedValue + ". Ya podes empezar a utilizar MiBar!. " +
+                    Mensaje("Excelente! Te registraste en la mesa numero: " + mesa.numero + ". Ya podes empezar a utilizar MiBar!. " +
                     "Recorda que para poder realizar pedidos vos para la mesa debe autorizarte el Admin! (El primero que se registro en la mesa!)", true);
                 }
                 else
@@ -76,14 +76,14 @@ namespace Mb.Views.Usuario.pedidos
                     //Sino
                     //Lo cargo como perfil ADMINISTRADOR (1) Activo (true) y habilitado (true)
                     UserMesaController.agregar(User.Identity.GetUserId(), mesa.Id, 1, true, true);
-                    Mensaje("Perfecto! Sos administrador de la mesa N°: " + this.ddlNumeroMesa.SelectedValue + ". Podes empezar a realizar pedidos y autorizar a los invitados de la mesa que se registren!"
+                    Mensaje("Perfecto! Sos administrador de la mesa N°: " + mesa.numero + ". Podes empezar a realizar pedidos y autorizar a los invitados de la mesa que se registren!"
                         , true);
                 }
             }
             //El numero de mesa que esta buscando no existe o esta con estado no disponible
             else
             {
-                Mensaje("Bienvenido! Lo sentimos pero la Mesa numero: <strong>" + this.ddlNumeroMesa.SelectedValue + "</strong> no esta disponible o no existe en sistema. Por favor ingresa un nuevo numero o consulta con el personal", false);
+                Mensaje("Bienvenido! Lo sentimos pero la Mesa numero: <strong>" + mesa.numero + "</strong> no esta disponible o no existe en sistema. Por favor ingresa un nuevo numero o consulta con el personal", false);
 
             }
             this.lnbReservar.Enabled = false;
