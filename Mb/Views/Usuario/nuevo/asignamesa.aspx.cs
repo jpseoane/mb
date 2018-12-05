@@ -23,6 +23,7 @@ namespace Mb.Views.Usuario.pedidos
                     if (usuarioDeMesa.idPerfilMesa != 1) {
                         gvUsuariosEnMesa.Enabled = false;
                     }
+                    lblMesa.Text= usuarioDeMesa.mesaNumero.ToString();
                     ViewState["idMesaUsuario"] = usuarioDeMesa.idMesa;
                     //Si estas logueado te muestra los datos
                     this.lblMail.Text = usuarioDeMesa.email;

@@ -36,6 +36,8 @@
                 <h3 class="panel-title">Datos de tu cuenta:</h3>
               </div>
               <div class="panel-body">
+                  <strong><label for="lblMesa">Mesa: </label></strong>
+                  <asp:Label ID="lblMesa" runat="server" Text="Tu Mesa"></asp:Label><br />
                   <strong><label for="lblMail">Email: </label></strong>
                   <asp:Label ID="lblMail" runat="server" Text="Tu mail"></asp:Label><br />
                   <strong><label for="lblPerfil">Perfil:</label></strong>

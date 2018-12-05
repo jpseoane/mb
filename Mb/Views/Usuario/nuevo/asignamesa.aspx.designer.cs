@@ -76,6 +76,15 @@ namespace Mb.Views.Usuario.pedidos {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvUsuarioMesa;
         
         /// <summary>
+        /// Control lblMesa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMesa;
+        
+        /// <summary>
         /// Control lblMail.
         /// </summary>
         /// <remarks>

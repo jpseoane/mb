@@ -71,28 +71,7 @@ namespace Mb.Views.Usuario
             divPrueba.Visible = true;
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
-            {
-                //Pedir cuenta
-                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
-                if (usuarioDeMesa != null)
-                {
-                    Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
-                    Response.Redirect("cuenta.aspx");
-                }
-                else
-                {
-                    Mensaje(false,"", "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
-                }
-            }
-            else
-            {
-                Mensaje(false,"", "No se puede solicitar la cuenta con pedidos pendientes de entrega (Encargados o En preparación)");
-            }
-
-        }
+    
 
         protected void chkVerMisPedidos_CheckedChanged(object sender, EventArgs e)
         {
@@ -156,6 +135,29 @@ namespace Mb.Views.Usuario
             }
             this.lblTuSubtotal.Text = "Subtotal " + ViewState["username"] + " : $" + Convert.ToString(PedidoController.ObtnerSubtotalXUsarioDeMesa(Convert.ToInt32(ViewState["idUserMesa"])));
             this.lblSubTotalUsuario.Text = this.lblTuSubtotal.Text;
+        }
+
+        protected void btnCerrarCuenta_Click(object sender, EventArgs e)
+        {
+            if (!PedidoController.ExistenPedidosPendientes(Convert.ToInt32(ViewState["numeroMesa"])))
+            {
+                //Pedir cuenta
+                UsuarioMesaDetalle usuarioDeMesa = UserMesaController.GetUsuarioDeMesaByIdUser(User.Identity.GetUserId());
+                if (usuarioDeMesa != null)
+                {
+                    Cuenta cuenta = PedidoController.PedirCuentaMesa(usuarioDeMesa);
+                    Response.Redirect("cuenta.aspx");
+                }
+                else
+                {
+                    Mensaje(false, "", "No se pudo cargar la cuenta. Intente de nuevo o contacte al mozo de su mesa");
+                }
+            }
+            else
+            {
+                Mensaje(false, "", "No se puede solicitar la cuenta con pedidos pendientes de entrega (Encargados o En preparación)");
+            }
+
         }
     }
 

@@ -98,7 +98,7 @@
                           <strong> <asp:Label ID="lblTuSubtotal" runat="server" ></asp:Label></strong>
                        </div>    
                        <div class="text-right">
-                            <asp:Button ID="btnCerrarCuenta" runat="server" CssClass="btn btn-primary"  Text="Cerrar cuenta" />
+                            <asp:Button ID="btnCerrarCuenta" runat="server" CssClass="btn btn-primary"  Text="Cerrar cuenta" OnClick="btnCerrarCuenta_Click" />
                        </div>    
                    </div>
               </div>
